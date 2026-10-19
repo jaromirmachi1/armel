@@ -12,13 +12,13 @@
     "armel_newsletter": {
       "type": "armel-newsletter",
       "settings": {
-        "heading": "By invitation only",
-        "copy": "Your exclusive access to our boldest launch yet…",
-        "placeholder": "Email",
-        "button_label": "Join",
-        "success_message": "You’re on the list.",
+        "heading": "Newsletter",
+        "copy": "Získej přednostní přístup k našemu prvnímu dropu ještě před oficiálním spuštěním",
+        "placeholder": "E-mail",
+        "button_label": "Přihlásit",
+        "success_message": "Jste na seznamu.",
         "brand_label": "Newsletter",
-        "aria_label": "Open the invitation"
+        "aria_label": "Otevřít pozvánku"
       }
     }
   },

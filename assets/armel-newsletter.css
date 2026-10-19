@@ -6,13 +6,18 @@
   --armel-rose: #7a5252;
   --armel-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --armel-ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
-  --w: min(560px, 86vw);
+  /* Full clutch stage + logo + label, inside the small viewport (tablet browser chrome included) */
+  --armel-stack-chrome: 8.75rem;
+  --w: min(560px, 86vw, calc((100svh - var(--armel-stack-chrome)) / 1.1));
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  min-height: 100dvh;
-  padding: max(48px, env(safe-area-inset-top)) 16px max(40px, env(safe-area-inset-bottom));
+  justify-content: safe center;
+  min-height: 100svh;
+  padding:
+    max(16px, env(safe-area-inset-top))
+    16px
+    max(16px, env(safe-area-inset-bottom));
   background: var(--armel-page);
   color: var(--armel-ink);
   font-family: var(--font-body--family), "Montserrat", "Avenir Next", "Segoe UI", sans-serif;
@@ -27,7 +32,7 @@
 .armel-newsletter {
   display: grid;
   justify-items: center;
-  gap: 28px;
+  gap: clamp(12px, 2.2dvh, 28px);
   width: 100%;
   max-width: calc(var(--w) + 32px);
 }
@@ -35,6 +40,7 @@
 .armel-clutch {
   position: relative;
   width: var(--w);
+  /* Room above the bag stays in the box, so the open flap never leaves the viewport */
   height: calc(var(--w) * 1.0925);
   margin: 0;
   padding: 0;
@@ -143,6 +149,16 @@
   line-height: 1.5;
   font-size: calc(var(--w) * 0.02);
   color: var(--armel-muted);
+}
+
+.armel-clutch__signature {
+  display: block;
+  width: clamp(9.25rem, 46%, 16rem);
+  height: auto;
+  margin-top: calc(var(--w) * 0.004);
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
 }
 
 .armel-clutch__form {
@@ -256,7 +272,7 @@
 
 .armel-newsletter__logo {
   display: block;
-  width: clamp(6.5rem, 18vw, 8.25rem);
+  width: clamp(5.5rem, 14vw, 8.25rem);
   height: auto;
 }
 
@@ -269,6 +285,16 @@
   color: var(--armel-muted);
 }
 
+@media (max-height: 760px) {
+  .armel-newsletter-section {
+    --armel-stack-chrome: 7.5rem;
+  }
+
+  .armel-newsletter__brand {
+    gap: 4px;
+  }
+}
+
 @media (hover: hover) and (pointer: fine) {
   .armel-clutch__submit:hover {
     opacity: 0.7;
@@ -276,6 +302,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .armel-clutch,
   .armel-clutch__flap,
   .armel-clutch__letter,
   .armel-clutch.is-open .armel-clutch__flap,
