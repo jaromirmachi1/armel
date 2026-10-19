@@ -1,0 +1,202 @@
+<link
+  rel="preload"
+  as="image"
+  href="{{ 'clutch-body.webp' | asset_url }}"
+  type="image/webp"
+>
+<link
+  rel="preload"
+  as="image"
+  href="{{ 'clutch-flap-outside.webp' | asset_url }}"
+  type="image/webp"
+>
+<link
+  rel="preload"
+  as="image"
+  href="{{ 'clutch-flap-inside.webp' | asset_url }}"
+  type="image/webp"
+>
+
+{{ 'armel-newsletter.css' | asset_url | stylesheet_tag }}
+
+<section
+  class="armel-newsletter"
+  data-armel-newsletter
+>
+  <div
+    class="armel-clutch"
+    id="ArmelClutch-{{ section.id }}"
+    data-armel-clutch
+    aria-expanded="false"
+    aria-label="{{ section.settings.aria_label | escape }}"
+  >
+    <div class="armel-clutch__flap" aria-hidden="true">
+      <img
+        class="armel-clutch__flap-outside"
+        src="{{ 'clutch-flap-outside.webp' | asset_url }}"
+        alt=""
+        width="1600"
+        height="500"
+        decoding="async"
+      >
+      <img
+        class="armel-clutch__flap-inside"
+        src="{{ 'clutch-flap-inside.webp' | asset_url }}"
+        alt=""
+        width="1600"
+        height="500"
+        decoding="async"
+      >
+    </div>
+
+    <div class="armel-clutch__letter">
+      <h1 class="armel-clutch__letter-title">{{ section.settings.heading | escape }}</h1>
+      {%- if section.settings.copy != blank -%}
+        <p class="armel-clutch__letter-copy">{{ section.settings.copy | escape }}</p>
+      {%- endif -%}
+
+      {%- form 'customer', class: 'armel-clutch__form', id: 'ArmelNewsletterForm' -%}
+        <input
+          type="hidden"
+          name="contact[tags]"
+          value="newsletter,armel-invite"
+        >
+
+        {%- if form.posted_successfully? -%}
+          <p
+            class="armel-clutch__message armel-clutch__message--success"
+            role="status"
+            data-armel-form-success
+            tabindex="-1"
+          >
+            {{ section.settings.success_message | escape }}
+          </p>
+        {%- else -%}
+          <div class="armel-clutch__field">
+            <label class="visually-hidden" for="ArmelEmail-{{ section.id }}">
+              {{ 'blocks.email_signup.label' | t }}
+            </label>
+            <input
+              id="ArmelEmail-{{ section.id }}"
+              class="armel-clutch__input"
+              type="email"
+              name="contact[email]"
+              value="{{ form.email }}"
+              autocorrect="off"
+              autocapitalize="off"
+              autocomplete="email"
+              placeholder="{{ section.settings.placeholder | escape }}"
+              required
+              {% if form.errors %}
+                aria-invalid="true"
+                aria-describedby="ArmelEmailError-{{ section.id }}"
+              {% endif %}
+            >
+            <button
+              class="armel-clutch__submit"
+              type="submit"
+            >
+              {{ section.settings.button_label | escape }}
+            </button>
+          </div>
+
+          {%- if form.errors -%}
+            <p
+              id="ArmelEmailError-{{ section.id }}"
+              class="armel-clutch__message armel-clutch__message--error"
+              role="alert"
+              data-armel-form-error
+            >
+              {{ form.errors.translated_fields.email | capitalize }}
+              {{ form.errors.messages.email }}
+            </p>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+
+    <img
+      class="armel-clutch__body"
+      src="{{ 'clutch-body.webp' | asset_url }}"
+      alt=""
+      width="1600"
+      height="980"
+      decoding="async"
+      fetchpriority="high"
+    >
+  </div>
+
+  <div class="armel-newsletter__brand">
+    <img
+      class="armel-newsletter__logo"
+      src="{{ 'armel-logo.png' | asset_url }}"
+      alt="{{ shop.name | escape }}"
+      width="240"
+      height="77"
+      decoding="async"
+    >
+    <p class="armel-newsletter__label">{{ section.settings.brand_label | escape }}</p>
+  </div>
+</section>
+
+<script src="{{ 'armel-newsletter.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Armel newsletter",
+  "tag": "section",
+  "class": "armel-newsletter-section",
+  "enabled_on": {
+    "templates": ["index", "password"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Letter heading",
+      "default": "By invitation only"
+    },
+    {
+      "type": "textarea",
+      "id": "copy",
+      "label": "Letter copy",
+      "default": "Your exclusive access to our boldest launch yet…"
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Email placeholder",
+      "default": "Email"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Submit label",
+      "default": "Join"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "You’re on the list."
+    },
+    {
+      "type": "text",
+      "id": "brand_label",
+      "label": "Label under logo",
+      "default": "Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "aria_label",
+      "label": "Clutch accessibility label",
+      "default": "Open the invitation"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Armel newsletter"
+    }
+  ]
+}
+{% endschema %}

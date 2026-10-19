@@ -1,0 +1,28 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "armel_newsletter": {
+      "type": "armel-newsletter",
+      "settings": {
+        "heading": "By invitation only",
+        "copy": "Your exclusive access to our boldest launch yet…",
+        "placeholder": "Email",
+        "button_label": "Join",
+        "success_message": "You’re on the list.",
+        "brand_label": "Newsletter",
+        "aria_label": "Open the invitation"
+      }
+    }
+  },
+  "order": [
+    "armel_newsletter"
+  ]
+}
