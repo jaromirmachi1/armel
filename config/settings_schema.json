@@ -8,6 +8,18 @@
     "theme_support_url": "https://support.shopify.com/"
   },
   {
+    "name": "Coming soon",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "coming_soon_lock",
+        "label": "Show newsletter on every page",
+        "info": "Visitors always see the Armel newsletter. Header, footer, and other storefront pages stay hidden. Turn this off when you launch.",
+        "default": true
+      }
+    ]
+  },
+  {
     "name": "t:names.logo_and_favicon",
     "settings": [
       {

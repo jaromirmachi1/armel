@@ -312,11 +312,13 @@
   }
 }
 
-body.template-index {
+body.template-index,
+body.armel-coming-soon {
   background: #ece9e4;
 }
 
-body.template-index ::selection {
+body.template-index ::selection,
+body.armel-coming-soon ::selection {
   background: #7a5252;
   color: #f4f1ee;
 }
