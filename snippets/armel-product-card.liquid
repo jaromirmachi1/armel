@@ -1,0 +1,53 @@
+{%- comment -%}
+  Armel product card. Accepts: product
+  Second image fades in on hover (desktop only).
+{%- endcomment -%}
+{%- liquid
+  assign first = product.featured_media
+  assign second = product.media[1]
+-%}
+<a class="a-card{% unless product.available %} a-card--sold{% endunless %}" href="{{ product.url }}">
+  <div class="a-card__media">
+    {%- if first != blank -%}
+      {{
+        first
+        | image_url: width: 1000
+        | image_tag:
+          widths: '360, 540, 720, 1000',
+          sizes: '(min-width: 990px) 24vw, (min-width: 750px) 40vw, 72vw',
+          class: 'a-card__img',
+          loading: 'lazy',
+          alt: first.alt | default: product.title
+      }}
+      {%- if second != blank and second.media_type == 'image' -%}
+        {{
+          second
+          | image_url: width: 1000
+          | image_tag:
+            widths: '360, 540, 720, 1000',
+            sizes: '(min-width: 990px) 24vw, (min-width: 750px) 40vw, 72vw',
+            class: 'a-card__img a-card__img--alt',
+            loading: 'lazy',
+            alt: ''
+        }}
+      {%- endif -%}
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'a-card__placeholder' }}
+    {%- endif -%}
+
+    {%- unless product.available -%}
+      <span class="a-card__badge">Vyprodáno</span>
+    {%- endunless -%}
+  </div>
+
+  <div class="a-card__meta">
+    <span class="a-card__title">{{ product.title | escape }}</span>
+    <span class="a-card__price">
+      {%- if product.price_varies -%}od {% endif -%}
+      {{- product.price | money_without_trailing_zeros -}}
+      {%- if product.compare_at_price > product.price -%}
+        <s>{{ product.compare_at_price | money_without_trailing_zeros }}</s>
+      {%- endif -%}
+    </span>
+  </div>
+</a>

@@ -1,0 +1,79 @@
+{%- comment -%}
+  Armel feature: full-bleed photograph with a script title and one call to action.
+  Used for Mystery Box, but works for any campaign.
+{%- endcomment -%}
+{%- render 'armel-home-assets' -%}
+
+<div
+  class="a-feature a-scope a-feature--{{ section.settings.content_position }}"
+  style="--a-fg: {{ section.settings.text }}; --a-shade: {{ section.settings.shade | divided_by: 100.0 }}; --a-focus: {{ section.settings.focus }};"
+>
+  <div class="a-feature__media">
+    {%- if section.settings.image != blank -%}
+      {{
+        section.settings.image
+        | image_url: width: 2600
+        | image_tag:
+          widths: '750, 1100, 1500, 2000, 2600',
+          sizes: '100vw',
+          class: 'a-feature__img',
+          loading: 'lazy',
+          alt: section.settings.image.alt | default: section.settings.title
+      }}
+    {%- else -%}
+      <img
+        class="a-feature__img"
+        src="{{ 'armel-mystery-box.jpg' | asset_url }}"
+        alt="{{ section.settings.title | escape }}"
+        width="1366"
+        height="832"
+        loading="lazy"
+        decoding="async"
+      >
+    {%- endif -%}
+  </div>
+
+  <div class="a-feature__content" data-a-reveal>
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="a-eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {%- endif -%}
+    <h2 class="a-script a-feature__title">{{ section.settings.title | escape }}</h2>
+    {%- if section.settings.text_body != blank -%}
+      <p class="a-feature__text">{{ section.settings.text_body | escape }}</p>
+    {%- endif -%}
+    {%- if section.settings.button_label != blank -%}
+      <a class="a-pill" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">
+        {{- section.settings.button_label | escape -}}
+      </a>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Armel – kampaň",
+  "tag": "section",
+  "class": "a-section a-section--feature",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Fotografie", "info": "Bez fotografie se použije obrázek Mystery Box z návrhu." },
+    { "type": "select", "id": "focus", "label": "Výřez fotografie", "default": "center", "options": [
+      { "value": "top", "label": "Nahoře" },
+      { "value": "center", "label": "Střed" },
+      { "value": "bottom", "label": "Dole" }
+    ]},
+    { "type": "text", "id": "eyebrow", "label": "Nadpis malý", "default": "Limitovaná edice" },
+    { "type": "text", "id": "title", "label": "Název (psací písmo)", "default": "Mystery Box" },
+    { "type": "textarea", "id": "text_body", "label": "Text", "default": "Kousek vybraný námi z poslední várky kůže. Co v krabičce bude, se dozvíš až doma — jisté je jen to, že nikdo jiný nebude mít stejný." },
+    { "type": "text", "id": "button_label", "label": "Tlačítko", "default": "Chci se překvapit" },
+    { "type": "url", "id": "button_link", "label": "Odkaz tlačítka" },
+    { "type": "select", "id": "content_position", "label": "Pozice textu", "default": "center", "options": [
+      { "value": "top", "label": "Nahoře" },
+      { "value": "center", "label": "Uprostřed" },
+      { "value": "bottom", "label": "Dole" }
+    ]},
+    { "type": "color", "id": "text", "label": "Barva textu", "default": "#FFFFFF" },
+    { "type": "range", "id": "shade", "label": "Ztmavení fotky", "min": 0, "max": 80, "step": 5, "unit": "%", "default": 35 }
+  ],
+  "presets": [{ "name": "Armel – kampaň" }]
+}
+{% endschema %}

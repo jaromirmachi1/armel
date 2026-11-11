@@ -1,0 +1,75 @@
+{%- comment -%}
+  Armel values: short intro + numbered pillars (from the O nás page).
+{%- endcomment -%}
+{%- render 'armel-home-assets' -%}
+
+<div class="a-values a-scope" style="--a-bg: {{ section.settings.background }}; --a-fg: {{ section.settings.text }};">
+  <div class="a-values__intro" data-a-reveal>
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="a-eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {%- endif -%}
+    {%- if section.settings.quote != blank -%}
+      <blockquote class="a-values__quote">
+        <p>{{ section.settings.quote | escape }}</p>
+        {%- if section.settings.quote_author != blank -%}
+          <footer class="a-script a-values__author">{{ section.settings.quote_author | escape }}</footer>
+        {%- endif -%}
+      </blockquote>
+    {%- endif -%}
+  </div>
+
+  <ol class="a-values__list" role="list" style="--a-cols: {{ section.blocks.size | at_least: 1 }};">
+    {%- for block in section.blocks -%}
+      <li class="a-values__item" {{ block.shopify_attributes }} data-a-reveal style="--a-delay: {{ forloop.index0 | times: 80 }}ms;">
+        <span class="a-values__num">{{ forloop.index | prepend: '0' }}</span>
+        <h3 class="a-values__title">{{ block.settings.title | escape }}</h3>
+        <p class="a-values__text">{{ block.settings.text | escape }}</p>
+      </li>
+    {%- endfor -%}
+  </ol>
+
+  {%- if section.settings.link_label != blank -%}
+    <a class="a-link a-values__link" href="{{ section.settings.link | default: '/pages/o-nas' }}">
+      {{- section.settings.link_label | escape -}}
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4.5-4.5L15 10l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Armel – hodnoty",
+  "tag": "section",
+  "class": "a-section a-section--values",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Nadpis malý", "default": "O nás" },
+    { "type": "textarea", "id": "quote", "label": "Citát", "default": "ARMEL vznikl z našeho dlouholetého přátelství a společné vášně pro kreativitu. Za každým kouskem stojí hodiny ruční práce a kus našeho srdce." },
+    { "type": "text", "id": "quote_author", "label": "Podpis", "default": "Aneta & Marína" },
+    { "type": "text", "id": "link_label", "label": "Text odkazu", "default": "Celý příběh" },
+    { "type": "url", "id": "link", "label": "Odkaz" },
+    { "type": "color", "id": "background", "label": "Pozadí", "default": "#7D3031" },
+    { "type": "color", "id": "text", "label": "Text", "default": "#F6F1EC" }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Hodnota",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Nadpis", "default": "Italská prémiová kůže" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Pracujeme výhradně s vysoce kvalitní italskou kůží." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Armel – hodnoty",
+      "blocks": [
+        { "type": "value", "settings": { "title": "Italská prémiová kůže", "text": "Vybíráme ji pro odolnost a charakter. Zpracováváme i zbytkové usně a odřezky, které by jinak skončily jako odpad." } },
+        { "type": "value", "settings": { "title": "Ruční výroba", "text": "Žádná pásová linka. Každý kousek navrhujeme, řežeme a šijeme od prvního do posledního stehu samy dvě." } },
+        { "type": "value", "settings": { "title": "Doma na Moravě", "text": "Všechno vzniká u nás na Moravě, s úctou k lokálnímu řemeslu a k naší planetě." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -8,8 +8,12 @@
 >
   <head>
     {%- liquid
+      assign armel_preview = false
+      if template.name == 'page' and template.suffix == 'armel-preview'
+        assign armel_preview = true
+      endif
       assign armel_coming_soon = false
-      if settings.coming_soon_lock and request.design_mode == false
+      if settings.coming_soon_lock and request.design_mode == false and armel_preview == false
         assign armel_coming_soon = true
       endif
     -%}
@@ -30,6 +34,10 @@
       </script>
     {%- endif -%}
 
+    {%- if armel_preview -%}
+      <meta name="robots" content="noindex, nofollow">
+    {%- endif -%}
+
     {%- render 'view-transition-opt-in' -%}
 
     {%- render 'meta-tags' -%}
@@ -46,7 +54,7 @@
     {{ content_for_header }}
   </head>
 
-  <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }} template-{{ template.name }}{% if armel_coming_soon %} template-index armel-coming-soon{% endif %}">
+  <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }} template-{{ template.name }}{% if armel_coming_soon or armel_preview %} template-index{% endif %}{% if armel_coming_soon %} armel-coming-soon{% endif %}">
     {% render 'skip-to-content-link', href: '#MainContent', text: 'accessibility.skip_to_text' %}
 
     {%- unless armel_coming_soon -%}
@@ -54,7 +62,7 @@
     {%- endunless -%}
 
     <div class="page-wrapper">
-      {% unless armel_coming_soon or template.name == 'index' %}
+      {% unless armel_coming_soon or armel_preview or template.name == 'index' %}
         <div id="header-group">
           {% sections 'header-group' %}
         </div>
@@ -186,7 +194,7 @@
         {%- endif -%}
       </main>
 
-      {% unless armel_coming_soon or template.name == 'index' %}
+      {% unless armel_coming_soon or armel_preview or template.name == 'index' %}
         <footer>
           {% sections 'footer-group' %}
         </footer>
