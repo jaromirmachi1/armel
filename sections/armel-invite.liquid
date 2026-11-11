@@ -1,0 +1,156 @@
+{%- comment -%}
+  Armel invite: the clutch from the hero returns at the end of the page. Hover (or tap, or focus)
+  opens the flap and the invitation slides out with the newsletter form.
+{%- endcomment -%}
+{%- render 'armel-home-assets' -%}
+{{ 'armel-newsletter.css' | asset_url | stylesheet_tag }}
+
+<div class="a-invite a-scope" style="--a-bg: {{ section.settings.background }}; --a-fg: {{ section.settings.text }};">
+  <div class="a-invite__text">
+    <h2 class="a-h2" data-a-reveal>{{ section.settings.heading | escape }}</h2>
+    <p class="a-invite__intro" data-a-reveal style="--a-delay: 80ms;">{{ section.settings.intro | escape }}</p>
+    {%- if section.settings.note != blank -%}
+      <p class="a-invite__note" data-a-reveal style="--a-delay: 160ms;">{{ section.settings.note | escape }}</p>
+    {%- endif -%}
+  </div>
+
+  <div class="armel-newsletter-section a-invite__stage">
+    <div class="armel-newsletter" data-armel-newsletter>
+      <div
+        class="armel-clutch"
+        id="ArmelClutch-{{ section.id }}"
+        data-armel-clutch
+        aria-expanded="false"
+        aria-label="{{ section.settings.aria_label | escape }}"
+      >
+        <div class="armel-clutch__flap" aria-hidden="true">
+          <img
+            class="armel-clutch__flap-outside"
+            src="{{ 'clutch-flap-outside.webp' | asset_url }}"
+            alt=""
+            width="1600"
+            height="500"
+            decoding="async"
+          >
+          <img
+            class="armel-clutch__flap-inside"
+            src="{{ 'clutch-flap-inside.webp' | asset_url }}"
+            alt=""
+            width="1600"
+            height="500"
+            decoding="async"
+          >
+        </div>
+
+        <div class="armel-clutch__letter">
+          <p class="armel-clutch__letter-title">{{ section.settings.letter_title | escape }}</p>
+          {%- if section.settings.copy != blank -%}
+            <p class="armel-clutch__letter-copy">{{ section.settings.copy | escape }}</p>
+          {%- endif -%}
+
+          <img
+            class="armel-clutch__signature"
+            src="{{ 'by-aneta-marina-black.png' | asset_url }}"
+            alt="by Aneta Marina"
+            width="1524"
+            height="274"
+            decoding="async"
+          >
+
+          {%- form 'customer', class: 'armel-clutch__form', id: 'ArmelInviteForm' -%}
+            <input
+              type="hidden"
+              name="contact[tags]"
+              value="newsletter,armel-invite"
+            >
+
+            {%- if form.posted_successfully? -%}
+              <p
+                class="armel-clutch__message armel-clutch__message--success"
+                role="status"
+                data-armel-form-success
+                tabindex="-1"
+              >
+                {{ section.settings.success_message | escape }}
+              </p>
+            {%- else -%}
+              <div class="armel-clutch__field">
+                <label class="visually-hidden" for="ArmelEmail-{{ section.id }}">
+                  {{ 'blocks.email_signup.label' | t }}
+                </label>
+                <input
+                  id="ArmelEmail-{{ section.id }}"
+                  class="armel-clutch__input"
+                  type="email"
+                  name="contact[email]"
+                  value="{{ form.email }}"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  autocomplete="email"
+                  placeholder="{{ section.settings.placeholder | escape }}"
+                  required
+                  {% if form.errors %}
+                    aria-invalid="true"
+                    aria-describedby="ArmelEmailError-{{ section.id }}"
+                  {% endif %}
+                >
+                <button
+                  class="armel-clutch__submit"
+                  type="submit"
+                >
+                  {{ section.settings.button_label | escape }}
+                </button>
+              </div>
+
+              {%- if form.errors -%}
+                <p
+                  id="ArmelEmailError-{{ section.id }}"
+                  class="armel-clutch__message armel-clutch__message--error"
+                  role="alert"
+                  data-armel-form-error
+                >
+                  {{ form.errors.translated_fields.email | capitalize }}
+                  {{ form.errors.messages.email }}
+                </p>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endform -%}
+        </div>
+
+        <img
+          class="armel-clutch__body"
+          src="{{ 'clutch-body.webp' | asset_url }}"
+          alt=""
+          width="1600"
+          height="980"
+          decoding="async"
+          loading="lazy"
+        >
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{{ 'armel-newsletter.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Armel – pozvánka",
+  "tag": "section",
+  "class": "a-section a-section--invite",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Nadpis", "default": "Pozvánka na další drop" },
+    { "type": "textarea", "id": "intro", "label": "Text", "default": "Nové kousky šijeme po várkách. Kdo je na seznamu, dostane pozvánku dřív, než se objeví v obchodě." },
+    { "type": "text", "id": "note", "label": "Poznámka", "default": "Jen novinky a drop. Odhlásit se jde jedním klikem." },
+    { "type": "text", "id": "letter_title", "label": "Text na dopisu", "default": "Pozvánka" },
+    { "type": "text", "id": "copy", "label": "Text dopisu", "default": "Přednostní přístup k dalšímu dropu" },
+    { "type": "text", "id": "placeholder", "label": "Placeholder", "default": "Tvůj e-mail" },
+    { "type": "text", "id": "button_label", "label": "Tlačítko", "default": "Přihlásit" },
+    { "type": "text", "id": "success_message", "label": "Potvrzení", "default": "Jsi na seznamu." },
+    { "type": "text", "id": "aria_label", "label": "Popis pro čtečky", "default": "Otevřít pozvánku a přihlásit se k odběru" },
+    { "type": "color", "id": "background", "label": "Pozadí", "default": "#E4E2DF" },
+    { "type": "color", "id": "text", "label": "Text", "default": "#7D3031" }
+  ],
+  "presets": [{ "name": "Armel – pozvánka" }]
+}
+{% endschema %}

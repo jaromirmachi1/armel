@@ -12,90 +12,80 @@
     "armel_hero": {
       "type": "armel-hero",
       "blocks": {
-        "link_kolekce": { "type": "link", "settings": { "label": "Kolekce", "link": "/collections" } },
-        "link_produkty": { "type": "link", "settings": { "label": "Produkty", "link": "/collections/all" } },
-        "link_onas": { "type": "link", "settings": { "label": "O nás", "link": "/pages/o-nas" } }
+        "link_kolekce": {
+          "type": "link",
+          "settings": {
+            "label": "Kolekce",
+            "link": "/collections"
+          }
+        },
+        "link_produkty": {
+          "type": "link",
+          "settings": {
+            "label": "Produkty",
+            "link": "/collections/all"
+          }
+        },
+        "link_onas": {
+          "type": "link",
+          "settings": {
+            "label": "O nás",
+            "link": "/pages/o-nas"
+          }
+        }
       },
-      "block_order": ["link_kolekce", "link_produkty", "link_onas"],
+      "block_order": [
+        "link_kolekce",
+        "link_produkty",
+        "link_onas"
+      ],
+      "settings": {}
+    },
+    "armel_closeup": {
+      "type": "armel-closeup",
       "settings": {}
     },
     "armel_showcase": {
       "type": "armel-showcase",
       "settings": {
-        "eyebrow": "Unikátní kousky z italské kůže",
-        "heading": "S láskou ručně ušité na Moravě",
-        "show_signature": true,
         "collection": "",
-        "limit": 8,
-        "link_label": "Zobrazit vše",
-        "background": "#7D3031",
-        "text": "#F6F1EC"
+        "limit": 8
       }
+    },
+    "armel_material": {
+      "type": "armel-values",
+      "settings": {}
+    },
+    "armel_about": {
+      "type": "armel-about",
+      "settings": {}
     },
     "armel_feature": {
       "type": "armel-feature",
-      "settings": {
-        "focus": "center",
-        "eyebrow": "Limitovaná edice",
-        "title": "Mystery Box",
-        "text_body": "Kousek vybraný námi z poslední várky kůže. Co v krabičce bude, se dozvíš až doma — jisté je jen to, že nikdo jiný nebude mít stejný.",
-        "button_label": "Chci se překvapit",
-        "button_link": "",
-        "content_position": "center",
-        "text": "#FFFFFF",
-        "shade": 35
-      }
-    },
-    "armel_values": {
-      "type": "armel-values",
-      "blocks": {
-        "value_kuze": { "type": "value", "settings": { "title": "Italská prémiová kůže", "text": "Vybíráme ji pro odolnost a charakter. Zpracováváme i zbytkové usně a odřezky, které by jinak skončily jako odpad." } },
-        "value_rucni": { "type": "value", "settings": { "title": "Ruční výroba", "text": "Žádná pásová linka. Každý kousek navrhujeme, řežeme a šijeme od prvního do posledního stehu samy dvě." } },
-        "value_morava": { "type": "value", "settings": { "title": "Doma na Moravě", "text": "Všechno vzniká u nás na Moravě, s úctou k lokálnímu řemeslu a k naší planetě." } }
-      },
-      "block_order": ["value_kuze", "value_rucni", "value_morava"],
-      "settings": {
-        "eyebrow": "O nás",
-        "quote": "ARMEL vznikl z našeho dlouholetého přátelství a společné vášně pro kreativitu. Za každým kouskem stojí hodiny ruční práce a kus našeho srdce.",
-        "quote_author": "Aneta & Marína",
-        "link_label": "Celý příběh",
-        "link": "",
-        "background": "#7D3031",
-        "text": "#F6F1EC"
-      }
+      "settings": {}
     },
     "armel_gallery": {
       "type": "armel-gallery",
-      "settings": {
-        "heading": "Armel na těle",
-        "handle": "Instagram",
-        "handle_link": "",
-        "speed": 45,
-        "background": "#7D3031",
-        "text": "#F6F1EC"
-      }
+      "settings": {}
+    },
+    "armel_invite": {
+      "type": "armel-invite",
+      "settings": {}
     },
     "armel_footer": {
       "type": "armel-footer",
-      "blocks": {
-        "menu_shop": { "type": "menu", "settings": { "title": "Obchod", "menu": "main-menu" } },
-        "menu_info": { "type": "menu", "settings": { "title": "Informace", "menu": "footer" } },
-        "text_contact": { "type": "text", "settings": { "title": "Kontakt", "text": "<p><a href=\"mailto:thearmel.info@gmail.com\">thearmel.info@gmail.com</a></p>" } }
-      },
-      "block_order": ["menu_shop", "menu_info", "text_contact"],
-      "settings": {
-        "show_newsletter": true,
-        "news_heading": "Chci o kolekci vědět první",
-        "news_placeholder": "Tvůj e-mail",
-        "news_button": "Zapnout upozornění",
-        "news_success": "Hotovo. Ozveme se, až bude nový drop.",
-        "news_note": "Jen novinky a drop. Žádný spam, odhlásit se jde jedním klikem.",
-        "legal": "armel",
-        "show_signature": true,
-        "background": "#7D3031",
-        "text": "#F6F1EC"
-      }
+      "settings": {}
     }
   },
-  "order": ["armel_hero", "armel_showcase", "armel_feature", "armel_values", "armel_gallery", "armel_footer"]
+  "order": [
+    "armel_hero",
+    "armel_closeup",
+    "armel_showcase",
+    "armel_material",
+    "armel_about",
+    "armel_feature",
+    "armel_gallery",
+    "armel_invite",
+    "armel_footer"
+  ]
 }

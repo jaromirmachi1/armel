@@ -1,0 +1,53 @@
+{%- comment -%}
+  Armel about: an inset deep-burgundy panel. Statement top-left, two short blocks on the right,
+  the open clutch in an arch cropped by the panel's bottom edge.
+{%- endcomment -%}
+{%- render 'armel-home-assets' -%}
+
+<div class="a-about a-scope">
+  <div class="a-about__panel">
+    <h2 class="a-about__statement" data-a-reveal>{{ section.settings.heading | escape }}</h2>
+
+    <div class="a-about__blocks">
+      <div class="a-about__block" data-a-reveal style="--a-delay: 80ms;">
+        <h3 class="a-about__sub">{{ section.settings.sub_1 | escape }}</h3>
+        <p>{{ section.settings.text_1 | escape }}</p>
+      </div>
+      <div class="a-about__block" data-a-reveal style="--a-delay: 160ms;">
+        <h3 class="a-about__sub">{{ section.settings.sub_2 | escape }}</h3>
+        <p>{{ section.settings.text_2 | escape }}</p>
+      </div>
+      <span class="a-sig a-about__sig" role="img" aria-label="Aneta &amp; Marína" style="-webkit-mask-image: url('{{ 'by-aneta-marina-black.png' | asset_url }}'); mask-image: url('{{ 'by-aneta-marina-black.png' | asset_url }}');" data-a-reveal></span>
+      {%- if section.settings.button_label != blank -%}
+        <a class="a-btn a-btn--light" href="{{ section.settings.button_link | default: '/pages/o-nas' }}" data-a-reveal>{{ section.settings.button_label | escape }}</a>
+      {%- endif -%}
+    </div>
+
+    <div class="a-about__arch" data-a-reveal>
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1400 | image_tag: widths: '500, 800, 1100, 1400', sizes: '(min-width: 900px) 38vw, 86vw', loading: 'lazy', alt: section.settings.image.alt }}
+      {%- else -%}
+        <img src="{{ 'armel-clutch-closed.jpg' | asset_url }}" alt="Zavřené psaníčko z kůže se srstí, řada stříbrných nýtů na klopě" width="1800" height="1221" loading="lazy" decoding="async">
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Armel – o nás",
+  "tag": "section",
+  "class": "a-section a-section--about",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Nadpis", "default": "Šijeme ho samy dvě" },
+    { "type": "text", "id": "sub_1", "label": "Podnadpis 1", "default": "Z přátelství" },
+    { "type": "textarea", "id": "text_1", "label": "Text 1", "default": "ARMEL vznikl z našeho dlouholetého přátelství a společné vášně pro kreativitu. Za každým kouskem stojí hodiny ruční práce a kus našeho srdce." },
+    { "type": "text", "id": "sub_2", "label": "Podnadpis 2", "default": "Bez pásové linky" },
+    { "type": "textarea", "id": "text_2", "label": "Text 2", "default": "Žádná sériová výroba. Všechny doplňky vlastnoručně navrhujeme, řežeme a šijeme od prvního do posledního stehu." },
+    { "type": "text", "id": "button_label", "label": "Tlačítko", "default": "Náš příběh" },
+    { "type": "url", "id": "button_link", "label": "Odkaz" },
+    { "type": "image_picker", "id": "image", "label": "Fotka v oblouku" }
+  ],
+  "presets": [{ "name": "Armel – o nás" }]
+}
+{% endschema %}

@@ -33,16 +33,13 @@
     {%- endif -%}
   </div>
 
-  <div class="a-feature__content" data-a-reveal>
-    {%- if section.settings.eyebrow != blank -%}
-      <p class="a-eyebrow">{{ section.settings.eyebrow | escape }}</p>
-    {%- endif -%}
-    <h2 class="a-script a-feature__title">{{ section.settings.title | escape }}</h2>
+  <div class="a-feature__content" >
+    <h2 class="a-script a-feature__title" data-a-reveal>{{ section.settings.title | escape }}</h2>
     {%- if section.settings.text_body != blank -%}
-      <p class="a-feature__text">{{ section.settings.text_body | escape }}</p>
+      <p class="a-feature__text" data-a-reveal style="--a-delay: 90ms;">{{ section.settings.text_body | escape }}</p>
     {%- endif -%}
     {%- if section.settings.button_label != blank -%}
-      <a class="a-pill" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">
+      <a data-a-reveal style="--a-delay: 180ms;" class="a-btn a-btn--light" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">
         {{- section.settings.button_label | escape -}}
       </a>
     {%- endif -%}
@@ -61,9 +58,8 @@
       { "value": "center", "label": "Střed" },
       { "value": "bottom", "label": "Dole" }
     ]},
-    { "type": "text", "id": "eyebrow", "label": "Nadpis malý", "default": "Limitovaná edice" },
     { "type": "text", "id": "title", "label": "Název (psací písmo)", "default": "Mystery Box" },
-    { "type": "textarea", "id": "text_body", "label": "Text", "default": "Kousek vybraný námi z poslední várky kůže. Co v krabičce bude, se dozvíš až doma — jisté je jen to, že nikdo jiný nebude mít stejný." },
+    { "type": "textarea", "id": "text_body", "label": "Text", "default": "Jeden kousek, který vybereme za tebe. Co v krabičce bude, zjistíš až doma; jisté je jen to, že stejný nikdo mít nebude." },
     { "type": "text", "id": "button_label", "label": "Tlačítko", "default": "Chci se překvapit" },
     { "type": "url", "id": "button_link", "label": "Odkaz tlačítka" },
     { "type": "select", "id": "content_position", "label": "Pozice textu", "default": "center", "options": [

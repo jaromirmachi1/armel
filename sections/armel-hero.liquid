@@ -1,3 +1,4 @@
+{%- render 'armel-home-assets' -%}
 {{ 'armel-hero.css' | asset_url | stylesheet_tag }}
 
 <div class="armel-hero" data-armel-hero>
@@ -64,7 +65,7 @@
       </nav>
     </div>
 
-    <h1 class="armel-hero__mark">
+    <div class="armel-hero__mark">
       <a
         href="{{ routes.root_url }}"
         aria-current="page"
@@ -78,7 +79,7 @@
           decoding="async"
         >
       </a>
-    </h1>
+    </div>
 
     <div class="armel-hero__tools">
       {%- if localization.available_countries.size > 1 -%}
@@ -161,7 +162,21 @@
     </div>
   </header>
 
-  <div class="armel-hero__line" aria-hidden="true"></div>
+  <div class="armel-hero__intro">
+    <h1 class="armel-hero__title" data-a-reveal>{{ section.settings.heading | escape }}</h1>
+    {%- if section.settings.text != blank -%}
+      <p class="armel-hero__text" data-a-reveal style="--a-delay: 90ms;">{{ section.settings.text | escape }}</p>
+    {%- endif -%}
+    {%- if section.settings.button_label != blank -%}
+      <a class="a-btn" href="{{ section.settings.button_link | default: '#a-products' }}" data-a-reveal style="--a-delay: 180ms;">
+        {{- section.settings.button_label | escape -}}
+      </a>
+    {%- endif -%}
+  </div>
+
+  {%- if section.settings.show_signature -%}
+    <span class="a-sig armel-hero__sig" role="img" aria-label="by Aneta &amp; Marína" style="-webkit-mask-image: url('{{ 'by-aneta-marina-black.png' | asset_url }}'); mask-image: url('{{ 'by-aneta-marina-black.png' | asset_url }}');"></span>
+  {%- endif -%}
 </div>
 
 <script>
@@ -222,7 +237,12 @@
       "id": "image_alt",
       "label": "Photograph description",
       "default": "Ručně šitá pouzdra Armel z kůže a kožešiny, zavěšená na kovových kroužcích"
-    }
+    },
+    { "type": "text", "id": "heading", "label": "Nadpis", "default": "Kožené doplňky šité ručně na Moravě" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Pouzdra a psaníčka z italské kůže se srstí a stříbrnými nýty. Každý kus je jiný, šijeme je samy dvě." },
+    { "type": "text", "id": "button_label", "label": "Tlačítko", "default": "Prohlédnout kousky" },
+    { "type": "url", "id": "button_link", "label": "Odkaz tlačítka" },
+    { "type": "checkbox", "id": "show_signature", "label": "Podpis „by Aneta & Marína“", "default": false }
   ],
   "blocks": [
     {

@@ -1,0 +1,83 @@
+{%- comment -%}
+  Armel close-up: the material at close range, full-bleed, with one product card standing in the second column.
+{%- endcomment -%}
+{%- render 'armel-home-assets' -%}
+
+{%- liquid
+  assign p = section.settings.product
+  if p != blank
+    assign card_title = p.title
+    assign card_url = p.url
+    assign card_line = section.settings.line | default: p.type
+    assign card_price = p.price | money_without_trailing_zeros
+    assign card_media = p.featured_media
+  else
+    assign card_title = section.settings.title
+    assign card_url = section.settings.link | default: routes.all_products_collection_url
+    assign card_line = section.settings.line
+    assign card_price = section.settings.price
+  endif
+-%}
+
+<div class="a-closeup a-scope">
+  <div class="a-closeup__media">
+    {%- if section.settings.image != blank -%}
+      {{
+        section.settings.image
+        | image_url: width: 2600
+        | image_tag:
+          widths: '750, 1100, 1500, 2000, 2600',
+          sizes: '100vw',
+          class: 'a-closeup__img',
+          loading: 'lazy',
+          alt: section.settings.image.alt
+      }}
+    {%- else -%}
+      <img
+        class="a-closeup__img"
+        src="{{ 'armel-closeup-rivets.jpg' | asset_url }}"
+        alt="Detail klopy: srst, stříbrné nýty a okraj kůže"
+        width="1660"
+        height="1040"
+        loading="lazy"
+        decoding="async"
+      >
+    {%- endif -%}
+  </div>
+
+  <article class="a-closeup__card" data-a-reveal>
+    <h2 class="a-closeup__title">{{ card_title | escape }}</h2>
+    {%- if card_line != blank -%}
+      <p class="a-closeup__line">{{ card_line | escape }}</p>
+    {%- endif -%}
+    {%- if card_price != blank -%}
+      <p class="a-closeup__price">{{ card_price }}</p>
+    {%- endif -%}
+    <div class="a-closeup__thumb">
+      {%- if card_media != blank -%}
+        {{ card_media | image_url: width: 640 | image_tag: widths: '320, 480, 640', sizes: '(min-width: 750px) 18vw, 96px', loading: 'lazy', alt: card_title }}
+      {%- else -%}
+        <img src="{{ 'armel-clutch-closed.jpg' | asset_url }}" alt="{{ card_title | escape }} celé" width="1800" height="1221" loading="lazy" decoding="async">
+      {%- endif -%}
+    </div>
+    <a class="a-btn a-btn--light a-closeup__btn" href="{{ card_url }}">{{ section.settings.button_label | escape }}</a>
+  </article>
+</div>
+
+{% schema %}
+{
+  "name": "Armel – detail",
+  "tag": "section",
+  "class": "a-section a-section--closeup",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Detailní fotka", "info": "Bez fotky se použije detail nýtů z klopy." },
+    { "type": "product", "id": "product", "label": "Produkt na kartě", "info": "Bez produktu se použijí texty níže." },
+    { "type": "text", "id": "title", "label": "Název (bez produktu)", "default": "Psaníčko s nýty" },
+    { "type": "text", "id": "line", "label": "Popisek", "default": "Kůže se srstí, uvnitř broušená kůže" },
+    { "type": "text", "id": "price", "label": "Cena (bez produktu)" },
+    { "type": "url", "id": "link", "label": "Odkaz (bez produktu)" },
+    { "type": "text", "id": "button_label", "label": "Tlačítko", "default": "Zobrazit kousek" }
+  ],
+  "presets": [{ "name": "Armel – detail" }]
+}
+{% endschema %}

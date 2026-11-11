@@ -1,5 +1,5 @@
 .armel-newsletter-section {
-  --armel-page: #ece9e4;
+  --armel-page: #e7e5e2;
   --armel-ink: #1a1614;
   --armel-muted: #6a605a;
   --armel-card: #fbfaf8;
@@ -314,7 +314,7 @@
 
 body.template-index,
 body.armel-coming-soon {
-  background: #ece9e4;
+  background: #e7e5e2;
 }
 
 body.template-index ::selection,

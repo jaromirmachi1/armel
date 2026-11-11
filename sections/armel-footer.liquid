@@ -1,101 +1,63 @@
 {%- comment -%}
-  Armel footer: newsletter line, link columns, giant silver wordmark, legal row.
+  Armel footer: the last photograph, darkened, with the links on top and the silver name across the bottom.
 {%- endcomment -%}
 {%- render 'armel-home-assets' -%}
 
-<footer class="a-footer a-scope" style="--a-bg: {{ section.settings.background }}; --a-fg: {{ section.settings.text }};">
-  {%- if section.settings.show_newsletter -%}
-    <div class="a-footer__news" data-a-reveal>
-      <h2 class="a-footer__news-title">{{ section.settings.news_heading | escape }}</h2>
-      {%- form 'customer', class: 'a-subscribe', id: 'ArmelFooterNews' -%}
-        <input type="hidden" name="contact[tags]" value="newsletter,armel-footer">
-        {%- if form.posted_successfully? -%}
-          <p class="a-subscribe__msg" role="status">{{ section.settings.news_success | escape }}</p>
-        {%- else -%}
-          <label class="visually-hidden" for="ArmelFooterEmail">E-mail</label>
-          <input
-            id="ArmelFooterEmail"
-            class="a-subscribe__input"
-            type="email"
-            name="contact[email]"
-            placeholder="{{ section.settings.news_placeholder | escape }}"
-            autocomplete="email"
-            autocapitalize="off"
-            spellcheck="false"
-            required
-            {% if form.errors %}aria-invalid="true" aria-describedby="ArmelFooterError"{% endif %}
-          >
-          <button class="a-subscribe__btn" type="submit">{{ section.settings.news_button | escape }}</button>
-          {%- if form.errors -%}
-            <p class="a-subscribe__msg a-subscribe__msg--error" id="ArmelFooterError">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
-          {%- endif -%}
-        {%- endif -%}
-      {%- endform -%}
-      {%- if section.settings.news_note != blank -%}
-        <p class="a-footer__note">{{ section.settings.news_note | escape }}</p>
-      {%- endif -%}
-    </div>
-  {%- endif -%}
-
-  <div class="a-footer__cols">
-    {%- for block in section.blocks -%}
-      <nav class="a-footer__col" aria-label="{{ block.settings.title | escape }}" {{ block.shopify_attributes }}>
-        <h3 class="a-footer__col-title">{{ block.settings.title | escape }}</h3>
-        {%- if block.type == 'menu' -%}
-          {%- assign menu = linklists[block.settings.menu] -%}
-          <ul role="list">
-            {%- for link in menu.links -%}
-              <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
-            {%- else -%}
-              <li><a href="{{ routes.collections_url }}">Kolekce</a></li>
-              <li><a href="{{ routes.all_products_collection_url }}">Produkty</a></li>
-              <li><a href="/pages/o-nas">O nás</a></li>
-            {%- endfor -%}
-          </ul>
-        {%- else -%}
-          <div class="a-footer__rte">{{ block.settings.text }}</div>
-        {%- endif -%}
-      </nav>
+<footer class="a-footer a-scope">
+  <div class="a-footer__media" aria-hidden="true">
+    {%- if section.settings.image != blank -%}
+      {{ section.settings.image | image_url: width: 2400 | image_tag: widths: '750, 1200, 1800, 2400', sizes: '100vw', loading: 'lazy', alt: '' }}
     {%- else -%}
-      <nav class="a-footer__col" aria-label="Obchod">
-        <h3 class="a-footer__col-title">Obchod</h3>
-        <ul role="list">
-          {%- for link in linklists['main-menu'].links -%}
-            <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
-          {%- endfor -%}
-        </ul>
-      </nav>
-      <nav class="a-footer__col" aria-label="Informace">
-        <h3 class="a-footer__col-title">Informace</h3>
-        <ul role="list">
-          {%- for link in linklists.footer.links -%}
-            <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
-          {%- endfor -%}
-        </ul>
-      </nav>
-      <div class="a-footer__col">
-        <h3 class="a-footer__col-title">Kontakt</h3>
-        <div class="a-footer__rte"><p><a href="mailto:thearmel.info@gmail.com">thearmel.info@gmail.com</a></p></div>
-      </div>
-    {%- endfor -%}
+      <img src="{{ 'armel-floor.jpg' | asset_url }}" alt="" width="2400" height="1888" loading="lazy" decoding="async">
+    {%- endif -%}
   </div>
 
-  <a class="a-footer__mark" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
-    <img
-      src="{{ 'armel-logo-silver.png' | asset_url }}"
-      alt=""
-      width="1078"
-      height="346"
-      loading="lazy"
-      decoding="async"
-    >
-  </a>
+  <div class="a-footer__top">
+    <h2 class="visually-hidden">Patička</h2>
+    <div class="a-footer__cols">
+      {%- for block in section.blocks -%}
+        <nav class="a-footer__col" aria-label="{{ block.settings.title | escape }}" {{ block.shopify_attributes }}>
+          <h3 class="a-footer__col-title">{{ block.settings.title | escape }}</h3>
+          {%- if block.type == 'menu' -%}
+            <ul role="list">
+              {%- for link in linklists[block.settings.menu].links -%}
+                <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+              {%- endfor -%}
+            </ul>
+          {%- else -%}
+            <div class="a-footer__rte">{{ block.settings.text }}</div>
+          {%- endif -%}
+        </nav>
+      {%- else -%}
+        <nav class="a-footer__col" aria-label="Obchod">
+          <h3 class="a-footer__col-title">Obchod</h3>
+          <ul role="list">
+            {%- for link in linklists['main-menu'].links -%}
+              <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+        <nav class="a-footer__col" aria-label="Informace">
+          <h3 class="a-footer__col-title">Informace</h3>
+          <ul role="list">
+            {%- for link in linklists.footer.links -%}
+              <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+        <div class="a-footer__col">
+          <h3 class="a-footer__col-title">Kontakt</h3>
+          <div class="a-footer__rte"><p><a href="mailto:thearmel.info@gmail.com">thearmel.info@gmail.com</a></p></div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
 
-  <div class="a-footer__legal">
-    <p>&copy; {{ 'now' | date: '%Y' }} {{ section.settings.legal | default: shop.name | escape }}</p>
-    {%- if section.settings.show_signature -%}
-      <img class="a-signature a-signature--small" src="{{ 'by-aneta-marina-black.png' | asset_url }}" alt="by Aneta &amp; Marína" width="1524" height="274" loading="lazy" decoding="async">
-    {%- endif -%}
+  <div class="a-footer__bottom">
+    <a class="a-footer__mark" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
+      <img src="{{ 'armel-logo-silver.png' | asset_url }}" alt="" width="1078" height="346" loading="lazy" decoding="async">
+    </a>
+    <p class="a-footer__legal">&copy; {{ 'now' | date: '%Y' }} {{ section.settings.legal | default: shop.name | escape }}</p>
   </div>
 </footer>
 
@@ -105,16 +67,8 @@
   "tag": "section",
   "class": "a-section a-section--footer",
   "settings": [
-    { "type": "checkbox", "id": "show_newsletter", "label": "Newsletter", "default": true },
-    { "type": "text", "id": "news_heading", "label": "Newsletter nadpis", "default": "Chci o kolekci vědět první" },
-    { "type": "text", "id": "news_placeholder", "label": "Placeholder", "default": "Tvůj e-mail" },
-    { "type": "text", "id": "news_button", "label": "Tlačítko", "default": "Zapnout upozornění" },
-    { "type": "text", "id": "news_success", "label": "Potvrzení", "default": "Hotovo. Ozveme se, až bude nový drop." },
-    { "type": "text", "id": "news_note", "label": "Poznámka pod formulářem", "default": "Jen novinky a drop. Žádný spam, odhlásit se jde jedním klikem." },
-    { "type": "text", "id": "legal", "label": "Copyright text", "default": "armel" },
-    { "type": "checkbox", "id": "show_signature", "label": "Podpis", "default": true },
-    { "type": "color", "id": "background", "label": "Pozadí", "default": "#7D3031" },
-    { "type": "color", "id": "text", "label": "Text", "default": "#F6F1EC" }
+    { "type": "image_picker", "id": "image", "label": "Fotka na pozadí" },
+    { "type": "text", "id": "legal", "label": "Copyright text", "default": "armel · by Aneta & Marína · ručně šito na Moravě" }
   ],
   "blocks": [
     {

@@ -9,19 +9,15 @@
   <head>
     {%- liquid
       assign armel_preview = false
-      assign armel_preview_static = false
       if template.name == 'page' and template.suffix == 'armel-preview'
         assign armel_preview = true
-      elsif request.path == '/pages/armel-nahled-7x2k'
-        assign armel_preview = true
-        assign armel_preview_static = true
       endif
       assign armel_coming_soon = false
-      if settings.coming_soon_lock and request.design_mode == false and armel_preview == false
+      if settings.coming_soon_lock and request.design_mode == false and armel_preview == false and theme.role == 'main'
         assign armel_coming_soon = true
       endif
     -%}
-<!-- ARMEL-DEBUG template={{ template.name }} suffix={{ template.suffix }} path={{ request.path }} preview={{ armel_preview }} static={{ armel_preview_static }} soon={{ armel_coming_soon }} theme={{ theme.name }} role={{ theme.role }} -->
+
     {%- if settings.favicon != blank -%}
       <link
         rel="icon"
@@ -187,19 +183,8 @@
         data-product-transition="{{ settings.transition_to_main_product }}"
         data-template="{{ template }}"
       >
-        {%- if armel_preview_static -%}
-          {% section 'armel-hero' %}
-          {% section 'armel-showcase' %}
-          {% section 'armel-feature' %}
-          {% section 'armel-values' %}
-          {% section 'armel-gallery' %}
-          {% section 'armel-footer' %}
-        {%- elsif armel_coming_soon -%}
-          {%- if template.name == 'index' -%}
-            {{ content_for_layout }}
-          {%- else -%}
-            {% section 'armel-newsletter' %}
-          {%- endif -%}
+        {%- if armel_coming_soon -%}
+          {% section 'armel-newsletter' %}
         {%- else -%}
           {{ content_for_layout }}
         {%- endif -%}

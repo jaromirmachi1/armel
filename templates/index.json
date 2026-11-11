@@ -9,20 +9,83 @@
  */
 {
   "sections": {
-    "armel_newsletter": {
-      "type": "armel-newsletter",
+    "armel_hero": {
+      "type": "armel-hero",
+      "blocks": {
+        "link_kolekce": {
+          "type": "link",
+          "settings": {
+            "label": "Kolekce",
+            "link": "/collections"
+          }
+        },
+        "link_produkty": {
+          "type": "link",
+          "settings": {
+            "label": "Produkty",
+            "link": "/collections/all"
+          }
+        },
+        "link_onas": {
+          "type": "link",
+          "settings": {
+            "label": "O nás",
+            "link": "/pages/o-nas"
+          }
+        }
+      },
+      "block_order": [
+        "link_kolekce",
+        "link_produkty",
+        "link_onas"
+      ],
+      "settings": {}
+    },
+    "armel_closeup": {
+      "type": "armel-closeup",
+      "settings": {}
+    },
+    "armel_showcase": {
+      "type": "armel-showcase",
       "settings": {
-        "heading": "Newsletter",
-        "copy": "Získej přednostní přístup k našemu prvnímu dropu ještě před oficiálním spuštěním",
-        "placeholder": "E-mail",
-        "button_label": "Přihlásit",
-        "success_message": "Jste na seznamu.",
-        "brand_label": "Newsletter",
-        "aria_label": "Otevřít pozvánku"
+        "collection": "",
+        "limit": 8
       }
+    },
+    "armel_material": {
+      "type": "armel-values",
+      "settings": {}
+    },
+    "armel_about": {
+      "type": "armel-about",
+      "settings": {}
+    },
+    "armel_feature": {
+      "type": "armel-feature",
+      "settings": {}
+    },
+    "armel_gallery": {
+      "type": "armel-gallery",
+      "settings": {}
+    },
+    "armel_invite": {
+      "type": "armel-invite",
+      "settings": {}
+    },
+    "armel_footer": {
+      "type": "armel-footer",
+      "settings": {}
     }
   },
   "order": [
-    "armel_newsletter"
+    "armel_hero",
+    "armel_closeup",
+    "armel_showcase",
+    "armel_material",
+    "armel_about",
+    "armel_feature",
+    "armel_gallery",
+    "armel_invite",
+    "armel_footer"
   ]
 }
