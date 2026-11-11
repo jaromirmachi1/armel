@@ -21,7 +21,7 @@
         assign armel_coming_soon = true
       endif
     -%}
-
+<!-- ARMEL-DEBUG template={{ template.name }} suffix={{ template.suffix }} path={{ request.path }} preview={{ armel_preview }} static={{ armel_preview_static }} soon={{ armel_coming_soon }} theme={{ theme.name }} role={{ theme.role }} -->
     {%- if settings.favicon != blank -%}
       <link
         rel="icon"
