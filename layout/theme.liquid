@@ -13,10 +13,6 @@
       if template.name == 'page' and template.suffix == 'armel-preview'
         assign armel_preview = true
       elsif request.path == '/pages/armel-nahled-7x2k'
-        comment
-          Secret preview URL works even if the page doesn't exist yet or has no template:
-          the sections are rendered statically instead of from page.armel-preview.json.
-        endcomment
         assign armel_preview = true
         assign armel_preview_static = true
       endif
