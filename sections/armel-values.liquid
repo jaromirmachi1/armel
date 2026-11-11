@@ -18,13 +18,17 @@
     {%- endif -%}
   </div>
 
-  <ol class="a-values__list" role="list" style="--a-cols: {{ section.blocks.size | at_least: 1 }};">
+  <ol class="a-values__list" role="list" style="--a-cols: {% if section.blocks.size > 0 %}{{ section.blocks.size }}{% else %}3{% endif %};">
     {%- for block in section.blocks -%}
       <li class="a-values__item" {{ block.shopify_attributes }} data-a-reveal style="--a-delay: {{ forloop.index0 | times: 80 }}ms;">
         <span class="a-values__num">{{ forloop.index | prepend: '0' }}</span>
         <h3 class="a-values__title">{{ block.settings.title | escape }}</h3>
         <p class="a-values__text">{{ block.settings.text | escape }}</p>
       </li>
+    {%- else -%}
+      <li class="a-values__item" data-a-reveal><span class="a-values__num">01</span><h3 class="a-values__title">Italská prémiová kůže</h3><p class="a-values__text">Vybíráme ji pro odolnost a charakter. Zpracováváme i zbytkové usně a odřezky, které by jinak skončily jako odpad.</p></li>
+      <li class="a-values__item" data-a-reveal style="--a-delay: 80ms;"><span class="a-values__num">02</span><h3 class="a-values__title">Ruční výroba</h3><p class="a-values__text">Žádná pásová linka. Každý kousek navrhujeme, řežeme a šijeme od prvního do posledního stehu samy dvě.</p></li>
+      <li class="a-values__item" data-a-reveal style="--a-delay: 160ms;"><span class="a-values__num">03</span><h3 class="a-values__title">Doma na Moravě</h3><p class="a-values__text">Všechno vzniká u nás na Moravě, s úctou k lokálnímu řemeslu a k naší planetě.</p></li>
     {%- endfor -%}
   </ol>
 
