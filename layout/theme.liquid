@@ -12,8 +12,12 @@
       if template.name == 'page' and template.suffix == 'armel-preview'
         assign armel_preview = true
       endif
+      assign armel_catalog = false
+      if template.name == 'collection' or template.name == 'product'
+        assign armel_catalog = true
+      endif
       assign armel_coming_soon = false
-      if settings.coming_soon_lock and request.design_mode == false and armel_preview == false and theme.role == 'main'
+      if settings.coming_soon_lock and request.design_mode == false and armel_preview == false and armel_catalog == false and theme.role == 'main'
         assign armel_coming_soon = true
       endif
     -%}
@@ -35,6 +39,8 @@
     {%- endif -%}
 
     {%- if armel_preview -%}
+      <meta name="robots" content="noindex, nofollow">
+    {%- elsif armel_catalog and settings.coming_soon_lock and request.design_mode == false and theme.role == 'main' -%}
       <meta name="robots" content="noindex, nofollow">
     {%- endif -%}
 
