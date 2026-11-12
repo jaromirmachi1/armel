@@ -133,59 +133,9 @@
     }
   }
 
-  /* ---------- about: scroll-linked panel ----------
-     --p: 0 -> 1 while the panel's top travels from the bottom of the screen to the top
-          (the inset panel grows to full bleed)
-     --q: 0 -> 1 across the whole pass of the section (parallax inside) */
-  var scrollers = [];
-  var ticking = false;
-
-  function measure() {
-    ticking = false;
-    var vh = window.innerHeight;
-    scrollers.forEach(function (el) {
-      if (!el.__active) return;
-      var r = el.getBoundingClientRect();
-      var p = Math.min(1, Math.max(0, (vh - r.top) / (vh * 0.85)));
-      var q = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
-      el.style.setProperty('--p', p.toFixed(4));
-      el.style.setProperty('--q', q.toFixed(4));
-    });
-  }
-
-  function onScroll() {
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(measure);
-    }
-  }
-
-  function initScroller(el) {
-    if (el.__armel || reduce) return;
-    el.__armel = true;
-    el.classList.add('is-scrolly');
-    scrollers.push(el);
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          el.__active = e.isIntersecting;
-          if (e.isIntersecting) measure();
-        });
-      }, { rootMargin: '20% 0px 20% 0px' }).observe(el);
-    } else {
-      el.__active = true;
-    }
-    if (scrollers.length === 1) {
-      window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', onScroll);
-    }
-    measure();
-  }
-
   function init(root) {
     root = root || document;
     watch(root);
-    root.querySelectorAll('[data-a-scrolly]').forEach(initScroller);
     root.querySelectorAll('[data-a-rail]').forEach(initRail);
     root.querySelectorAll('[data-a-frame]').forEach(initFrame);
   }

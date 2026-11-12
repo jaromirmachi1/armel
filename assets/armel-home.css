@@ -676,7 +676,6 @@
 .a-about__statement {
   grid-column: 1 / span 7;
   margin: 0;
-  font-family: var(--a-sans);
   font-size: var(--fs-display);
   font-weight: 600;
   line-height: 0.95;
@@ -730,52 +729,6 @@
   object-position: 50% 50%;
 }
 
-/* scroll-linked version (JS adds .is-scrolly; without JS or with reduced motion it stays as above) */
-.a-about.is-scrolly {
-  --p: 0;
-  --q: 0;
-  padding: 0;
-}
-
-.a-about.is-scrolly .a-about__panel {
-  /* starts as an inset card, opens to the full width and loses its corners */
-  clip-path: inset(
-    calc((1 - var(--p)) * 64px) calc((1 - var(--p)) * 7vw) 0 calc((1 - var(--p)) * 7vw)
-    round calc((1 - var(--p)) * 28px)
-  );
-  will-change: clip-path;
-}
-
-.a-about.is-scrolly .a-about__statement {
-  transform: translate3d(calc((1 - var(--p)) * 7vw), calc(var(--q) * -60px), 0);
-}
-
-.a-about.is-scrolly .a-about__blocks {
-  transform: translate3d(0, calc((1 - var(--q)) * 140px), 0);
-}
-
-.a-about.is-scrolly .a-about__arch {
-  /* the arch rises out of the panel's bottom edge and the photo settles inside it */
-  transform: translate3d(0, calc((1 - var(--q)) * 22%), 0);
-}
-
-.a-about.is-scrolly .a-about__arch img {
-  transform: scale(calc(1.3 - var(--q) * 0.3)) rotate(calc((1 - var(--q)) * -4deg));
-  will-change: transform;
-}
-
-.a-about.is-scrolly .a-about__statement,
-.a-about.is-scrolly .a-about__blocks,
-.a-about.is-scrolly .a-about__arch {
-  will-change: transform;
-}
-
-/* the reveal fade is replaced by the scroll motion here */
-.a-js .a-about.is-scrolly .a-about__statement[data-a-reveal],
-.a-js .a-about.is-scrolly .a-about__arch[data-a-reveal] {
-  opacity: 1;
-}
-
 @media screen and (max-width: 899px) {
   .a-about {
     padding: 10px;
@@ -791,18 +744,6 @@
   .a-about__blocks {
     margin-top: 40px;
     gap: 32px;
-  }
-  .a-about.is-scrolly .a-about__panel {
-    clip-path: inset(
-      calc((1 - var(--p)) * 32px) calc((1 - var(--p)) * 4vw) 0 calc((1 - var(--p)) * 4vw)
-      round calc((1 - var(--p)) * 20px)
-    );
-  }
-  .a-about.is-scrolly .a-about__blocks {
-    transform: translate3d(0, calc((1 - var(--q)) * 60px), 0);
-  }
-  .a-about.is-scrolly .a-about__statement {
-    transform: translate3d(calc((1 - var(--p)) * 4vw), 0, 0);
   }
   .a-about__arch {
     width: 86vw;
