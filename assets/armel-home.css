@@ -1003,15 +1003,7 @@
   max-width: none;
 }
 
-.a-invite .armel-clutch:not(.is-open):not(:has([data-armel-form-success])):not(:has([data-armel-form-error])) .armel-clutch__letter {
-  animation: a-peek 3.2s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
-}
-
-@keyframes a-peek {
-  from { transform: translateY(calc(var(--w) * -0.06)); }
-  to { transform: translateY(calc(var(--w) * -0.11)); }
-}
-
+/* same open/close physics as the intro clutch — no extra peek loop on the letter */
 .a-invite .armel-clutch__letter {
   box-shadow: none; /* taste-skill-ignore: removes the shared letter shadow */
   background: #fbfaf8;
@@ -1182,9 +1174,6 @@
   .a-js [data-a-parallax] {
     transform: none !important;
     will-change: auto;
-  }
-  .a-invite .armel-clutch__letter {
-    animation: none !important;
   }
   .a-closeup__img,
   .a-frame__slide,
