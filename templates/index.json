@@ -79,8 +79,8 @@
   },
   "order": [
     "armel_hero",
-    "armel_closeup",
     "armel_showcase",
+    "armel_closeup",
     "armel_material",
     "armel_about",
     "armel_feature",

@@ -42,7 +42,10 @@
     var next = nav.querySelector('[data-a-rail-next]');
 
     function step() {
-      return Math.max(track.clientWidth * 0.7, 240);
+      var item = track.querySelector('.a-rail__item');
+      if (!item) return track.clientWidth * 0.8;
+      var gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      return item.getBoundingClientRect().width + gap;
     }
     function update() {
       var max = track.scrollWidth - track.clientWidth - 2;
@@ -58,6 +61,32 @@
     });
     track.addEventListener('scroll', update, { passive: true });
     window.addEventListener('resize', update);
+
+    /* drag with the mouse (touch already scrolls natively) */
+    var down = false, moved = false, justDragged = false, startX = 0, startLeft = 0;
+    track.addEventListener('click', function (e) {
+      if (justDragged) { e.preventDefault(); e.stopPropagation(); justDragged = false; }
+    }, true);
+    track.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      down = true; moved = false; startX = e.clientX; startLeft = track.scrollLeft;
+    });
+    window.addEventListener('pointermove', function (e) {
+      if (!down) return;
+      var dx = e.clientX - startX;
+      if (!moved && Math.abs(dx) > 6) { moved = true; track.classList.add('is-dragging'); }
+      if (moved) track.scrollLeft = startLeft - dx;
+    });
+    window.addEventListener('pointerup', function () {
+      if (!down) return;
+      down = false;
+      justDragged = moved;
+      if (moved) {
+        track.classList.remove('is-dragging');
+        var s = step();
+        track.scrollTo({ left: Math.round(track.scrollLeft / s) * s, behavior: reduce ? 'auto' : 'smooth' });
+      }
+    });
     update();
   }
 
