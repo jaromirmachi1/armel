@@ -1,7 +1,7 @@
 /* ==========================================================================
    armel homepage
-   One family (Montserrat) + the script for one title. Square corners.
-   Five sizes: display / title / sub / body / small.
+   Serif for headlines, a quiet sans for everything else, script only as a signature.
+   Square corners. Five sizes: display / title / sub / body / small.
    ========================================================================== */
 
 :root {
@@ -13,12 +13,13 @@
   --a-m: clamp(20px, 3.2vw, 48px);
   --a-gap: clamp(96px, 11vw, 200px);
   --a-ease: cubic-bezier(0.16, 1, 0.3, 1);
-  --a-sans: var(--font-body--family, 'Montserrat'), 'Montserrat', 'Avenir Next', 'Segoe UI', sans-serif;
+  --a-sans: 'Armel Sans', 'Avenir Next', 'Segoe UI', sans-serif;
+  --a-display: 'Armel Serif', 'Iowan Old Style', 'Palatino Linotype', Palatino, serif;
   --a-script: 'Armel Script', 'Pinyon Script', cursive;
-  --fs-display: clamp(44px, 6.6vw, 108px);
-  --fs-title: clamp(28px, 2.8vw, 44px);
-  --fs-sub: clamp(19px, 1.5vw, 22px);
-  --fs-body: 17px;
+  --fs-display: clamp(42px, 5.2vw, 92px);
+  --fs-title: clamp(28px, 2.6vw, 42px);
+  --fs-sub: clamp(18px, 1.4vw, 21px);
+  --fs-body: 16px;
   --fs-small: 14px;
 }
 
@@ -60,11 +61,11 @@
 
 .a-h2 {
   margin: 0;
-  font-family: var(--a-sans);
+  font-family: var(--a-display);
   font-size: var(--fs-display);
-  font-weight: 600;
-  line-height: 0.95;
-  letter-spacing: -0.04em;
+  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
   text-wrap: balance;
 }
 
@@ -99,7 +100,7 @@
   border-radius: 0;
   background: var(--a-burgundy);
   color: var(--a-cream) !important;
-  font: 600 var(--fs-body) / 1 var(--a-sans);
+  font: 500 var(--fs-body) / 1 var(--a-sans);
   letter-spacing: -0.01em;
   text-decoration: none;
   overflow: hidden;
@@ -431,22 +432,23 @@
 
 .a-showcase__head {
   display: grid;
-  justify-items: center;
-  gap: 14px;
+  justify-items: start;
+  gap: 18px;
+  max-width: 18em;
   padding: 0 var(--a-m);
-  text-align: center;
+  text-align: left;
 }
 
 .a-showcase__title {
   display: grid;
-  gap: 0.15em;
+  gap: 0.08em;
   margin: 0;
-  font-family: var(--a-sans);
-  font-size: clamp(15px, 1.9vw, 28px);
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-family: var(--a-display);
+  font-size: clamp(36px, 4.4vw, 68px);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  text-transform: none;
   text-wrap: balance;
 }
 
@@ -505,7 +507,7 @@
   position: relative;
   aspect-ratio: 23 / 25;
   overflow: hidden;
-  border-radius: clamp(14px, 1.4vw, 20px);
+  border-radius: 0;
   background: var(--a-tile, #f1f0ee);
 }
 
@@ -623,7 +625,7 @@
     width: 74vw;
   }
   .a-showcase__title {
-    letter-spacing: 0.04em;
+    letter-spacing: -0.03em;
   }
 }
 
@@ -736,10 +738,11 @@
 .a-about__statement {
   grid-column: 1 / span 7;
   margin: 0;
+  font-family: var(--a-display);
   font-size: var(--fs-display);
-  font-weight: 600;
-  line-height: 0.95;
-  letter-spacing: -0.04em;
+  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
 }
 
 .a-about__blocks {
