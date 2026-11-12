@@ -1,0 +1,206 @@
+{%- liquid
+  assign bar_id = section.id | default: 'store'
+  assign bar_home = home | default: false
+-%}
+
+<header class="armel-hero__bar" data-armel-bar>
+  <div class="armel-hero__start">
+    <button
+      class="armel-hero__toggle"
+      type="button"
+      data-armel-toggle
+      aria-expanded="false"
+      aria-controls="ArmelNav-{{ bar_id }}"
+      aria-label="{{ 'accessibility.menu' | t }}"
+      data-open-label="{{ 'accessibility.menu' | t }}"
+      data-close-label="{{ 'accessibility.close_dialog' | t }}"
+    >
+      <span class="armel-hero__toggle-bars" aria-hidden="true">
+        <span></span>
+        <span></span>
+      </span>
+    </button>
+
+    <nav
+      id="ArmelNav-{{ bar_id }}"
+      class="armel-hero__nav"
+      data-armel-nav
+      aria-label="{{ 'accessibility.header_navigation_label' | t }}"
+    >
+      {%- if links != blank -%}
+        {%- for block in links -%}
+          {%- liquid
+            assign link_url = block.settings.link | default: '#'
+            assign link_current = false
+            if request.path == link_url or request.path == link_url | append: '/'
+              assign link_current = true
+            endif
+          -%}
+          <a
+            href="{{ link_url }}"
+            {% if link_current %}
+              aria-current="page"
+            {% endif %}
+            {{ block.shopify_attributes }}
+          >
+            {{ block.settings.label | escape }}
+          </a>
+        {%- endfor -%}
+      {%- else -%}
+        <a
+          href="{{ routes.collections_url }}"
+          {% if request.path == routes.collections_url %}
+            aria-current="page"
+          {% endif %}
+        >Kolekce</a>
+        <a
+          href="{{ routes.all_products_collection_url }}"
+          {% if request.path == routes.all_products_collection_url %}
+            aria-current="page"
+          {% endif %}
+        >Produkty</a>
+        <a
+          href="/pages/o-nas"
+          {% if request.path == '/pages/o-nas' or request.path == '/pages/o-nas/' %}
+            aria-current="page"
+          {% endif %}
+        >O nás</a>
+      {%- endif -%}
+    </nav>
+  </div>
+
+  <div class="armel-hero__mark">
+    <a
+      href="{{ routes.root_url }}"
+      {% if bar_home %}
+        aria-current="page"
+      {% endif %}
+    >
+      <img
+        class="armel-hero__logo"
+        src="{{ 'armel-logo.png' | asset_url }}"
+        alt="{{ 'accessibility.home_logo_alt' | t: store_name: shop.name }}"
+        width="240"
+        height="77"
+        decoding="async"
+      >
+    </a>
+  </div>
+
+  <div class="armel-hero__tools">
+    {%- if localization.available_countries.size > 1 -%}
+      {% form 'localization', class: 'armel-hero__locale-form' %}
+        <label class="visually-hidden" for="ArmelCountry-{{ bar_id }}">
+          {{ 'accessibility.country_region' | t }}
+        </label>
+        <select
+          id="ArmelCountry-{{ bar_id }}"
+          class="armel-hero__locale-select"
+          name="country_code"
+          onchange="this.form.submit()"
+        >
+          {%- for country in localization.available_countries -%}
+            <option
+              value="{{ country.iso_code }}"
+              {% if country.iso_code == localization.country.iso_code %}
+                selected
+              {% endif %}
+            >
+              {{ country.iso_code }}
+            </option>
+          {%- endfor -%}
+        </select>
+      {% endform %}
+    {%- else -%}
+      <span class="armel-hero__locale">{{ localization.country.iso_code | default: 'CZ' }}</span>
+    {%- endif -%}
+
+    <a
+      class="armel-hero__icon-btn"
+      href="{{ routes.account_url }}"
+      aria-label="{{ 'accessibility.account' | t }}"
+    >
+      <svg viewBox="0 0 16 16" aria-hidden="true" fill="none">
+        <circle cx="8" cy="5.15" r="2.15" stroke="currentColor" stroke-width="1.15"/>
+        <path d="M3.15 13.15c.72-2.25 2.45-3.35 4.85-3.35s4.13 1.1 4.85 3.35" stroke="currentColor" stroke-width="1.15" stroke-linecap="round"/>
+      </svg>
+    </a>
+
+    {%- if settings.cart_type == 'drawer' and template.name != 'cart' -%}
+      <button
+        class="armel-hero__icon-btn"
+        type="button"
+        on:click="#cart-drawer/toggle"
+        aria-haspopup="dialog"
+        aria-expanded="false"
+        aria-controls="cart-drawer"
+        aria-label="{{ 'accessibility.cart' | t }}"
+      >
+        <svg viewBox="0 0 16 16" aria-hidden="true" fill="none">
+          <path d="M4.15 6.15h7.7v7.15H4.15V6.15Z" stroke="currentColor" stroke-width="1.15"/>
+          <path d="M6.15 6.15V4.9a1.85 1.85 0 0 1 3.7 0v1.25" stroke="currentColor" stroke-width="1.15" stroke-linecap="round"/>
+        </svg>
+        {%- if cart.item_count > 0 -%}
+          <span class="armel-hero__count">{{ cart.item_count }}</span>
+        {%- endif -%}
+        <span class="visually-hidden">
+          {{ 'accessibility.cart_count' | t }}: {{ cart.item_count }}
+        </span>
+      </button>
+    {%- else -%}
+      <a
+        class="armel-hero__icon-btn"
+        href="{{ routes.cart_url }}"
+        aria-label="{{ 'accessibility.cart' | t }}"
+      >
+        <svg viewBox="0 0 16 16" aria-hidden="true" fill="none">
+          <path d="M4.15 6.15h7.7v7.15H4.15V6.15Z" stroke="currentColor" stroke-width="1.15"/>
+          <path d="M6.15 6.15V4.9a1.85 1.85 0 0 1 3.7 0v1.25" stroke="currentColor" stroke-width="1.15" stroke-linecap="round"/>
+        </svg>
+        {%- if cart.item_count > 0 -%}
+          <span class="armel-hero__count">{{ cart.item_count }}</span>
+        {%- endif -%}
+        <span class="visually-hidden">
+          {{ 'accessibility.cart_count' | t }}: {{ cart.item_count }}
+        </span>
+      </a>
+    {%- endif -%}
+  </div>
+</header>
+
+<script>
+  (function () {
+    var bar = document.currentScript && document.currentScript.previousElementSibling;
+    if (!bar) return;
+    var button = bar.querySelector('[data-armel-toggle]');
+    var nav = bar.querySelector('[data-armel-nav]');
+    if (!button || !nav) return;
+
+    function setOpen(open) {
+      button.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (open) nav.setAttribute('data-open', 'true');
+      else nav.removeAttribute('data-open');
+      button.setAttribute('aria-label', open ? button.getAttribute('data-close-label') : button.getAttribute('data-open-label'));
+    }
+
+    button.addEventListener('click', function () {
+      var open = button.getAttribute('aria-expanded') !== 'true';
+      setOpen(open);
+      if (open) {
+        var first = nav.querySelector('a');
+        if (first) first.focus();
+      }
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') {
+        setOpen(false);
+        button.focus();
+      }
+    });
+
+    nav.addEventListener('click', function (event) {
+      if (event.target.closest('a')) setOpen(false);
+    });
+  })();
+</script>

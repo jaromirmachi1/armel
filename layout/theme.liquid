@@ -13,7 +13,7 @@
         assign armel_preview = true
       endif
       assign armel_catalog = false
-      if template.name == 'collection' or template.name == 'product'
+      if template.name == 'collection' or template.name == 'product' or template.name == 'list-collections' or template.name == 'page' or template.name == 'cart' or template.directory == 'customers'
         assign armel_catalog = true
       endif
       assign armel_coming_soon = false
@@ -44,6 +44,11 @@
       <meta name="robots" content="noindex, nofollow">
     {%- endif -%}
 
+    {%- unless armel_coming_soon or armel_preview or template.name == 'index' -%}
+      {{ 'armel-hero.css' | asset_url | stylesheet_tag }}
+      {{ 'armel-bar.css' | asset_url | stylesheet_tag }}
+    {%- endunless -%}
+
     {%- render 'view-transition-opt-in' -%}
 
     {%- render 'meta-tags' -%}
@@ -69,8 +74,8 @@
 
     <div class="page-wrapper">
       {% unless armel_coming_soon or armel_preview or template.name == 'index' %}
-        <div id="header-group">
-          {% sections 'header-group' %}
+        <div class="armel-page-bar">
+          {% render 'armel-bar' %}
         </div>
       {% endunless %}
 
