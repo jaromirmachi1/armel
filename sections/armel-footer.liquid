@@ -4,7 +4,7 @@
 {%- render 'armel-home-assets' -%}
 
 <footer class="a-footer a-scope">
-  <div class="a-footer__media" aria-hidden="true">
+  <div class="a-footer__media" aria-hidden="true" data-a-parallax="64">
     {%- if section.settings.image != blank -%}
       {{ section.settings.image | image_url: width: 2400 | image_tag: widths: '750, 1200, 1800, 2400', sizes: '100vw', loading: 'lazy', alt: '' }}
     {%- else -%}
@@ -16,7 +16,7 @@
     <h2 class="visually-hidden">Patička</h2>
     <div class="a-footer__cols">
       {%- for block in section.blocks -%}
-        <nav class="a-footer__col" aria-label="{{ block.settings.title | escape }}" {{ block.shopify_attributes }}>
+        <nav class="a-footer__col" aria-label="{{ block.settings.title | escape }}" {{ block.shopify_attributes }} data-a-reveal style="--a-delay: {{ forloop.index0 | times: 70 }}ms;">
           <h3 class="a-footer__col-title">{{ block.settings.title | escape }}</h3>
           {%- if block.type == 'menu' -%}
             <ul role="list">
@@ -29,7 +29,7 @@
           {%- endif -%}
         </nav>
       {%- else -%}
-        <nav class="a-footer__col" aria-label="Obchod">
+        <nav class="a-footer__col" aria-label="Obchod" data-a-reveal>
           <h3 class="a-footer__col-title">Obchod</h3>
           <ul role="list">
             {%- for link in linklists['main-menu'].links -%}
@@ -37,7 +37,7 @@
             {%- endfor -%}
           </ul>
         </nav>
-        <nav class="a-footer__col" aria-label="Informace">
+        <nav class="a-footer__col" aria-label="Informace" data-a-reveal style="--a-delay: 70ms;">
           <h3 class="a-footer__col-title">Informace</h3>
           <ul role="list">
             {%- for link in linklists.footer.links -%}
@@ -45,7 +45,7 @@
             {%- endfor -%}
           </ul>
         </nav>
-        <div class="a-footer__col">
+        <div class="a-footer__col" data-a-reveal style="--a-delay: 140ms;">
           <h3 class="a-footer__col-title">Kontakt</h3>
           <div class="a-footer__rte"><p><a href="mailto:thearmel.info@gmail.com">thearmel.info@gmail.com</a></p></div>
         </div>
@@ -53,7 +53,7 @@
     </div>
   </div>
 
-  <div class="a-footer__bottom">
+  <div class="a-footer__bottom" data-a-reveal="scale" style="--a-delay: 120ms;">
     <a class="a-footer__mark" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
       <img src="{{ 'armel-logo-silver.png' | asset_url }}" alt="" width="1078" height="346" loading="lazy" decoding="async">
     </a>

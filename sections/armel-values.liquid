@@ -14,9 +14,9 @@ Doma na Moravě|Všechno vzniká u nás na Moravě, s úctou k lokálnímu řeme
 {%- endcapture -%}
 
 <div class="a-material a-scope" style="--a-bg: {{ section.settings.background }}; --a-fg: {{ section.settings.text }};">
-  <h2 class="a-h2 a-material__heading" data-a-reveal>{{ section.settings.heading | escape }}</h2>
+  <h2 class="a-h2 a-material__heading" data-a-reveal="blur">{{ section.settings.heading | escape }}</h2>
 
-  <div class="a-material__shape" data-a-reveal>
+  <div class="a-material__shape" data-a-reveal="clip" data-a-parallax="28">
     {%- if section.settings.image != blank -%}
       {{ section.settings.image | image_url: width: 1600 | image_tag: widths: '600, 900, 1200, 1600', sizes: '(min-width: 900px) 46vw, 82vw', loading: 'lazy', alt: section.settings.image.alt }}
     {%- else -%}
@@ -28,7 +28,7 @@ Doma na Moravě|Všechno vzniká u nás na Moravě, s úctou k lokálnímu řeme
     <ul class="a-material__list" role="list">
       {%- if section.blocks.size > 0 -%}
         {%- for block in section.blocks -%}
-          <li class="a-material__item" {{ block.shopify_attributes }} data-a-reveal style="--a-delay: {{ forloop.index0 | times: 70 }}ms;">
+          <li class="a-material__item" {{ block.shopify_attributes }} data-a-reveal="left" style="--a-delay: {{ forloop.index0 | times: 70 }}ms;">
             <h3 class="a-material__title"><span class="a-rivet" aria-hidden="true"></span>{{ block.settings.title | escape }}</h3>
             <p class="a-material__text">{{ block.settings.text | escape }}</p>
           </li>
@@ -37,7 +37,7 @@ Doma na Moravě|Všechno vzniká u nás na Moravě, s úctou k lokálnímu řeme
         {%- assign lines = default_points | strip | newline_to_br | split: '<br />' -%}
         {%- for line in lines -%}
           {%- assign parts = line | strip | split: '|' -%}
-          <li class="a-material__item" data-a-reveal style="--a-delay: {{ forloop.index0 | times: 70 }}ms;">
+          <li class="a-material__item" data-a-reveal="left" style="--a-delay: {{ forloop.index0 | times: 70 }}ms;">
             <h3 class="a-material__title"><span class="a-rivet" aria-hidden="true"></span>{{ parts[0] }}</h3>
             <p class="a-material__text">{{ parts[1] }}</p>
           </li>

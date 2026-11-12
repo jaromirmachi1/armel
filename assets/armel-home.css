@@ -217,17 +217,77 @@
   }
 }
 
-/* reveal on scroll (only when JS runs) */
+/* --------------------------------------------------------------------------
+   Scroll reveals (JS adds .is-in once)
+   Default: rise. Variants: left / right / scale / clip / blur
+   -------------------------------------------------------------------------- */
 .a-js [data-a-reveal] {
   opacity: 0;
-  transform: translateY(26px);
-  transition: opacity 900ms var(--a-ease), transform 1100ms var(--a-ease);
+  transform: translate3d(0, 28px, 0);
+  filter: none;
+  transition:
+    opacity 780ms var(--a-ease),
+    transform 980ms var(--a-ease),
+    filter 980ms var(--a-ease),
+    clip-path 1100ms var(--a-ease);
   transition-delay: var(--a-delay, 0ms);
+  will-change: transform, opacity;
+}
+
+.a-js [data-a-reveal='left'] {
+  transform: translate3d(-40px, 0, 0);
+}
+
+.a-js [data-a-reveal='right'] {
+  transform: translate3d(40px, 0, 0);
+}
+
+.a-js [data-a-reveal='scale'] {
+  transform: translate3d(0, 18px, 0) scale(0.96);
+}
+
+.a-js [data-a-reveal='blur'] {
+  transform: translate3d(0, 20px, 0);
+  filter: blur(8px);
+}
+
+.a-js [data-a-reveal='clip'] {
+  opacity: 1;
+  transform: scale(1.05);
+  clip-path: inset(10% 8% 10% 8%);
+  filter: none;
 }
 
 .a-js [data-a-reveal].is-in {
   opacity: 1;
   transform: none;
+  filter: none;
+  clip-path: inset(0 0 0 0);
+  will-change: auto;
+}
+
+/* parallax: JS writes --a-py; each surface composes it into its own transform */
+.a-js [data-a-parallax] {
+  --a-py: 0px;
+  will-change: transform;
+}
+
+.a-js .a-closeup__media[data-a-parallax],
+.a-js .a-footer__media[data-a-parallax] {
+  transform: translate3d(0, var(--a-py), 0);
+}
+
+/* clip + parallax: keep both transforms composed after the reveal lands */
+.a-js .a-feature__media[data-a-reveal='clip'][data-a-parallax],
+.a-js .a-about__arch[data-a-reveal='clip'][data-a-parallax],
+.a-js .a-material__shape[data-a-reveal='clip'][data-a-parallax] {
+  transform: translate3d(0, var(--a-py), 0) scale(1.05);
+}
+
+.a-js .a-feature__media[data-a-reveal='clip'][data-a-parallax].is-in,
+.a-js .a-about__arch[data-a-reveal='clip'][data-a-parallax].is-in,
+.a-js .a-material__shape[data-a-reveal='clip'][data-a-parallax].is-in {
+  transform: translate3d(0, var(--a-py), 0);
 }
 
 /* ==========================================================================
@@ -1107,10 +1167,21 @@
    ========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
-  .a-js [data-a-reveal] {
+  .a-js [data-a-reveal],
+  .a-js [data-a-reveal='clip'],
+  .a-js [data-a-reveal='left'],
+  .a-js [data-a-reveal='right'],
+  .a-js [data-a-reveal='scale'],
+  .a-js [data-a-reveal='blur'] {
     opacity: 1;
     transform: none;
+    filter: none;
+    clip-path: none;
     transition: none;
+  }
+  .a-js [data-a-parallax] {
+    transform: none !important;
+    will-change: auto;
   }
   .a-invite .armel-clutch__letter {
     animation: none !important;

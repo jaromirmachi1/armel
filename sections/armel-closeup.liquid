@@ -20,7 +20,7 @@
 -%}
 
 <div class="a-closeup a-scope">
-  <div class="a-closeup__media">
+  <div class="a-closeup__media" data-a-parallax="56">
     {%- if section.settings.image != blank -%}
       {{
         section.settings.image
@@ -45,7 +45,7 @@
     {%- endif -%}
   </div>
 
-  <article class="a-closeup__card" data-a-reveal>
+  <article class="a-closeup__card" data-a-reveal="left">
     <h2 class="a-closeup__title">{{ card_title | escape }}</h2>
     {%- if card_line != blank -%}
       <p class="a-closeup__line">{{ card_line | escape }}</p>

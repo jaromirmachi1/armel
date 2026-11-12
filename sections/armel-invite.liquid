@@ -7,14 +7,14 @@
 
 <div class="a-invite a-scope" style="--a-bg: {{ section.settings.background }}; --a-fg: {{ section.settings.text }};">
   <div class="a-invite__text">
-    <h2 class="a-h2" data-a-reveal>{{ section.settings.heading | escape }}</h2>
-    <p class="a-invite__intro" data-a-reveal style="--a-delay: 80ms;">{{ section.settings.intro | escape }}</p>
+    <h2 class="a-h2" data-a-reveal="left">{{ section.settings.heading | escape }}</h2>
+    <p class="a-invite__intro" data-a-reveal style="--a-delay: 90ms;">{{ section.settings.intro | escape }}</p>
     {%- if section.settings.note != blank -%}
       <p class="a-invite__note" data-a-reveal style="--a-delay: 160ms;">{{ section.settings.note | escape }}</p>
     {%- endif -%}
   </div>
 
-  <div class="armel-newsletter-section a-invite__stage">
+  <div class="armel-newsletter-section a-invite__stage" data-a-reveal="right">
     <div class="armel-newsletter" data-armel-newsletter>
       <div
         class="armel-clutch"

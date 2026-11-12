@@ -9,19 +9,19 @@
   style="--a-bg: {{ section.settings.background }}; --a-fg: {{ section.settings.text }};"
 >
   <div class="a-gallery__text">
-    <h2 class="a-h2" data-a-reveal>{{ section.settings.heading | escape }}</h2>
+    <h2 class="a-h2" data-a-reveal="left">{{ section.settings.heading | escape }}</h2>
     {%- if section.settings.intro != blank -%}
-      <p class="a-gallery__intro" data-a-reveal style="--a-delay: 80ms;">{{ section.settings.intro | escape }}</p>
+      <p class="a-gallery__intro" data-a-reveal style="--a-delay: 90ms;">{{ section.settings.intro | escape }}</p>
     {%- endif -%}
     {%- if section.settings.handle != blank -%}
-      <a class="a-link" href="{{ section.settings.handle_link | default: 'https://www.instagram.com/' }}" target="_blank" rel="noopener" data-a-reveal style="--a-delay: 160ms;">
+      <a class="a-link" href="{{ section.settings.handle_link | default: 'https://www.instagram.com/' }}" target="_blank" rel="noopener" data-a-reveal="scale" style="--a-delay: 160ms;">
         {{- section.settings.handle | escape -}}
         <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4.5-4.5L15 10l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     {%- endif -%}
   </div>
 
-  <figure class="a-frame" data-a-frame data-a-reveal>
+  <figure class="a-frame" data-a-frame data-a-reveal="clip" style="--a-delay: 120ms;">
     <button class="a-frame__stage" type="button" data-a-frame-next aria-label="Další fotka">
       {%- if section.blocks.size > 0 -%}
         {%- for block in section.blocks -%}

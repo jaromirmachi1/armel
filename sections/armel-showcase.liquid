@@ -14,10 +14,10 @@
   style="--a-bg: {{ section.settings.background }}; --a-fg: {{ section.settings.text }}; --a-tile: {{ section.settings.tile }};"
 >
   <header class="a-showcase__head">
-    <h2 class="a-showcase__title" data-a-reveal>
-      <span>{{ section.settings.heading | escape }}</span>
+    <h2 class="a-showcase__title">
+      <span data-a-reveal="blur">{{ section.settings.heading | escape }}</span>
       {%- if section.settings.heading_2 != blank -%}
-        <span>{{ section.settings.heading_2 | escape }}</span>
+        <span data-a-reveal="blur" style="--a-delay: 90ms;">{{ section.settings.heading_2 | escape }}</span>
       {%- endif -%}
     </h2>
     {%- if section.settings.show_signature -%}
@@ -25,8 +25,8 @@
         class="a-sig a-showcase__sig"
         role="img"
         aria-label="by Aneta &amp; Marína"
-        style="-webkit-mask-image: url('{{ 'by-aneta-marina-black.png' | asset_url }}'); mask-image: url('{{ 'by-aneta-marina-black.png' | asset_url }}');"
-        data-a-reveal
+        data-a-reveal="scale"
+        style="-webkit-mask-image: url('{{ 'by-aneta-marina-black.png' | asset_url }}'); mask-image: url('{{ 'by-aneta-marina-black.png' | asset_url }}'); --a-delay: 160ms;"
       ></span>
     {%- endif -%}
   </header>
@@ -35,13 +35,13 @@
     <ul class="a-rail__track" role="list" data-a-rail-track tabindex="0" aria-label="{{ section.settings.heading | escape }}">
       {%- if collection != blank and collection.products_count > 0 -%}
         {%- for product in collection.products limit: limit -%}
-          <li class="a-rail__item" data-a-reveal style="--a-delay: {{ forloop.index0 | at_most: 4 | times: 70 }}ms;">
+          <li class="a-rail__item" data-a-reveal="scale" style="--a-delay: {{ forloop.index0 | at_most: 4 | times: 80 }}ms;">
             {%- render 'armel-product-card', product: product -%}
           </li>
         {%- endfor -%}
       {%- else -%}
         {%- for i in (1..5) -%}
-          <li class="a-rail__item" data-a-reveal style="--a-delay: {{ forloop.index0 | at_most: 4 | times: 70 }}ms;">
+          <li class="a-rail__item" data-a-reveal="scale" style="--a-delay: {{ forloop.index0 | at_most: 4 | times: 80 }}ms;">
             <a class="a-card" href="{{ routes.all_products_collection_url }}">
               <div class="a-card__media">
                 {{ 'product-' | append: i | placeholder_svg_tag: 'a-card__placeholder' }}
@@ -57,7 +57,7 @@
     </ul>
   </div>
 
-  <div class="a-showcase__foot">
+  <div class="a-showcase__foot" data-a-reveal style="--a-delay: 120ms;">
     <div class="a-rail__nav" data-a-rail-nav hidden>
       <button class="a-icon-btn" type="button" data-a-rail-prev aria-label="Předchozí produkty">
         <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>

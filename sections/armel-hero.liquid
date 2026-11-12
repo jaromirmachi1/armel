@@ -163,12 +163,12 @@
   </header>
 
   <div class="armel-hero__intro">
-    <h1 class="armel-hero__title" data-a-reveal>{{ section.settings.heading | escape }}</h1>
+    <h1 class="armel-hero__title" data-a-reveal="blur">{{ section.settings.heading | escape }}</h1>
     {%- if section.settings.text != blank -%}
-      <p class="armel-hero__text" data-a-reveal style="--a-delay: 90ms;">{{ section.settings.text | escape }}</p>
+      <p class="armel-hero__text" data-a-reveal style="--a-delay: 100ms;">{{ section.settings.text | escape }}</p>
     {%- endif -%}
     {%- if section.settings.button_label != blank -%}
-      <a class="a-btn" href="{{ section.settings.button_link | default: '#a-products' }}" data-a-reveal style="--a-delay: 180ms;">
+      <a class="a-btn" href="{{ section.settings.button_link | default: '#a-products' }}" data-a-reveal="scale" style="--a-delay: 180ms;">
         {{- section.settings.button_label | escape -}}
       </a>
     {%- endif -%}
