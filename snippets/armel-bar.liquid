@@ -1,6 +1,6 @@
 {%- liquid
-  assign bar_id = section.id | default: 'store'
-  assign bar_home = home | default: false
+  assign bar_id = bar_id | default: 'store'
+  assign bar_home = is_home | default: false
 -%}
 
 <header class="armel-hero__bar" data-armel-bar>
@@ -30,9 +30,13 @@
       {%- if links != blank -%}
         {%- for block in links -%}
           {%- liquid
-            assign link_url = block.settings.link | default: '#'
+            assign link_url = block.settings.link
+            if link_url == blank
+              assign link_url = routes.root_url
+            endif
+            assign link_slash = link_url | append: '/'
             assign link_current = false
-            if request.path == link_url or request.path == link_url | append: '/'
+            if request.path == link_url or request.path == link_slash
               assign link_current = true
             endif
           -%}

@@ -26,7 +26,7 @@
     >
   {%- endif -%}
 
-  {% render 'armel-bar', links: section.blocks, home: true %}
+  {% render 'armel-bar', links: section.blocks, is_home: true, bar_id: section.id %}
 
   <div class="armel-hero__intro">
     <h1 class="armel-hero__title" data-a-reveal="blur">{{ section.settings.heading | escape }}</h1>
