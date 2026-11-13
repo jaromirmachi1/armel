@@ -96,6 +96,22 @@ html.a-js .armel-hero__sig {
   line-height: 1;
 }
 
+.armel-hero .armel-hero__bar::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: calc(100% + 72px);
+  pointer-events: none;
+  background: rgba(246, 241, 232, 0.35);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 42%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 42%, transparent 100%);
+}
+
 .armel-hero__start {
   display: flex;
   align-items: center;
@@ -129,20 +145,6 @@ html.a-js .armel-hero__sig {
   align-items: center;
   min-height: 44px;
   white-space: nowrap;
-}
-
-@media screen and (min-width: 1241px) {
-  .armel-hero .armel-hero__nav::before {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    inset: -2px -40px;
-    background: rgba(246, 241, 232, 0.62);
-    -webkit-backdrop-filter: blur(16px);
-    backdrop-filter: blur(16px);
-    -webkit-mask-image: radial-gradient(ellipse 94% 150% at 50% 50%, #000 58%, transparent 100%);
-    mask-image: radial-gradient(ellipse 94% 150% at 50% 50%, #000 58%, transparent 100%);
-  }
 }
 
 .armel-hero__nav a::after {
