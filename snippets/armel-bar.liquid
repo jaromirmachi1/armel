@@ -25,33 +25,14 @@
         <span></span>
         <span></span>
       </span>
-    </button>
+      </button>
 
-    <div class="armel-hero__mark">
-      <a
-        href="{{ routes.root_url }}"
-        {% if bar_home %}
-          aria-current="page"
-        {% endif %}
-      >
-        <img
-          class="armel-hero__logo"
-          src="{{ 'armel-logo.png' | asset_url }}"
-          alt="{{ 'accessibility.home_logo_alt' | t: store_name: shop.name }}"
-          width="240"
-          height="77"
-          decoding="async"
-        >
-      </a>
-    </div>
-  </div>
-
-  <nav
-    id="ArmelNav-{{ bar_id }}"
-    class="armel-hero__nav"
-    data-armel-nav
-    aria-label="{{ 'accessibility.header_navigation_label' | t }}"
-  >
+    <nav
+      id="ArmelNav-{{ bar_id }}"
+      class="armel-hero__nav"
+      data-armel-nav
+      aria-label="{{ 'accessibility.header_navigation_label' | t }}"
+    >
     {%- if links != blank -%}
       {%- for block in links -%}
         {%- liquid
@@ -85,6 +66,25 @@
       <a href="/pages/kontakt" {% if request.path == '/pages/kontakt' %}aria-current="page"{% endif %}>Kontakt</a>
     {%- endif -%}
   </nav>
+  </div>
+
+  <div class="armel-hero__mark">
+    <a
+      href="{{ routes.root_url }}"
+      {% if bar_home %}
+        aria-current="page"
+      {% endif %}
+    >
+      <img
+        class="armel-hero__logo"
+        src="{{ 'armel-logo.png' | asset_url }}"
+        alt="{{ 'accessibility.home_logo_alt' | t: store_name: shop.name }}"
+        width="240"
+        height="77"
+        decoding="async"
+      >
+    </a>
+  </div>
 
   <div class="armel-hero__tools">
     {%- if bar_switch -%}

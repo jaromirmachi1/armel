@@ -116,11 +116,17 @@ html.a-js .armel-hero__sig {
   display: flex;
   align-items: center;
   min-width: 0;
+  max-width: calc(50% - 84px);
 }
 
 .armel-hero__mark {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
   margin: 0;
   line-height: 0;
+  transform: translate(-50%, -50%);
 }
 
 .armel-hero__logo {
@@ -130,13 +136,9 @@ html.a-js .armel-hero__sig {
 }
 
 .armel-hero__nav {
-  position: absolute;
-  left: 50%;
-  top: 50%;
   display: flex;
   align-items: center;
-  gap: clamp(14px, 1.5vw, 26px);
-  transform: translate(-50%, -50%);
+  gap: 14px;
 }
 
 .armel-hero__nav a {
@@ -176,6 +178,7 @@ html.a-js .armel-hero__sig {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  max-width: calc(50% - 84px);
 }
 
 .armel-hero__locale,
@@ -465,7 +468,7 @@ html.a-js .armel-hero__sig {
   }
 }
 
-@media screen and (max-width: 1240px) {
+@media screen and (max-width: 1360px) {
   .armel-hero__toggle {
     display: inline-flex;
   }
