@@ -12,18 +12,39 @@
     "armel_hero": {
       "type": "armel-hero",
       "blocks": {
-        "link_kolekce": {
+        "link_domu": {
           "type": "link",
           "settings": {
-            "label": "Kolekce",
-            "link": "/collections"
+            "label": "Domů",
+            "link": "/"
           }
         },
-        "link_produkty": {
+        "link_vsechny": {
           "type": "link",
           "settings": {
-            "label": "Produkty",
+            "label": "Všechny produkty",
             "link": "/collections/all"
+          }
+        },
+        "link_pouzdra": {
+          "type": "link",
+          "settings": {
+            "label": "Kožená pouzdra",
+            "link": "/collections/kozena-pouzdra"
+          }
+        },
+        "link_doplnky": {
+          "type": "link",
+          "settings": {
+            "label": "Doplňky",
+            "link": "/collections/doplnky"
+          }
+        },
+        "link_zapisniky": {
+          "type": "link",
+          "settings": {
+            "label": "Zápisníky",
+            "link": "/collections/zapisniky"
           }
         },
         "link_onas": {
@@ -32,12 +53,23 @@
             "label": "O nás",
             "link": "/pages/o-nas"
           }
+        },
+        "link_kontakt": {
+          "type": "link",
+          "settings": {
+            "label": "Kontakt",
+            "link": "/pages/kontakt"
+          }
         }
       },
       "block_order": [
-        "link_kolekce",
-        "link_produkty",
-        "link_onas"
+        "link_domu",
+        "link_vsechny",
+        "link_pouzdra",
+        "link_doplnky",
+        "link_zapisniky",
+        "link_onas",
+        "link_kontakt"
       ],
       "settings": {}
     },

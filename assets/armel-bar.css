@@ -9,7 +9,7 @@
 
 .armel-page-bar {
   --armel-ink: #7d3031;
-  --armel-wall: #ffffff;
+  --armel-wall: #f6f1e8;
   --armel-ease: cubic-bezier(0.16, 1, 0.3, 1);
   --armel-m: clamp(20px, 3.2vw, 48px);
   position: relative;
@@ -23,8 +23,7 @@ html.a-js .armel-page-bar .armel-hero__bar,
 .armel-page-bar .armel-hero__bar {
   position: relative;
   top: auto;
-  padding-bottom: 18px;
-  background: var(--armel-wall);
+  background: #f6f1e8;
   animation: none;
 }
 
@@ -35,7 +34,7 @@ html.a-js .armel-page-bar .armel-hero__bar,
 
 .armel-page-bar a:focus-visible,
 .armel-page-bar button:focus-visible,
-.armel-page-bar select:focus-visible {
+.armel-page-bar summary:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 3px;
 }

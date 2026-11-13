@@ -81,7 +81,7 @@
           "type": "text",
           "id": "label",
           "label": "Label",
-          "default": "Kolekce"
+          "default": "Domů"
         },
         {
           "type": "url",
@@ -91,32 +91,18 @@
       ]
     }
   ],
-  "max_blocks": 5,
+  "max_blocks": 8,
   "presets": [
     {
       "name": "Armel hero",
       "blocks": [
-        {
-          "type": "link",
-          "settings": {
-            "label": "Kolekce",
-            "link": "/collections"
-          }
-        },
-        {
-          "type": "link",
-          "settings": {
-            "label": "Produkty",
-            "link": "/collections/all"
-          }
-        },
-        {
-          "type": "link",
-          "settings": {
-            "label": "O nás",
-            "link": "/pages/o-nas"
-          }
-        }
+        { "type": "link", "settings": { "label": "Domů", "link": "/" } },
+        { "type": "link", "settings": { "label": "Všechny produkty", "link": "/collections/all" } },
+        { "type": "link", "settings": { "label": "Kožená pouzdra", "link": "/collections/kozena-pouzdra" } },
+        { "type": "link", "settings": { "label": "Doplňky", "link": "/collections/doplnky" } },
+        { "type": "link", "settings": { "label": "Zápisníky", "link": "/collections/zapisniky" } },
+        { "type": "link", "settings": { "label": "O nás", "link": "/pages/o-nas" } },
+        { "type": "link", "settings": { "label": "Kontakt", "link": "/pages/kontakt" } }
       ]
     }
   ]

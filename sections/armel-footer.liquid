@@ -1,17 +1,6 @@
-{%- comment -%}
-  Armel footer: the last photograph, darkened, with the links on top and the silver name across the bottom.
-{%- endcomment -%}
 {%- render 'armel-home-assets' -%}
 
 <footer class="a-footer a-scope">
-  <div class="a-footer__media" aria-hidden="true" data-a-parallax="64">
-    {%- if section.settings.image != blank -%}
-      {{ section.settings.image | image_url: width: 2400 | image_tag: widths: '750, 1200, 1800, 2400', sizes: '100vw', loading: 'lazy', alt: '' }}
-    {%- else -%}
-      <img src="{{ 'armel-floor.jpg' | asset_url }}" alt="" width="2400" height="1888" loading="lazy" decoding="async">
-    {%- endif -%}
-  </div>
-
   <div class="a-footer__top">
     <h2 class="visually-hidden">Patička</h2>
     <div class="a-footer__cols">
@@ -67,7 +56,6 @@
   "tag": "section",
   "class": "a-section a-section--footer",
   "settings": [
-    { "type": "image_picker", "id": "image", "label": "Fotka na pozadí" },
     { "type": "text", "id": "legal", "label": "Copyright text", "default": "armel · by Aneta & Marína · ručně šito na Moravě" }
   ],
   "blocks": [

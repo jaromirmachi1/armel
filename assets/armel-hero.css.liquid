@@ -84,12 +84,14 @@ html.a-js .armel-hero__sig {
   z-index: 3;
   inset-inline: 0;
   top: 0;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 16px;
-  padding: max(18px, env(safe-area-inset-top)) var(--armel-m) 0;
-  font-size: 17px;
+  min-height: 72px;
+  padding: max(10px, env(safe-area-inset-top)) var(--armel-m) 10px;
+  background: #f6f1e8;
+  font-size: 15px;
   font-weight: 500;
   line-height: 1;
 }
@@ -103,24 +105,22 @@ html.a-js .armel-hero__sig {
 .armel-hero__mark {
   margin: 0;
   line-height: 0;
-  text-align: center;
-}
-
-.armel-hero__mark a {
-  display: inline-flex;
-  text-decoration: none;
 }
 
 .armel-hero__logo {
   display: block;
-  width: clamp(104px, 10vw, 152px);
+  width: clamp(92px, 8vw, 128px);
   height: auto;
 }
 
 .armel-hero__nav {
+  position: absolute;
+  left: 50%;
+  top: 50%;
   display: flex;
   align-items: center;
-  gap: clamp(16px, 2vw, 32px);
+  gap: clamp(14px, 1.5vw, 26px);
+  transform: translate(-50%, -50%);
 }
 
 .armel-hero__nav a {
@@ -128,6 +128,7 @@ html.a-js .armel-hero__sig {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
+  white-space: nowrap;
 }
 
 .armel-hero__nav a::after {
@@ -150,6 +151,11 @@ html.a-js .armel-hero__sig {
   text-decoration: none;
 }
 
+.armel-hero__mark a {
+  display: inline-flex;
+  text-decoration: none;
+}
+
 .armel-hero__tools {
   display: flex;
   align-items: center;
@@ -169,6 +175,81 @@ html.a-js .armel-hero__sig {
 
 .armel-hero__locale-form {
   margin: 0;
+}
+
+.armel-hero__switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-inline-end: 2px;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+}
+
+.armel-hero__switch--static {
+  min-height: 44px;
+  padding-inline: 4px;
+}
+
+.armel-hero__switch summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 4px;
+  list-style: none;
+  cursor: pointer;
+}
+
+.armel-hero__switch summary::-webkit-details-marker {
+  display: none;
+}
+
+.armel-hero__flag {
+  display: block;
+  width: 18px;
+  height: 12px;
+  box-shadow: 0 0 0 1px rgba(42, 18, 19, 0.16);
+}
+
+.armel-hero__chevron {
+  width: 10px;
+  height: 6px;
+  transition: transform 200ms var(--armel-ease);
+}
+
+.armel-hero__switch[open] .armel-hero__chevron {
+  transform: rotate(180deg);
+}
+
+.armel-hero__switch-panel {
+  position: absolute;
+  top: calc(100% - 6px);
+  right: 0;
+  z-index: 4;
+  display: grid;
+  min-width: 11rem;
+  margin: 0;
+  padding: 6px;
+  background: #f6f1e8;
+  box-shadow: 0 16px 40px rgba(42, 18, 19, 0.12);
+}
+
+.armel-hero__switch-panel button {
+  min-height: 40px;
+  padding: 0 10px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+.armel-hero__switch-panel button[aria-current='true'] {
+  font-weight: 600;
 }
 
 .armel-hero__icon-btn {
@@ -248,8 +329,14 @@ html.a-js .armel-hero__sig {
 }
 
 .armel-hero__icon-btn:active,
-.armel-hero__toggle:active {
-  transform: scale(0.94);
+.armel-hero__toggle:active,
+.armel-hero__switch summary:active {
+  transform: scale(0.97);
+}
+
+.armel-hero__bar :focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
 }
 
 /* ---------- intro ---------- */
@@ -303,8 +390,13 @@ html.a-js .armel-hero__sig {
   }
   .armel-hero__icon-btn:hover,
   .armel-hero__mark a:hover,
-  .armel-hero__locale-select:hover {
+  .armel-hero__locale-select:hover,
+  .armel-hero__switch summary:hover {
     opacity: 0.6;
+  }
+  .armel-hero__switch-panel button:hover {
+    background: rgba(125, 48, 49, 0.08);
+    opacity: 1;
   }
 }
 
@@ -355,21 +447,23 @@ html.a-js .armel-hero__sig {
     right: var(--armel-m);
     width: 150px;
   }
+}
 
+@media screen and (max-width: 1240px) {
   .armel-hero__toggle {
     display: inline-flex;
   }
 
   .armel-hero__nav {
-    position: absolute;
     top: 100%;
-    inset-inline: 0;
-    z-index: 1;
+    left: 0;
+    right: 0;
+    z-index: 2;
     flex-direction: column;
     align-items: flex-start;
     gap: 0;
     padding: 8px var(--armel-m) 20px;
-    background: var(--armel-wall);
+    background: #f6f1e8;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
@@ -393,15 +487,19 @@ html.a-js .armel-hero__sig {
 
 @media (prefers-reduced-motion: reduce) {
   .armel-hero__photo,
-  html.a-js .armel-hero__bar,
   html.a-js .armel-hero__sig {
     animation: none;
     transform: none;
     opacity: 1;
   }
+  html.a-js .armel-hero__bar {
+    animation: none;
+    opacity: 1;
+  }
   .armel-hero__nav,
   .armel-hero__nav a::after,
-  .armel-hero__toggle-bars span {
+  .armel-hero__toggle-bars span,
+  .armel-hero__chevron {
     transition: none;
   }
 }

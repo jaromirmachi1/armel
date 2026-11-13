@@ -272,8 +272,7 @@
   will-change: transform;
 }
 
-.a-js .a-closeup__media[data-a-parallax],
-.a-js .a-footer__media[data-a-parallax] {
+.a-js .a-closeup__media[data-a-parallax] {
   transform: translate3d(0, var(--a-py), 0);
 }
 
@@ -1046,7 +1045,7 @@
 }
 
 /* ==========================================================================
-   FOOTER (name across the last photograph)
+   FOOTER
    ========================================================================== */
 
 .a-footer {
@@ -1056,23 +1055,8 @@
   min-height: 100svh;
   padding: 32px var(--a-m) 28px;
   overflow: hidden;
-  isolation: isolate;
-  background: #1a1210;
+  background: var(--a-burgundy);
   color: var(--a-cream);
-}
-
-.a-footer__media {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-}
-
-.a-footer__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 45%;
-  filter: brightness(0.5);
 }
 
 .a-footer__cols {
