@@ -15,7 +15,7 @@
   position: relative;
   z-index: 30;
   color: var(--armel-ink);
-  background: var(--armel-wall);
+  background: transparent;
   font-family: var(--font-body--family), 'Montserrat', 'Avenir Next', 'Segoe UI', sans-serif;
 }
 
@@ -23,7 +23,7 @@ html.a-js .armel-page-bar .armel-hero__bar,
 .armel-page-bar .armel-hero__bar {
   position: relative;
   top: auto;
-  background: #f6f1e8;
+  background: transparent;
   animation: none;
 }
 
