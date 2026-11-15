@@ -12,13 +12,6 @@
     "armel_hero": {
       "type": "armel-hero",
       "blocks": {
-        "link_domu": {
-          "type": "link",
-          "settings": {
-            "label": "Domů",
-            "link": "/"
-          }
-        },
         "link_vsechny": {
           "type": "link",
           "settings": {
@@ -49,7 +42,6 @@
         }
       },
       "block_order": [
-        "link_domu",
         "link_vsechny",
         "link_pouzdra",
         "link_doplnky",

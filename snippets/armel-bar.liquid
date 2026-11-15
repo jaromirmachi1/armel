@@ -63,7 +63,6 @@
         </a>
       {%- endfor -%}
     {%- else -%}
-      <a href="{{ routes.root_url }}" {% if request.path == routes.root_url %}aria-current="page"{% endif %}>Domů</a>
       <a href="{{ routes.all_products_collection_url }}" {% if request.path == routes.all_products_collection_url %}aria-current="page"{% endif %} data-armel-collections aria-haspopup="dialog" aria-expanded="false" aria-controls="ArmelCollections-{{ bar_id }}">Všechny produkty</a>
       <a href="/collections/kozena-pouzdra" {% if request.path == '/collections/kozena-pouzdra' %}aria-current="page"{% endif %}>Kožená pouzdra</a>
       <a href="/collections/doplnky" {% if request.path == '/collections/doplnky' %}aria-current="page"{% endif %}>Doplňky</a>

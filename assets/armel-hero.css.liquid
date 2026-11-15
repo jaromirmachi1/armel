@@ -91,25 +91,11 @@ html.a-js .armel-hero__sig {
   min-height: 72px;
   padding: max(10px, env(safe-area-inset-top)) var(--armel-m) 10px;
   background: transparent;
+  /* Serapian-style hairline: inset shadow, not a blurred wash */
+  box-shadow: inset 0 -1px rgb(125 48 49 / 0.22);
   font-size: 15px;
   font-weight: 500;
   line-height: 1;
-}
-
-.armel-hero .armel-hero__bar::before {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: calc(100% + 72px);
-  pointer-events: none;
-  background: rgba(246, 241, 232, 0.35);
-  -webkit-backdrop-filter: blur(18px);
-  backdrop-filter: blur(18px);
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 42%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 42%, transparent 100%);
 }
 
 .armel-hero__start {
