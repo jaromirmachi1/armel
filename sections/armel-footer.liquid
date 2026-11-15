@@ -9,9 +9,14 @@
           <h3 class="a-footer__col-title">{{ block.settings.title | escape }}</h3>
           {%- if block.type == 'menu' -%}
             <ul role="list">
+              {%- assign has_returns = false -%}
               {%- for link in linklists[block.settings.menu].links -%}
+                {%- if link.url contains section.settings.returns_url -%}{%- assign has_returns = true -%}{%- endif -%}
                 <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
               {%- endfor -%}
+              {%- if block.settings.menu == 'footer' and section.settings.show_returns and has_returns == false -%}
+                <li><a href="{{ section.settings.returns_url }}">{{ section.settings.returns_label | escape }}</a></li>
+              {%- endif -%}
             </ul>
           {%- else -%}
             <div class="a-footer__rte">{{ block.settings.text }}</div>
@@ -29,9 +34,14 @@
         <nav class="a-footer__col" aria-label="Informace" data-a-reveal style="--a-delay: 70ms;">
           <h3 class="a-footer__col-title">Informace</h3>
           <ul role="list">
+            {%- assign has_returns = false -%}
             {%- for link in linklists.footer.links -%}
+              {%- if link.url contains section.settings.returns_url -%}{%- assign has_returns = true -%}{%- endif -%}
               <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
             {%- endfor -%}
+            {%- if section.settings.show_returns and has_returns == false -%}
+              <li><a href="{{ section.settings.returns_url }}">{{ section.settings.returns_label | escape }}</a></li>
+            {%- endif -%}
           </ul>
         </nav>
         <div class="a-footer__col" data-a-reveal style="--a-delay: 140ms;">
@@ -56,7 +66,10 @@
   "tag": "section",
   "class": "a-section a-section--footer",
   "settings": [
-    { "type": "text", "id": "legal", "label": "Copyright text", "default": "armel · by Aneta & Marína · ručně šito na Moravě" }
+    { "type": "text", "id": "legal", "label": "Copyright text", "default": "armel · by Aneta & Marína · ručně šito na Moravě" },
+    { "type": "checkbox", "id": "show_returns", "label": "Odkaz na Vrácení ve sloupci Informace", "info": "Přidá se jen tehdy, když už není v menu patičky.", "default": true },
+    { "type": "text", "id": "returns_label", "label": "Text odkazu", "default": "Vrácení a reklamace" },
+    { "type": "text", "id": "returns_url", "label": "Adresa stránky", "default": "/pages/vraceni" }
   ],
   "blocks": [
     {
