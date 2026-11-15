@@ -1,0 +1,288 @@
+/* Armel returns page */
+
+.a-ret {
+  --a-bg: #efedea;
+  --a-fg: #3a1516;
+  padding: clamp(48px, 7vw, 104px) var(--a-m) clamp(72px, 8vw, 128px);
+}
+
+.a-ret__inner {
+  display: grid;
+  gap: clamp(40px, 5vw, 64px);
+  width: min(100%, 760px);
+  margin: 0 auto;
+}
+
+.a-ret__head {
+  display: grid;
+  gap: 18px;
+}
+
+.a-ret__title {
+  margin: 0;
+  font-family: var(--a-display, var(--a-sans));
+  font-size: var(--fs-display);
+  font-weight: var(--a-display-weight, 600);
+  font-size-adjust: var(--a-display-adjust, none);
+  letter-spacing: var(--a-display-tracking, -0.015em);
+  line-height: 1.1;
+  color: var(--a-burgundy);
+  text-wrap: balance;
+}
+
+.a-ret__intro p,
+.a-ret__rte p {
+  margin: 0 0 0.8em;
+}
+
+.a-ret__intro p:last-child,
+.a-ret__rte p:last-child {
+  margin-bottom: 0;
+}
+
+.a-ret__intro {
+  max-width: 58ch;
+  font-size: var(--fs-sub);
+  line-height: 1.6;
+}
+
+.a-ret__rte a {
+  color: var(--a-burgundy);
+  text-underline-offset: 3px;
+}
+
+/* ---------- info cards ---------- */
+.a-ret__cards {
+  display: grid;
+  gap: 12px;
+}
+
+.a-ret__card {
+  display: grid;
+  gap: 10px;
+  padding: clamp(20px, 2.4vw, 28px);
+  background: #fff;
+}
+
+.a-ret__card--accent {
+  background: var(--a-burgundy);
+  color: var(--a-cream);
+}
+
+.a-ret__card--accent .a-ret__rte a {
+  color: inherit;
+}
+
+.a-ret__card--note {
+  background: #e4e2df;
+}
+
+.a-ret__card-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  font-family: var(--a-sans);
+  font-size: var(--fs-sub);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.a-ret__card .a-ret__rte,
+.a-ret__address {
+  padding-left: calc(0.72em + 12px);
+  font-size: var(--fs-body);
+  line-height: 1.65;
+}
+
+.a-ret__address {
+  font-style: normal;
+  font-weight: 600;
+}
+
+/* ---------- form ---------- */
+.a-ret__h2 {
+  margin: 0 0 10px;
+  font-family: var(--a-display, var(--a-sans));
+  font-size: var(--fs-title);
+  font-weight: var(--a-display-weight, 600);
+  font-size-adjust: var(--a-display-adjust, none);
+  letter-spacing: var(--a-display-tracking, -0.01em);
+  line-height: 1.15;
+  color: var(--a-burgundy);
+}
+
+.a-ret__form-intro {
+  margin: 0 0 28px;
+  max-width: 58ch;
+}
+
+.a-ret__form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 18px;
+}
+
+.a-ret__field {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.a-ret__field--wide,
+.a-ret__error,
+.a-ret__actions {
+  grid-column: 1 / -1;
+}
+
+.a-ret__field label {
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.a-ret__opt {
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  opacity: 0.7;
+}
+
+.a-ret__field input,
+.a-ret__field textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid rgb(58 21 22 / 0.22);
+  border-radius: 0;
+  background: #fff;
+  color: var(--a-ink);
+  font: 400 15px/1.4 var(--a-sans);
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.a-ret__field textarea {
+  resize: vertical;
+}
+
+.a-ret__field input:focus,
+.a-ret__field textarea:focus {
+  outline: none;
+  border-color: var(--a-burgundy);
+  box-shadow: 0 0 0 3px rgb(125 48 49 / 0.15);
+}
+
+.a-ret__form.is-checked :invalid {
+  border-color: #b3261e;
+}
+
+.a-ret__error {
+  margin: 0;
+  color: #b3261e;
+  font-weight: 600;
+}
+
+.a-ret__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.a-btn--ghost {
+  background: transparent;
+  color: var(--a-burgundy) !important;
+  box-shadow: inset 0 0 0 1px var(--a-burgundy);
+}
+
+.a-btn--ghost::before {
+  background: var(--a-burgundy);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .a-btn--ghost:hover {
+    color: var(--a-cream) !important;
+  }
+}
+
+.a-ret__after {
+  margin-top: 24px;
+  font-size: var(--fs-small);
+  line-height: 1.6;
+}
+
+.a-ret__claims {
+  padding-top: clamp(32px, 4vw, 48px);
+  box-shadow: inset 0 1px rgb(58 21 22 / 0.15);
+}
+
+.a-ret__sheet {
+  display: none;
+}
+
+@media screen and (max-width: 649px) {
+  .a-ret__form {
+    grid-template-columns: 1fr;
+  }
+  .a-ret__actions .a-btn {
+    width: 100%;
+  }
+}
+
+/* ---------- print: only the filled-in statutory form ---------- */
+@media print {
+  html.a-ret-printing,
+  html.a-ret-printing body {
+    height: auto !important;
+    overflow: visible !important;
+    background: #fff !important;
+  }
+
+  html.a-ret-printing body > *:not(.a-ret__sheet--print) {
+    display: none !important;
+  }
+
+  .a-ret__sheet--print {
+    display: block !important;
+    color: #000;
+    font: 11pt/1.5 Arial, sans-serif;
+  }
+
+  .a-ret__sheet h1 {
+    margin: 0 0 4pt;
+    font-size: 16pt;
+  }
+
+  .a-ret__sheet-note {
+    margin: 0 0 18pt;
+    font-size: 9pt;
+  }
+
+  .a-ret__sheet dl {
+    margin: 0;
+  }
+
+  .a-ret__sheet dt {
+    margin-top: 12pt;
+    font-weight: 700;
+  }
+
+  .a-ret__sheet dd {
+    margin: 2pt 0 0;
+    min-height: 14pt;
+  }
+
+  .a-ret__sign {
+    padding-top: 36pt;
+    border-bottom: 1px solid #000;
+    width: 60%;
+    font-size: 8pt;
+  }
+
+  @page {
+    margin: 18mm;
+  }
+}

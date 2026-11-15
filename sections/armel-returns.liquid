@@ -1,0 +1,245 @@
+{%- comment -%}
+  Armel returns: what the customer needs to know, plus a form that fills in the statutory
+  withdrawal notice (vzorový formulář, příloha NV 363/2013 Sb.) to print / save as PDF or send by e-mail.
+  Nothing is sent to a server: the data stays in the visitor's browser.
+{%- endcomment -%}
+{%- render 'armel-home-assets' -%}
+{{ 'armel-returns.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign seller = section.settings.seller | default: shop.name
+  assign email = section.settings.email | default: shop.email
+-%}
+
+<div class="a-ret a-scope" data-a-returns>
+  <div class="a-ret__inner">
+    <header class="a-ret__head">
+      <h1 class="a-ret__title" data-a-reveal>{{ section.settings.title | escape }}</h1>
+      {%- if section.settings.intro != blank -%}
+        <div class="a-ret__intro" data-a-reveal style="--a-delay: 80ms;">{{ section.settings.intro }}</div>
+      {%- endif -%}
+    </header>
+
+    <div class="a-ret__cards">
+      <section class="a-ret__card" data-a-reveal>
+        <h2 class="a-ret__card-title"><span class="a-rivet" aria-hidden="true"></span>{{ section.settings.days_title | escape }}</h2>
+        <div class="a-ret__rte">{{ section.settings.days_text }}</div>
+      </section>
+
+      <section class="a-ret__card a-ret__card--accent" data-a-reveal style="--a-delay: 70ms;">
+        <h2 class="a-ret__card-title"><span class="a-rivet" aria-hidden="true"></span>{{ section.settings.address_title | escape }}</h2>
+        <address class="a-ret__address">{{ section.settings.address | newline_to_br }}</address>
+        {%- if section.settings.address_text != blank -%}
+          <div class="a-ret__rte">{{ section.settings.address_text }}</div>
+        {%- endif -%}
+      </section>
+
+      {%- if section.settings.exception_text != blank -%}
+        <section class="a-ret__card a-ret__card--note" data-a-reveal style="--a-delay: 140ms;">
+          <h2 class="a-ret__card-title"><span class="a-rivet" aria-hidden="true"></span>{{ section.settings.exception_title | escape }}</h2>
+          <div class="a-ret__rte">{{ section.settings.exception_text }}</div>
+        </section>
+      {%- endif -%}
+    </div>
+
+    <section class="a-ret__form-wrap" aria-labelledby="ArmelReturnsForm-{{ section.id }}">
+      <h2 class="a-ret__h2" id="ArmelReturnsForm-{{ section.id }}">{{ section.settings.form_title | escape }}</h2>
+      {%- if section.settings.form_intro != blank -%}
+        <p class="a-ret__form-intro">{{ section.settings.form_intro | escape }}</p>
+      {%- endif -%}
+
+      <form class="a-ret__form" data-a-ret-form novalidate>
+        <div class="a-ret__field">
+          <label for="ret-order-{{ section.id }}">Číslo objednávky</label>
+          <input id="ret-order-{{ section.id }}" name="order" type="text" required placeholder="např. #1024" autocomplete="off">
+        </div>
+        <div class="a-ret__field">
+          <label for="ret-name-{{ section.id }}">Jméno a příjmení</label>
+          <input id="ret-name-{{ section.id }}" name="name" type="text" required autocomplete="name">
+        </div>
+        <div class="a-ret__field a-ret__field--wide">
+          <label for="ret-address-{{ section.id }}">Adresa (ulice, město, PSČ)</label>
+          <input id="ret-address-{{ section.id }}" name="address" type="text" required autocomplete="street-address">
+        </div>
+        <div class="a-ret__field">
+          <label for="ret-email-{{ section.id }}">E-mail</label>
+          <input id="ret-email-{{ section.id }}" name="email" type="email" required autocomplete="email">
+        </div>
+        <div class="a-ret__field">
+          <label for="ret-phone-{{ section.id }}">Telefon <span class="a-ret__opt">(nepovinné)</span></label>
+          <input id="ret-phone-{{ section.id }}" name="phone" type="tel" autocomplete="tel">
+        </div>
+        <div class="a-ret__field">
+          <label for="ret-ordered-{{ section.id }}">Datum objednání</label>
+          <input id="ret-ordered-{{ section.id }}" name="ordered" type="date" required>
+        </div>
+        <div class="a-ret__field">
+          <label for="ret-received-{{ section.id }}">Datum převzetí zboží</label>
+          <input id="ret-received-{{ section.id }}" name="received" type="date" required>
+        </div>
+        <div class="a-ret__field a-ret__field--wide">
+          <label for="ret-items-{{ section.id }}">Vracené zboží (název, počet kusů)</label>
+          <textarea id="ret-items-{{ section.id }}" name="items" rows="3" required></textarea>
+        </div>
+        <div class="a-ret__field a-ret__field--wide">
+          <label for="ret-reason-{{ section.id }}">Důvod vrácení <span class="a-ret__opt">(nepovinné, pomůže nám)</span></label>
+          <textarea id="ret-reason-{{ section.id }}" name="reason" rows="2"></textarea>
+        </div>
+
+        <p class="a-ret__error" data-a-ret-error role="alert" hidden>Vyplň prosím všechna povinná pole.</p>
+
+        <div class="a-ret__actions">
+          <button class="a-btn" type="submit" data-a-ret-print>Vytvořit formulář (PDF)</button>
+          <button class="a-btn a-btn--ghost" type="button" data-a-ret-mail>Poslat e-mailem</button>
+        </div>
+      </form>
+
+      {%- if section.settings.after_text != blank -%}
+        <div class="a-ret__after a-ret__rte">{{ section.settings.after_text }}</div>
+      {%- endif -%}
+    </section>
+
+    {%- if section.settings.claims_text != blank -%}
+      <section class="a-ret__claims">
+        <h2 class="a-ret__h2">{{ section.settings.claims_title | escape }}</h2>
+        <div class="a-ret__rte">{{ section.settings.claims_text }}</div>
+      </section>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} Print-only sheet: the statutory model form, filled in by the script. {%- endcomment -%}
+  <div class="a-ret__sheet" data-a-ret-sheet aria-hidden="true">
+    <h1>Oznámení o odstoupení od smlouvy</h1>
+    <p class="a-ret__sheet-note">(vyplňte tento formulář a pošlete jej zpět pouze v případě, že chcete odstoupit od smlouvy)</p>
+    <dl>
+      <dt>Adresát</dt>
+      <dd>{{ seller | escape }}<br>{{ section.settings.address | newline_to_br }}<br>{{ email | escape }}</dd>
+      <dt>Oznámení</dt>
+      <dd>Oznamuji, že tímto odstupuji od smlouvy o nákupu tohoto zboží:<br><strong data-f="items"></strong></dd>
+      <dt>Číslo objednávky</dt><dd data-f="order"></dd>
+      <dt>Datum objednání / datum obdržení</dt><dd><span data-f="ordered"></span> / <span data-f="received"></span></dd>
+      <dt>Jméno a příjmení spotřebitele</dt><dd data-f="name"></dd>
+      <dt>Adresa spotřebitele</dt><dd data-f="address"></dd>
+      <dt>E-mail / telefon</dt><dd><span data-f="email"></span> <span data-f="phone"></span></dd>
+      <dt>Důvod (nepovinné)</dt><dd data-f="reason"></dd>
+      <dt>Podpis spotřebitele</dt><dd class="a-ret__sign">(pouze pokud je formulář zasílán v listinné podobě)</dd>
+      <dt>Datum</dt><dd data-f="today"></dd>
+    </dl>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var root = document.currentScript.previousElementSibling;
+    if (!root || !root.matches('[data-a-returns]')) return;
+    var form = root.querySelector('[data-a-ret-form]');
+    var sheet = root.querySelector('[data-a-ret-sheet]');
+    var error = root.querySelector('[data-a-ret-error]');
+    var mailTo = {{ email | json }};
+
+    function fmt(v) {
+      if (/^\d{4}-\d{2}-\d{2}$/.test(v)) {
+        var p = v.split('-');
+        return Number(p[2]) + '. ' + Number(p[1]) + '. ' + p[0];
+      }
+      return v;
+    }
+    function data() {
+      var d = {};
+      new FormData(form).forEach(function (v, k) { d[k] = String(v).trim(); });
+      d.ordered = fmt(d.ordered || '');
+      d.received = fmt(d.received || '');
+      var t = new Date();
+      d.today = t.getDate() + '. ' + (t.getMonth() + 1) + '. ' + t.getFullYear();
+      return d;
+    }
+    function valid() {
+      var ok = form.checkValidity();
+      error.hidden = ok;
+      if (!ok) {
+        var first = form.querySelector(':invalid');
+        if (first) first.focus();
+      }
+      form.classList.toggle('is-checked', true);
+      return ok;
+    }
+    function fill(d) {
+      sheet.querySelectorAll('[data-f]').forEach(function (el) {
+        el.textContent = d[el.getAttribute('data-f')] || '';
+      });
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!valid()) return;
+      fill(data());
+      /* print a detached copy so nothing else on the page takes up paper */
+      var old = document.querySelector('body > .a-ret__sheet--print');
+      if (old) old.remove();
+      var copy = sheet.cloneNode(true);
+      copy.classList.add('a-ret__sheet--print');
+      copy.removeAttribute('data-a-ret-sheet');
+      document.body.appendChild(copy);
+      document.documentElement.classList.add('a-ret-printing');
+      window.print();
+    });
+    window.addEventListener('afterprint', function () {
+      document.documentElement.classList.remove('a-ret-printing');
+      var copy = document.querySelector('body > .a-ret__sheet--print');
+      if (copy) copy.remove();
+    });
+
+    root.querySelector('[data-a-ret-mail]').addEventListener('click', function () {
+      if (!valid()) return;
+      var d = data();
+      var body = [
+        'Oznámení o odstoupení od smlouvy',
+        '',
+        'Oznamuji, že tímto odstupuji od smlouvy o nákupu tohoto zboží: ' + d.items,
+        'Číslo objednávky: ' + d.order,
+        'Datum objednání: ' + d.ordered + ' / datum obdržení: ' + d.received,
+        'Jméno a příjmení: ' + d.name,
+        'Adresa: ' + d.address,
+        'E-mail: ' + d.email + (d.phone ? ' / telefon: ' + d.phone : ''),
+        d.reason ? 'Důvod: ' + d.reason : '',
+        '',
+        'Datum: ' + d.today
+      ].join('\n');
+      window.location.href = 'mailto:' + mailTo +
+        '?subject=' + encodeURIComponent('Odstoupení od smlouvy – objednávka ' + d.order) +
+        '&body=' + encodeURIComponent(body);
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Armel – vrácení",
+  "tag": "section",
+  "class": "a-section a-section--returns",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Nadpis", "default": "Vrácení a odstoupení od smlouvy" },
+    { "type": "richtext", "id": "intro", "label": "Úvod", "default": "<p>Kousek ti nesedí? Nevadí. Každý je ušitý ručně a jen jednou, takže chceme, aby si našel někoho, komu udělá radost. Tady je všechno, co k vrácení potřebuješ.</p>" },
+    { "type": "header", "content": "Lhůta" },
+    { "type": "text", "id": "days_title", "label": "Nadpis", "default": "Máš 14 dnů na vrácení" },
+    { "type": "richtext", "id": "days_text", "label": "Text", "default": "<p>Zboží zakoupené přes e-shop můžeš vrátit do 14 dnů od převzetí bez udání důvodu. Stačí nám v té lhůtě dát vědět (formulářem níže nebo e-mailem) a zboží poslat zpět. Peníze vrátíme do 14 dnů od odstoupení, stejnou cestou, jakou jsi platil(a); můžeme počkat, než nám zboží dorazí.</p>" },
+    { "type": "header", "content": "Adresa pro vrácení" },
+    { "type": "text", "id": "address_title", "label": "Nadpis", "default": "Kam zásilku poslat" },
+    { "type": "textarea", "id": "address", "label": "Adresa", "default": "DOPLNIT: obchodní jméno\nDOPLNIT: ulice a číslo\nDOPLNIT: PSČ a město" },
+    { "type": "richtext", "id": "address_text", "label": "Text pod adresou", "default": "<p>Dopravce si vybereš sám(a). Náklady na vrácení nese kupující. Zboží zabal tak, aby se cestou nepoškodilo, a nezapomeň přiložit vyplněný formulář.</p>" },
+    { "type": "header", "content": "Výjimka" },
+    { "type": "text", "id": "exception_title", "label": "Nadpis", "default": "Kousky na zakázku" },
+    { "type": "richtext", "id": "exception_text", "label": "Text", "default": "<p>Od kousků ušitých na přání (vlastní rozměr, kůže, iniciály) nelze podle § 1837 občanského zákoníku odstoupit. Týká se to jen zakázek; všechno, co koupíš přímo v e-shopu, vrátit můžeš.</p>" },
+    { "type": "header", "content": "Formulář" },
+    { "type": "text", "id": "form_title", "label": "Nadpis", "default": "Vyplň údaje" },
+    { "type": "text", "id": "form_intro", "label": "Text", "default": "Údaje se doplní do oficiálního formuláře pro odstoupení. Nikam se neodesílají, zůstávají jen v tvém prohlížeči." },
+    { "type": "richtext", "id": "after_text", "label": "Text pod formulářem", "default": "<p>V tiskovém dialogu zvol „Uložit jako PDF“, nebo formulář rovnou vytiskni a přilož k zásilce. Případně ho pošli e-mailem. S čímkoli poradíme na <a href=\"mailto:thearmel.info@gmail.com\">thearmel.info@gmail.com</a>.</p>" },
+    { "type": "text", "id": "seller", "label": "Prodávající (do formuláře)", "info": "Obchodní jméno, případně i IČO. Bez vyplnění se použije název obchodu." },
+    { "type": "text", "id": "email", "label": "E-mail pro vrácení", "default": "thearmel.info@gmail.com" },
+    { "type": "header", "content": "Reklamace" },
+    { "type": "text", "id": "claims_title", "label": "Nadpis", "default": "Reklamace" },
+    { "type": "richtext", "id": "claims_text", "label": "Text", "default": "<p>Na zboží máš zákonnou záruku 24 měsíců od převzetí. Když se něco pokazí, napiš nám s číslem objednávky a fotkou vady. Reklamaci vyřídíme bez zbytečného odkladu, nejpozději do 30 dnů. Drobné nepravidelnosti kůže a srsti nejsou vada, jsou to znaky ručně zpracovaného přírodního materiálu.</p>" }
+  ],
+  "presets": [{ "name": "Armel – vrácení" }]
+}
+{% endschema %}
