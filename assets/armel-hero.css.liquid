@@ -552,6 +552,63 @@ html.a-js .armel-hero__sig {
   }
 }
 
+/* ---------- sticky bar: transparent over the photo, white once you scroll ----------
+   A white layer slides down behind the bar (Serapian-style), the logo settles a touch smaller.
+   Transitions only switch on after the first frame, so a reload mid-page doesn't animate. */
+.armel-hero-section {
+  position: relative;
+  z-index: 20; /* keeps the fixed bar above the sections that follow */
+}
+
+.armel-hero__bar {
+  position: fixed;
+  isolation: isolate;
+}
+
+.armel-hero__bar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: #ffffff;
+  transform: translate3d(0, -101%, 0);
+  pointer-events: none;
+}
+
+.armel-hero__bar[data-scrolled]::before {
+  transform: none;
+}
+
+.armel-hero__bar[data-scrolled] {
+  box-shadow: inset 0 -1px rgb(125 48 49 / 0.12);
+}
+
+.armel-hero__bar[data-scrolled] .armel-hero__mark {
+  transform: translate(-50%, -50%) scale(0.86);
+}
+
+.armel-hero__bar[data-bar-ready] {
+  transition: box-shadow 560ms var(--armel-ease);
+}
+
+.armel-hero__bar[data-bar-ready]::before {
+  transition: transform 640ms var(--armel-ease);
+}
+
+.armel-hero__bar[data-bar-ready] .armel-hero__mark {
+  transition: transform 640ms var(--armel-ease);
+}
+
+.armel-hero__bar[data-scrolled] .armel-hero__panel {
+  background: #ffffff;
+}
+
+@media screen and (max-width: 989px) {
+  .armel-hero__bar[data-scrolled] .armel-hero__nav {
+    background: #ffffff;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .armel-hero__photo,
   html.a-js .armel-hero__sig {
@@ -562,6 +619,11 @@ html.a-js .armel-hero__sig {
   html.a-js .armel-hero__bar {
     animation: none;
     opacity: 1;
+  }
+  .armel-hero__bar,
+  .armel-hero__bar::before,
+  .armel-hero__mark {
+    transition: none !important;
   }
   .armel-hero__nav,
   .armel-hero__nav a::after,

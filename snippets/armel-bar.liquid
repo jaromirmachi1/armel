@@ -233,6 +233,25 @@
   (function () {
     var bar = document.currentScript && document.currentScript.previousElementSibling;
     if (!bar) return;
+    /* Transparent at the top of the page, white once the visitor scrolls a little. */
+    var ticking = false;
+    function syncScrolled() {
+      ticking = false;
+      if (window.scrollY > 24) bar.setAttribute('data-scrolled', '');
+      else bar.removeAttribute('data-scrolled');
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(syncScrolled);
+      }
+    }, { passive: true });
+    syncScrolled();
+    /* switch transitions on only after the first paint, so a reload mid-page doesn't animate */
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () { bar.setAttribute('data-bar-ready', ''); });
+    });
+
     var button = bar.querySelector('[data-armel-toggle]');
     var nav = bar.querySelector('[data-armel-nav]');
     if (!button || !nav) return;

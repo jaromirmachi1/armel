@@ -12,7 +12,8 @@
   --armel-wall: #f6f1e8;
   --armel-ease: cubic-bezier(0.16, 1, 0.3, 1);
   --armel-m: clamp(20px, 3.2vw, 48px);
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 30;
   color: var(--armel-ink);
   background: transparent;
@@ -25,6 +26,29 @@ html.a-js .armel-page-bar .armel-hero__bar,
   top: auto;
   background: transparent;
   animation: none;
+}
+
+/* other pages: same white layer sliding down once you scroll */
+.armel-page-bar .armel-hero__bar {
+  isolation: isolate;
+}
+
+.armel-page-bar .armel-hero__bar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: #ffffff;
+  transform: translate3d(0, -101%, 0);
+  pointer-events: none;
+}
+
+.armel-page-bar .armel-hero__bar[data-scrolled]::before {
+  transform: none;
+}
+
+.armel-page-bar .armel-hero__bar[data-bar-ready]::before {
+  transition: transform 640ms var(--armel-ease);
 }
 
 .armel-page-bar .armel-hero__nav a[aria-current='page']::after {
@@ -42,5 +66,8 @@ html.a-js .armel-page-bar .armel-hero__bar,
 @media (prefers-reduced-motion: reduce) {
   .armel-page-bar .armel-hero__bar {
     animation: none;
+  }
+  .armel-page-bar .armel-hero__bar::before {
+    transition: none !important;
   }
 }
