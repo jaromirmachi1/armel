@@ -219,5 +219,15 @@
         {% render 'quick-add-modal' %}
       {% endif %}
     {%- endunless -%}
+    {%- if settings.armel_smooth_scroll != false and request.design_mode == false -%}
+      <style>
+        .page-wrapper.lenis, html.lenis { scroll-behavior: auto !important; }
+        .lenis.lenis-stopped { overflow: clip; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-smooth iframe { pointer-events: none; }
+      </style>
+      <script src="{{ 'armel-lenis.min.js' | asset_url }}" defer></script>
+      <script src="{{ 'armel-smooth.js' | asset_url }}" defer></script>
+    {%- endif -%}
   </body>
 </html>

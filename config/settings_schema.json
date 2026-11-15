@@ -20,7 +20,7 @@
     ]
   },
   {
-    "name": "Armel – písmo",
+    "name": "Armel – písmo a pohyb",
     "settings": [
       {
         "type": "select",
@@ -46,6 +46,13 @@
         "type": "checkbox",
         "id": "armel_nav_uppercase",
         "label": "Menu velkými písmeny",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "armel_smooth_scroll",
+        "label": "Plynulé scrollování (Lenis)",
+        "info": "Jen na počítači s myší nebo trackpadem. Na mobilu zůstává nativní scroll.",
         "default": true
       }
     ]
