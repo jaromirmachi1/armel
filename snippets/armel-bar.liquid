@@ -234,18 +234,27 @@
     var bar = document.currentScript && document.currentScript.previousElementSibling;
     if (!bar) return;
     /* Transparent at the top of the page, white once the visitor scrolls a little. */
+    /* Horizon scrolls .page-wrapper (not the window) from 990px up, so listen to whichever scrolls. */
+    var wrapper = bar.closest('.page-wrapper') || document.querySelector('.page-wrapper');
     var ticking = false;
+    function scrollTop() {
+      var w = wrapper ? wrapper.scrollTop : 0;
+      return Math.max(w, window.scrollY || document.documentElement.scrollTop || 0);
+    }
     function syncScrolled() {
       ticking = false;
-      if (window.scrollY > 24) bar.setAttribute('data-scrolled', '');
+      if (scrollTop() > 24) bar.setAttribute('data-scrolled', '');
       else bar.removeAttribute('data-scrolled');
     }
-    window.addEventListener('scroll', function () {
+    function onScroll() {
       if (!ticking) {
         ticking = true;
         requestAnimationFrame(syncScrolled);
       }
-    }, { passive: true });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    if (wrapper) wrapper.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
     syncScrolled();
     /* switch transitions on only after the first paint, so a reload mid-page doesn't animate */
     requestAnimationFrame(function () {

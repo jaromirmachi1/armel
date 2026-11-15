@@ -172,6 +172,9 @@
     }
     if (parallaxEls.length === 1) {
       window.addEventListener('scroll', onParallaxScroll, { passive: true });
+      /* Horizon scrolls .page-wrapper instead of the window from 990px up */
+      var wrapper = document.querySelector('.page-wrapper');
+      if (wrapper) wrapper.addEventListener('scroll', onParallaxScroll, { passive: true });
       window.addEventListener('resize', onParallaxScroll);
     }
     parallaxMeasure();
