@@ -162,6 +162,63 @@ html.a-js .armel-hero__sig {
   transition: transform 420ms var(--armel-ease);
 }
 
+.armel-hero__panel {
+  position: absolute;
+  z-index: 4;
+  top: 100%;
+  left: 0;
+  right: 0;
+  padding: 6px var(--armel-m) 22px;
+  background: rgba(246, 241, 232, 0.94);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity 220ms var(--armel-ease), transform 220ms var(--armel-ease), visibility 0s 220ms;
+}
+
+.armel-hero__bar[data-collections-open] .armel-hero__panel {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: none;
+  transition: opacity 220ms var(--armel-ease), transform 220ms var(--armel-ease);
+}
+
+.armel-hero__panel ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.armel-hero__panel a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: inherit;
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.armel-hero__panel a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 420ms var(--armel-ease);
+}
+
 .armel-hero__nav a,
 .armel-hero__locale,
 .armel-hero__locale-select {
@@ -403,7 +460,8 @@ html.a-js .armel-hero__sig {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .armel-hero__nav a:hover::after {
+  .armel-hero__nav a:hover::after,
+  .armel-hero__panel a:hover::after {
     transform: scaleX(1);
     transform-origin: left;
   }
@@ -473,6 +531,10 @@ html.a-js .armel-hero__sig {
     display: inline-flex;
   }
 
+  .armel-hero__panel {
+    display: none;
+  }
+
   .armel-hero__nav {
     top: 100%;
     left: 0;
@@ -517,6 +579,8 @@ html.a-js .armel-hero__sig {
   }
   .armel-hero__nav,
   .armel-hero__nav a::after,
+  .armel-hero__panel,
+  .armel-hero__panel a::after,
   .armel-hero__toggle-bars span,
   .armel-hero__chevron {
     transition: none;

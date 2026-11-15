@@ -51,6 +51,12 @@
           {% if link_current %}
             aria-current="page"
           {% endif %}
+          {% if link_url == routes.all_products_collection_url or link_url contains '/collections/all' %}
+            data-armel-collections
+            aria-haspopup="dialog"
+            aria-expanded="false"
+            aria-controls="ArmelCollections-{{ bar_id }}"
+          {% endif %}
           {{ block.shopify_attributes }}
         >
           {{ block.settings.label | escape }}
@@ -58,7 +64,7 @@
       {%- endfor -%}
     {%- else -%}
       <a href="{{ routes.root_url }}" {% if request.path == routes.root_url %}aria-current="page"{% endif %}>Domů</a>
-      <a href="{{ routes.all_products_collection_url }}" {% if request.path == routes.all_products_collection_url %}aria-current="page"{% endif %}>Všechny produkty</a>
+      <a href="{{ routes.all_products_collection_url }}" {% if request.path == routes.all_products_collection_url %}aria-current="page"{% endif %} data-armel-collections aria-haspopup="dialog" aria-expanded="false" aria-controls="ArmelCollections-{{ bar_id }}">Všechny produkty</a>
       <a href="/collections/kozena-pouzdra" {% if request.path == '/collections/kozena-pouzdra' %}aria-current="page"{% endif %}>Kožená pouzdra</a>
       <a href="/collections/doplnky" {% if request.path == '/collections/doplnky' %}aria-current="page"{% endif %}>Doplňky</a>
       <a href="/collections/zapisniky" {% if request.path == '/collections/zapisniky' %}aria-current="page"{% endif %}>Zápisníky</a>
@@ -196,6 +202,34 @@
       </a>
     {%- endif -%}
   </div>
+
+  <div
+    class="armel-hero__panel"
+    id="ArmelCollections-{{ bar_id }}"
+    data-armel-panel
+    role="dialog"
+    aria-label="Kolekce"
+    aria-hidden="true"
+  >
+    <ul role="list">
+      {%- assign armel_catalog_count = 0 -%}
+      {%- for link in linklists.main-menu.links -%}
+        {%- if link.url contains '/collections/' -%}
+          {%- unless link.url contains '/collections/all' or link.url == routes.collections_url -%}
+            {%- assign armel_catalog_count = armel_catalog_count | plus: 1 -%}
+            <li>
+              <a href="{{ link.url }}">{{ link.title | escape }}</a>
+            </li>
+          {%- endunless -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if armel_catalog_count == 0 -%}
+        <li><a href="/collections/kozena-pouzdra">Kožená pouzdra</a></li>
+        <li><a href="/collections/doplnky">Doplňky</a></li>
+        <li><a href="/collections/zapisniky">Zápisníky</a></li>
+      {%- endif -%}
+    </ul>
+  </div>
 </header>
 
 <script>
@@ -246,6 +280,48 @@
 
     nav.addEventListener('click', function (event) {
       if (event.target.closest('a')) setOpen(false);
+    });
+
+    var catalog = bar.querySelector('[data-armel-collections]');
+    var panel = bar.querySelector('[data-armel-panel]');
+    var catalogTimer;
+    var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches && window.matchMedia('(min-width: 1361px)').matches;
+
+    function setCatalog(open) {
+      if (!catalog || !panel) return;
+      catalog.setAttribute('aria-expanded', open ? 'true' : 'false');
+      panel.setAttribute('aria-hidden', open ? 'false' : 'true');
+      if (open) bar.setAttribute('data-collections-open', 'true');
+      else bar.removeAttribute('data-collections-open');
+    }
+
+    function queueCatalogClose() {
+      clearTimeout(catalogTimer);
+      catalogTimer = setTimeout(function () { setCatalog(false); }, 140);
+    }
+
+    if (catalog && panel && canHover) {
+      catalog.addEventListener('pointerenter', function () {
+        clearTimeout(catalogTimer);
+        setCatalog(true);
+      });
+      catalog.addEventListener('pointerleave', queueCatalogClose);
+      panel.addEventListener('pointerenter', function () { clearTimeout(catalogTimer); });
+      panel.addEventListener('pointerleave', queueCatalogClose);
+      catalog.addEventListener('focus', function () { setCatalog(true); });
+      panel.addEventListener('focusout', function (event) {
+        if (!panel.contains(event.relatedTarget) && event.relatedTarget !== catalog) setCatalog(false);
+      });
+      catalog.addEventListener('blur', function (event) {
+        if (!panel.contains(event.relatedTarget)) queueCatalogClose();
+      });
+    }
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && bar.hasAttribute('data-collections-open')) {
+        setCatalog(false);
+        if (catalog) catalog.focus();
+      }
     });
   })();
 </script>
