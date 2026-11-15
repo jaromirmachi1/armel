@@ -22,7 +22,7 @@
         "link_pouzdra": {
           "type": "link",
           "settings": {
-            "label": "Kožená pouzdra",
+            "label": "Laptop obaly",
             "link": "/collections/kozena-pouzdra"
           }
         },
@@ -36,7 +36,7 @@
         "link_zapisniky": {
           "type": "link",
           "settings": {
-            "label": "Zápisníky",
+            "label": "Leather journal",
             "link": "/collections/zapisniky"
           }
         }

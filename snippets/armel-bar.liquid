@@ -64,9 +64,9 @@
       {%- endfor -%}
     {%- else -%}
       <a href="{{ routes.all_products_collection_url }}" {% if request.path == routes.all_products_collection_url %}aria-current="page"{% endif %} data-armel-collections aria-haspopup="dialog" aria-expanded="false" aria-controls="ArmelCollections-{{ bar_id }}">Všechny produkty</a>
-      <a href="/collections/kozena-pouzdra" {% if request.path == '/collections/kozena-pouzdra' %}aria-current="page"{% endif %}>Kožená pouzdra</a>
+      <a href="/collections/kozena-pouzdra" {% if request.path == '/collections/kozena-pouzdra' %}aria-current="page"{% endif %}>Laptop obaly</a>
       <a href="/collections/doplnky" {% if request.path == '/collections/doplnky' %}aria-current="page"{% endif %}>Doplňky</a>
-      <a href="/collections/zapisniky" {% if request.path == '/collections/zapisniky' %}aria-current="page"{% endif %}>Zápisníky</a>
+      <a href="/collections/zapisniky" {% if request.path == '/collections/zapisniky' %}aria-current="page"{% endif %}>Leather journal</a>
     {%- endif -%}
   </nav>
   </div>
@@ -221,9 +221,9 @@
         {%- endif -%}
       {%- endfor -%}
       {%- if armel_catalog_count == 0 -%}
-        <li><a href="/collections/kozena-pouzdra">Kožená pouzdra</a></li>
+        <li><a href="/collections/kozena-pouzdra">Laptop obaly</a></li>
         <li><a href="/collections/doplnky">Doplňky</a></li>
-        <li><a href="/collections/zapisniky">Zápisníky</a></li>
+        <li><a href="/collections/zapisniky">Leather journal</a></li>
       {%- endif -%}
     </ul>
   </div>
