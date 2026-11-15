@@ -1171,3 +1171,24 @@
     transform: none !important;
   }
 }
+
+/* ==========================================================================
+   TYPE RULES
+   Headlines use the headline font from Theme settings → Armel – písmo
+   (variables come from snippets/armel-fonts.liquid). Body text stays Montserrat.
+   ========================================================================== */
+
+.a-h2,
+.a-closeup__title,
+.a-showcase__title,
+.a-about__statement {
+  font-family: var(--a-display, var(--a-sans));
+  font-weight: var(--a-display-weight, 600);
+  letter-spacing: var(--a-display-tracking, -0.015em);
+  font-size-adjust: var(--a-display-adjust, none);
+}
+
+/* the small two-line title above the products stays spaced capitals */
+.a-showcase__title {
+  letter-spacing: 0.08em;
+}

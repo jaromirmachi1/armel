@@ -49,6 +49,8 @@
       {{ 'armel-bar.css' | asset_url | stylesheet_tag }}
     {%- endunless -%}
 
+    {%- render 'armel-fonts' -%}
+
     {%- render 'view-transition-opt-in' -%}
 
     {%- render 'meta-tags' -%}

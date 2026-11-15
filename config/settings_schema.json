@@ -20,6 +20,37 @@
     ]
   },
   {
+    "name": "Armel – písmo",
+    "settings": [
+      {
+        "type": "select",
+        "id": "armel_display_font",
+        "label": "Písmo nadpisů",
+        "default": "bodoni",
+        "options": [
+          {
+            "value": "bodoni",
+            "label": "Bodoni Moda (módní serif)"
+          },
+          {
+            "value": "cormorant",
+            "label": "Cormorant Garamond (jemný serif)"
+          },
+          {
+            "value": "sans",
+            "label": "Montserrat (bezpatkové)"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "armel_nav_uppercase",
+        "label": "Menu velkými písmeny",
+        "default": true
+      }
+    ]
+  },
+  {
     "name": "t:names.logo_and_favicon",
     "settings": [
       {

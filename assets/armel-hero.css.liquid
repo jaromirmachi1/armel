@@ -127,6 +127,13 @@ html.a-js .armel-hero__sig {
   gap: 14px;
 }
 
+.armel-hero__nav a,
+.armel-hero__panel a {
+  font-size: var(--armel-nav-size, 13px);
+  letter-spacing: var(--armel-nav-tracking, 0);
+  text-transform: var(--armel-nav-case, none);
+}
+
 .armel-hero__nav a {
   position: relative;
   display: inline-flex;
@@ -188,7 +195,6 @@ html.a-js .armel-hero__sig {
   align-items: center;
   min-height: 44px;
   color: inherit;
-  font-size: 13px;
   text-decoration: none;
 }
 
@@ -417,10 +423,12 @@ html.a-js .armel-hero__sig {
 .armel-hero__title {
   margin: 0;
   max-width: 13em;
+  font-family: var(--a-display, inherit);
   font-size: clamp(26px, 2.6vw, 38px);
-  font-weight: 600;
-  line-height: 1.04;
-  letter-spacing: -0.025em;
+  font-weight: var(--a-display-weight, 600);
+  font-size-adjust: var(--a-display-adjust, none);
+  line-height: 1.08;
+  letter-spacing: var(--a-display-tracking, -0.025em);
   text-wrap: balance;
 }
 
@@ -548,7 +556,7 @@ html.a-js .armel-hero__sig {
 
   .armel-hero__nav a {
     min-height: 48px;
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 
