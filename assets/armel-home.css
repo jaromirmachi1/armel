@@ -11,15 +11,16 @@
   --a-wall: #e4e2df;
   --a-ink: #2a1213;
   --a-m: clamp(20px, 3.2vw, 48px);
-  --a-gap: clamp(96px, 11vw, 200px);
+  --a-gap: clamp(72px, 8vw, 128px);
   --a-ease: cubic-bezier(0.16, 1, 0.3, 1);
   --a-sans: var(--font-body--family, 'Montserrat'), 'Montserrat', 'Avenir Next', 'Segoe UI', sans-serif;
   --a-script: 'Armel Script', 'Pinyon Script', cursive;
-  --fs-display: clamp(44px, 6.6vw, 108px);
-  --fs-title: clamp(28px, 2.8vw, 44px);
-  --fs-sub: clamp(19px, 1.5vw, 22px);
-  --fs-body: 17px;
-  --fs-small: 14px;
+  /* type scale matched to serapian.com at 1440px: headings 40 / 26, text 14, small 12 */
+  --fs-display: clamp(28px, 2.8vw, 40px);
+  --fs-title: clamp(20px, 1.8vw, 26px);
+  --fs-sub: 15px;
+  --fs-body: 14px;
+  --fs-small: 12px;
 }
 
 .a-scope {
@@ -63,8 +64,8 @@
   font-family: var(--a-sans);
   font-size: var(--fs-display);
   font-weight: 600;
-  line-height: 0.95;
-  letter-spacing: -0.04em;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
   text-wrap: balance;
 }
 
@@ -93,8 +94,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 56px;
-  padding: 0 32px;
+  min-height: 48px;
+  padding: 0 28px;
   border: 0;
   border-radius: 0;
   background: var(--a-burgundy);
@@ -441,7 +442,7 @@
   gap: 0.15em;
   margin: 0;
   font-family: var(--a-sans);
-  font-size: clamp(15px, 1.9vw, 28px);
+  font-size: clamp(13px, 1.25vw, 18px);
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: 0.06em;
@@ -737,8 +738,8 @@
   margin: 0;
   font-size: var(--fs-display);
   font-weight: 600;
-  line-height: 0.95;
-  letter-spacing: -0.04em;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
 }
 
 .a-about__blocks {
@@ -798,7 +799,7 @@
     padding: 32px 22px 0;
   }
   .a-about__statement {
-    font-size: clamp(40px, 11vw, 64px);
+    font-size: clamp(28px, 7.6vw, 36px);
   }
   .a-about__blocks {
     margin-top: 40px;
@@ -860,7 +861,7 @@
 .a-feature--bottom .a-feature__content { align-content: end; }
 
 .a-feature__title {
-  font-size: clamp(76px, 12vw, 200px);
+  font-size: clamp(56px, 6.4vw, 96px);
   line-height: 0.9;
   padding: 0 0.12em;
 }
@@ -1010,7 +1011,7 @@
 }
 
 .a-invite .armel-clutch__letter-title {
-  font-size: 17px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
