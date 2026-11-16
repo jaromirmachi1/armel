@@ -663,3 +663,295 @@ html.a-js .armel-hero__sig {
     transition: none;
   }
 }
+
+/* ==========================================================================
+   Mobile / tablet menu: a full-screen drawer that unrolls from the top.
+   The bar stays on top of it; the burger turns into a cross.
+   ========================================================================== */
+
+.armel-drawer {
+  display: none;
+}
+
+@media screen and (max-width: 1360px) {
+  /* the old inline dropdown is replaced by the drawer */
+  .armel-hero__nav {
+    display: none !important;
+  }
+
+  .armel-drawer {
+    position: fixed;
+    inset: 0;
+    z-index: -1; /* under the bar's own content, above the page */
+    display: block;
+    height: 100dvh;
+    color: var(--armel-ink, #7d3031);
+    background: #f6f1e8;
+    clip-path: inset(0 0 100% 0);
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      clip-path 620ms cubic-bezier(0.76, 0, 0.24, 1),
+      visibility 0s linear 620ms;
+  }
+
+  .armel-drawer[data-open] {
+    clip-path: inset(0 0 0 0);
+    visibility: visible;
+    pointer-events: auto;
+    transition: clip-path 720ms cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  .armel-drawer__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    height: 100%;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding:
+      calc(max(8px, env(safe-area-inset-top)) + 56px + 32px)
+      var(--armel-m, 20px)
+      calc(24px + env(safe-area-inset-bottom));
+  }
+
+  /* bar while the menu is open: no white layer, no hairline */
+  .armel-hero__bar[data-menu-open]::before {
+    transform: translate3d(0, -101%, 0);
+  }
+
+  .armel-hero__bar[data-menu-open] {
+    box-shadow: none;
+  }
+
+  /* ---------- links ---------- */
+  .armel-drawer__links {
+    display: grid;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .armel-drawer__links > li {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0);
+    transition: opacity 300ms ease, transform 300ms ease;
+  }
+
+  .armel-drawer[data-open] .armel-drawer__links > li {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 700ms cubic-bezier(0.16, 1, 0.3, 1) calc(240ms + var(--i, 0) * 70ms),
+      transform 900ms cubic-bezier(0.16, 1, 0.3, 1) calc(240ms + var(--i, 0) * 70ms);
+  }
+
+  .armel-drawer__link {
+    position: relative;
+    display: inline-block;
+    padding: 4px 0;
+    color: inherit;
+    font-family: var(--a-display, inherit);
+    font-size: clamp(36px, 10vw, 60px);
+    font-weight: var(--a-display-weight, 500);
+    font-size-adjust: var(--a-display-adjust, none);
+    letter-spacing: var(--a-display-tracking, -0.01em);
+    line-height: 1.05;
+    text-decoration: none;
+    text-transform: none;
+  }
+
+  .armel-drawer__link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 2px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .armel-drawer__link[aria-current='page']::after,
+  .armel-drawer__link:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .armel-drawer__sub {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 18px;
+    margin: 6px 0 14px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .armel-drawer__sub a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+    color: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    opacity: 0.75;
+  }
+
+  /* ---------- feature card ---------- */
+  .armel-drawer__feature {
+    display: grid;
+    grid-template-columns: 96px 1fr auto;
+    align-items: center;
+    gap: 16px;
+    margin-top: auto;
+    padding: 10px 16px 10px 10px;
+    color: inherit;
+    background: #fff;
+    text-decoration: none;
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+    transition: opacity 300ms ease, transform 300ms ease;
+  }
+
+  .armel-drawer[data-open] .armel-drawer__feature {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 700ms cubic-bezier(0.16, 1, 0.3, 1) 520ms,
+      transform 900ms cubic-bezier(0.16, 1, 0.3, 1) 520ms;
+  }
+
+  .armel-drawer__feature img {
+    display: block;
+    width: 96px;
+    height: 72px;
+    object-fit: cover;
+  }
+
+  .armel-drawer__feature-text {
+    display: grid;
+    gap: 4px;
+  }
+
+  .armel-drawer__feature-title {
+    font-family: var(--a-display, inherit);
+    font-size: 20px;
+    font-weight: var(--a-display-weight, 500);
+    line-height: 1.1;
+  }
+
+  .armel-drawer__feature-cta {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
+
+  .armel-drawer__feature svg {
+    width: 20px;
+    height: 20px;
+    transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .armel-drawer__feature:active svg {
+    transform: translateX(4px);
+  }
+
+  /* ---------- foot ---------- */
+  .armel-drawer__foot {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 14px 16px;
+    padding-top: 18px;
+    box-shadow: inset 0 1px rgb(125 48 49 / 0.18);
+    opacity: 0;
+    transition: opacity 300ms ease;
+  }
+
+  .armel-drawer[data-open] .armel-drawer__foot {
+    opacity: 1;
+    transition: opacity 700ms ease 620ms;
+  }
+
+  .armel-drawer__switch .armel-hero__switch {
+    margin: 0;
+  }
+
+  .armel-drawer__mail {
+    justify-self: end;
+    color: inherit;
+    font-size: 13px;
+    text-decoration: none;
+  }
+
+  .armel-drawer__sig {
+    grid-column: 1 / -1;
+    display: block;
+    width: 170px;
+    aspect-ratio: 1524 / 274;
+    background: currentColor;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+  }
+}
+
+/* phones: the currency/language switch (and the account icon) live in the drawer, so the logo has room */
+@media screen and (max-width: 989px) {
+  .armel-hero__tools > .armel-hero__switch {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .armel-hero__tools > a.armel-hero__icon-btn[href*='account'] {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1360px) {
+  .armel-drawer__account {
+    color: inherit;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .armel-drawer__account--end {
+    justify-self: end;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (max-width: 1360px) {
+  .armel-drawer__link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  .armel-drawer__sub a:hover {
+    opacity: 1;
+  }
+  .armel-drawer__feature:hover svg {
+    transform: translateX(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .armel-drawer,
+  .armel-drawer[data-open],
+  .armel-drawer__links > li,
+  .armel-drawer__feature,
+  .armel-drawer__foot {
+    transition: none !important;
+    transform: none !important;
+  }
+}

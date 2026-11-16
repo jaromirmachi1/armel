@@ -9,6 +9,71 @@
   endif
 -%}
 
+{%- capture armel_catalog -%}
+      {%- assign armel_catalog_count = 0 -%}
+      {%- for link in linklists.main-menu.links -%}
+        {%- if link.url contains '/collections/' -%}
+          {%- unless link.url contains '/collections/all' or link.url == routes.collections_url -%}
+            {%- assign armel_catalog_count = armel_catalog_count | plus: 1 -%}
+            <li>
+              <a href="{{ link.url }}">{{ link.title | escape }}</a>
+            </li>
+          {%- endunless -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if armel_catalog_count == 0 -%}
+        <li><a href="/collections/kozena-pouzdra">Laptop obaly</a></li>
+        <li><a href="/collections/doplnky">Doplňky</a></li>
+        <li><a href="/collections/zapisniky">Leather journal</a></li>
+      {%- endif -%}
+{%- endcapture -%}
+{%- capture armel_switch -%}
+    {%- if bar_switch -%}
+      <details class="armel-hero__switch">
+        <summary>
+          {%- if localization.country.iso_code == 'CZ' -%}
+            <svg class="armel-hero__flag" viewBox="0 0 18 12" aria-hidden="true">
+              <rect width="18" height="6" fill="#ffffff"/>
+              <rect y="6" width="18" height="6" fill="#d7141a"/>
+              <path d="M0 0l8 6-8 6z" fill="#11457e"/>
+            </svg>
+          {%- endif -%}
+          <span>{{ bar_currency }} / {{ bar_lang }}</span>
+          <svg class="armel-hero__chevron" viewBox="0 0 10 6" aria-hidden="true">
+            <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round"/>
+          </svg>
+        </summary>
+        {% form 'localization', class: 'armel-hero__switch-panel' %}
+          {%- if localization.available_languages.size > 1 -%}
+            {%- for language in localization.available_languages -%}
+              <button type="submit" name="locale_code" value="{{ language.iso_code }}" {% if language.iso_code == localization.language.iso_code %}aria-current="true"{% endif %}>
+                {{ language.endonym_name }}
+              </button>
+            {%- endfor -%}
+          {%- endif -%}
+          {%- if localization.available_countries.size > 1 -%}
+            {%- for country in localization.available_countries -%}
+              <button type="submit" name="country_code" value="{{ country.iso_code }}" {% if country.iso_code == localization.country.iso_code %}aria-current="true"{% endif %}>
+                {{ country.currency.iso_code }} · {{ country.name }}
+              </button>
+            {%- endfor -%}
+          {%- endif -%}
+        {% endform %}
+      </details>
+    {%- else -%}
+      <span class="armel-hero__switch armel-hero__switch--static">
+        {%- if localization.country.iso_code == 'CZ' or localization.country.iso_code == blank -%}
+          <svg class="armel-hero__flag" viewBox="0 0 18 12" aria-hidden="true">
+            <rect width="18" height="6" fill="#ffffff"/>
+            <rect y="6" width="18" height="6" fill="#d7141a"/>
+            <path d="M0 0l8 6-8 6z" fill="#11457e"/>
+          </svg>
+        {%- endif -%}
+        <span>{{ bar_currency }} / {{ bar_lang }}</span>
+      </span>
+    {%- endif -%}
+{%- endcapture -%}
+
 <header class="armel-hero__bar" data-armel-bar>
   <div class="armel-hero__start">
     <button
@@ -16,7 +81,7 @@
       type="button"
       data-armel-toggle
       aria-expanded="false"
-      aria-controls="ArmelNav-{{ bar_id }}"
+      aria-controls="ArmelDrawer-{{ bar_id }}"
       aria-label="{{ 'accessibility.menu' | t }}"
       data-open-label="{{ 'accessibility.menu' | t }}"
       data-close-label="{{ 'accessibility.close_dialog' | t }}"
@@ -90,50 +155,7 @@
   </div>
 
   <div class="armel-hero__tools">
-    {%- if bar_switch -%}
-      <details class="armel-hero__switch">
-        <summary>
-          {%- if localization.country.iso_code == 'CZ' -%}
-            <svg class="armel-hero__flag" viewBox="0 0 18 12" aria-hidden="true">
-              <rect width="18" height="6" fill="#ffffff"/>
-              <rect y="6" width="18" height="6" fill="#d7141a"/>
-              <path d="M0 0l8 6-8 6z" fill="#11457e"/>
-            </svg>
-          {%- endif -%}
-          <span>{{ bar_currency }} / {{ bar_lang }}</span>
-          <svg class="armel-hero__chevron" viewBox="0 0 10 6" aria-hidden="true">
-            <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round"/>
-          </svg>
-        </summary>
-        {% form 'localization', class: 'armel-hero__switch-panel' %}
-          {%- if localization.available_languages.size > 1 -%}
-            {%- for language in localization.available_languages -%}
-              <button type="submit" name="locale_code" value="{{ language.iso_code }}" {% if language.iso_code == localization.language.iso_code %}aria-current="true"{% endif %}>
-                {{ language.endonym_name }}
-              </button>
-            {%- endfor -%}
-          {%- endif -%}
-          {%- if localization.available_countries.size > 1 -%}
-            {%- for country in localization.available_countries -%}
-              <button type="submit" name="country_code" value="{{ country.iso_code }}" {% if country.iso_code == localization.country.iso_code %}aria-current="true"{% endif %}>
-                {{ country.currency.iso_code }} · {{ country.name }}
-              </button>
-            {%- endfor -%}
-          {%- endif -%}
-        {% endform %}
-      </details>
-    {%- else -%}
-      <span class="armel-hero__switch armel-hero__switch--static">
-        {%- if localization.country.iso_code == 'CZ' or localization.country.iso_code == blank -%}
-          <svg class="armel-hero__flag" viewBox="0 0 18 12" aria-hidden="true">
-            <rect width="18" height="6" fill="#ffffff"/>
-            <rect y="6" width="18" height="6" fill="#d7141a"/>
-            <path d="M0 0l8 6-8 6z" fill="#11457e"/>
-          </svg>
-        {%- endif -%}
-        <span>{{ bar_currency }} / {{ bar_lang }}</span>
-      </span>
-    {%- endif -%}
+    {{ armel_switch }}
 
     <button
       class="armel-hero__icon-btn"
@@ -209,23 +231,58 @@
     aria-hidden="true"
   >
     <ul role="list">
-      {%- assign armel_catalog_count = 0 -%}
-      {%- for link in linklists.main-menu.links -%}
-        {%- if link.url contains '/collections/' -%}
-          {%- unless link.url contains '/collections/all' or link.url == routes.collections_url -%}
-            {%- assign armel_catalog_count = armel_catalog_count | plus: 1 -%}
-            <li>
-              <a href="{{ link.url }}">{{ link.title | escape }}</a>
-            </li>
-          {%- endunless -%}
-        {%- endif -%}
-      {%- endfor -%}
-      {%- if armel_catalog_count == 0 -%}
-        <li><a href="/collections/kozena-pouzdra">Laptop obaly</a></li>
-        <li><a href="/collections/doplnky">Doplňky</a></li>
-        <li><a href="/collections/zapisniky">Leather journal</a></li>
-      {%- endif -%}
+      {{ armel_catalog }}
     </ul>
+  </div>
+
+  <div class="armel-drawer" id="ArmelDrawer-{{ bar_id }}" data-armel-drawer aria-hidden="true">
+    <div class="armel-drawer__inner" data-lenis-prevent>
+      <nav class="armel-drawer__nav" aria-label="{{ 'accessibility.header_navigation_label' | t }}">
+        <ul class="armel-drawer__links" role="list">
+          {%- if links != blank -%}
+            {%- for block in links -%}
+              {%- assign d_url = block.settings.link | default: routes.root_url -%}
+              <li style="--i: {{ forloop.index0 }};">
+                <a class="armel-drawer__link" href="{{ d_url }}" {% if request.path == d_url %}aria-current="page"{% endif %}>{{ block.settings.label | escape }}</a>
+                {%- comment -%} collections sub-list only when the menu doesn't already list them {%- endcomment -%}
+                {%- if links.size == 1 and d_url contains '/collections/all' -%}
+                  <ul class="armel-drawer__sub" role="list">{{ armel_catalog }}</ul>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          {%- else -%}
+            <li style="--i: 0;">
+              <a class="armel-drawer__link" href="{{ routes.all_products_collection_url }}">Všechny produkty</a>
+              <ul class="armel-drawer__sub" role="list">{{ armel_catalog }}</ul>
+            </li>
+            <li style="--i: 1;"><a class="armel-drawer__link" href="/pages/o-nas">O nás</a></li>
+            <li style="--i: 2;"><a class="armel-drawer__link" href="/pages/vraceni">Vrácení</a></li>
+          {%- endif -%}
+        </ul>
+      </nav>
+
+      <a class="armel-drawer__feature" href="{{ routes.all_products_collection_url }}">
+        <img src="{{ 'armel-clutch-closed.jpg' | asset_url }}" alt="" width="1500" height="1017" loading="lazy" decoding="async">
+        <span class="armel-drawer__feature-text">
+          <span class="armel-drawer__feature-title">Ručně šité kousky</span>
+          <span class="armel-drawer__feature-cta">Prohlédnout kolekci</span>
+        </span>
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4.5-4.5L15 10l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+
+      <div class="armel-drawer__foot">
+        <div class="armel-drawer__switch">{{ armel_switch }}</div>
+        <a class="armel-drawer__mail" href="mailto:thearmel.info@gmail.com">thearmel.info@gmail.com</a>
+        <a class="armel-drawer__account" href="{{ routes.account_url }}">Můj účet</a>
+        <a class="armel-drawer__account armel-drawer__account--end" href="/pages/vraceni">Vrácení</a>
+        <span
+          class="armel-drawer__sig"
+          role="img"
+          aria-label="by Aneta &amp; Marína"
+          style="-webkit-mask-image: url('{{ 'by-aneta-marina-black.png' | asset_url }}'); mask-image: url('{{ 'by-aneta-marina-black.png' | asset_url }}');"
+        ></span>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -265,10 +322,21 @@
     var nav = bar.querySelector('[data-armel-nav]');
     if (!button || !nav) return;
 
+    var drawer = bar.querySelector('[data-armel-drawer]');
     function setOpen(open) {
       button.setAttribute('aria-expanded', open ? 'true' : 'false');
       if (open) nav.setAttribute('data-open', 'true');
       else nav.removeAttribute('data-open');
+      if (drawer) {
+        drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+        if (open) drawer.setAttribute('data-open', 'true');
+        else drawer.removeAttribute('data-open');
+      }
+      if (open) bar.setAttribute('data-menu-open', '');
+      else bar.removeAttribute('data-menu-open');
+      /* Horizon's own scroll lock (also pauses smooth scroll) */
+      if (open) document.documentElement.setAttribute('scroll-lock', '');
+      else document.documentElement.removeAttribute('scroll-lock');
       button.setAttribute('aria-label', open ? button.getAttribute('data-close-label') : button.getAttribute('data-open-label'));
     }
 
@@ -278,8 +346,8 @@
       if (open) {
         var details = bar.querySelector('details[open]');
         if (details) details.removeAttribute('open');
-        var first = nav.querySelector('a');
-        if (first) first.focus();
+        var first = (drawer && getComputedStyle(drawer).display !== 'none' ? drawer : nav).querySelector('a');
+        if (first) setTimeout(function () { first.focus({ preventScroll: true }); }, 320);
       }
     });
 
@@ -306,6 +374,14 @@
     nav.addEventListener('click', function (event) {
       if (event.target.closest('a')) setOpen(false);
     });
+    if (drawer) {
+      drawer.addEventListener('click', function (event) {
+        if (event.target.closest('a')) setOpen(false);
+      });
+      window.addEventListener('resize', function () {
+        if (button.getAttribute('aria-expanded') === 'true' && getComputedStyle(button).display === 'none') setOpen(false);
+      });
+    }
 
     var catalog = bar.querySelector('[data-armel-collections]');
     var panel = bar.querySelector('[data-armel-panel]');
