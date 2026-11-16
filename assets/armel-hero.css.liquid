@@ -727,7 +727,7 @@ html.a-js .armel-hero__sig {
   /* ---------- links ---------- */
   .armel-drawer__links {
     display: grid;
-    gap: 6px;
+    gap: 14px;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -752,14 +752,14 @@ html.a-js .armel-hero__sig {
     display: inline-block;
     padding: 4px 0;
     color: inherit;
-    font-family: var(--a-display, inherit);
-    font-size: clamp(36px, 10vw, 60px);
-    font-weight: var(--a-display-weight, 500);
-    font-size-adjust: var(--a-display-adjust, none);
-    letter-spacing: var(--a-display-tracking, -0.01em);
-    line-height: 1.05;
+    /* menu links: the text face in spaced capitals, so they read as navigation, not headlines */
+    font-family: var(--font-body--family), 'Montserrat', sans-serif;
+    font-size: clamp(20px, 5.6vw, 30px);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    line-height: 1.2;
     text-decoration: none;
-    text-transform: none;
+    text-transform: uppercase;
   }
 
   .armel-drawer__link::after {
@@ -953,5 +953,64 @@ html.a-js .armel-hero__sig {
   .armel-drawer__foot {
     transition: none !important;
     transform: none !important;
+  }
+}
+
+/* ---------- menu on burgundy: light text, silver logo ---------- */
+.armel-hero__mark a {
+  position: relative;
+}
+
+.armel-hero__logo--silver {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 400ms ease;
+}
+
+@media screen and (max-width: 1360px) {
+  .armel-drawer {
+    --armel-drawer-ink: #f3eee8;
+    color: var(--armel-drawer-ink);
+    background: #7d3031;
+  }
+
+  .armel-hero__bar[data-menu-open] {
+    color: #f3eee8;
+  }
+
+  .armel-hero__bar .armel-hero__logo:not(.armel-hero__logo--silver) {
+    transition: opacity 400ms ease;
+  }
+
+  .armel-hero__bar[data-menu-open] .armel-hero__logo:not(.armel-hero__logo--silver) {
+    opacity: 0;
+  }
+
+  .armel-hero__bar[data-menu-open] .armel-hero__logo--silver {
+    opacity: 1;
+  }
+
+  .armel-hero__bar[data-menu-open] .armel-hero__count {
+    background: #f3eee8;
+    color: #7d3031;
+  }
+
+  .armel-drawer__feature {
+    color: #7d3031;
+    background: #f3eee8;
+  }
+
+  .armel-drawer__foot {
+    box-shadow: inset 0 1px rgb(243 238 232 / 0.25);
+  }
+
+  .armel-drawer__switch,
+  .armel-drawer__switch * {
+    color: inherit;
   }
 }
