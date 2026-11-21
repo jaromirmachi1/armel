@@ -58,7 +58,19 @@
     },
     "armel_invite": {
       "type": "armel-invite",
-      "settings": {}
+      "settings": {
+        "heading": "Newsletter",
+        "background": "#7D3031",
+        "text": "#EFEDEA"
+      }
+    },
+    "armel_gallery": {
+      "type": "armel-gallery",
+      "settings": {
+        "heading": "Galerie",
+        "background": "#7D3031",
+        "text": "#EFEDEA"
+      }
     },
     "armel_footer": {
       "type": "armel-footer",
@@ -73,6 +85,7 @@
     "armel_about",
     "armel_feature",
     "armel_invite",
+    "armel_gallery",
     "armel_footer"
   ]
 }

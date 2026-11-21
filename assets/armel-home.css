@@ -899,118 +899,99 @@
    GALLERY (one frame, contents change)
    ========================================================================== */
 
-.a-gallery {
+.a-strip {
+  padding: 0 var(--a-m) clamp(40px, 5vw, 72px);
+}
+
+.a-strip__track {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: clamp(16px, 2vw, 32px);
-  align-items: center;
-  padding: var(--a-gap) var(--a-m);
-}
-
-.a-gallery__text {
-  grid-column: 1 / span 6;
-  display: grid;
-  justify-items: start;
-  gap: 24px;
-}
-
-.a-gallery__intro {
-  max-width: 34ch;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
   margin: 0;
-}
-
-.a-frame {
-  grid-column: 8 / span 4;
-  margin: 0;
-}
-
-.a-frame__stage {
-  position: relative;
-  display: block;
-  width: 100%;
-  aspect-ratio: 4 / 5;
   padding: 0;
-  border: 0;
+  list-style: none;
+}
+
+.a-strip__item {
+  margin: 0;
+}
+
+.a-strip__link {
+  display: block;
+  aspect-ratio: 1;
   overflow: hidden;
   background: #5e2425;
-  cursor: pointer;
 }
 
-.a-frame__slide {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 1600ms cubic-bezier(0.45, 0, 0.55, 1);
-}
-
-.a-frame__slide.is-on {
-  opacity: 1;
-}
-
-.a-frame__slide img,
-.a-frame__slide svg {
+.a-strip__link img,
+.a-strip__link svg {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(1.04);
-  transition: transform 7000ms linear;
+  transition: transform 640ms var(--a-ease, cubic-bezier(0.16, 1, 0.3, 1));
 }
 
-.a-frame__slide.is-on img {
-  transform: scale(1.12);
-}
-
-.a-frame__caption {
-  margin-top: 16px;
-  font-size: var(--fs-small);
-  min-height: 1.5em;
-}
-
-@media screen and (max-width: 749px) {
-  .a-gallery {
-    display: block;
+@media (hover: hover) and (pointer: fine) {
+  .a-strip__link:hover img {
+    transform: scale(1.04);
   }
-  .a-frame {
-    width: 76vw;
-    margin: 56px auto 0;
+}
+
+.a-strip__link:active {
+  transform: scale(0.98);
+}
+
+@media screen and (max-width: 899px) {
+  .a-strip {
+    padding-inline: 0;
   }
-  .a-frame__caption {
-    text-align: center;
+
+  .a-strip__track {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--a-m);
+    padding-inline: var(--a-m);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .a-strip__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .a-strip__item {
+    flex: 0 0 42vw;
+    scroll-snap-align: start;
   }
 }
 
 /* ==========================================================================
-   INVITE (the clutch returns)
+   INVITE (newsletter + clutch)
    ========================================================================== */
 
 .a-invite {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: clamp(16px, 2vw, 32px);
-  align-items: start;
-  padding: calc(var(--a-gap) * 0.8) var(--a-m) var(--a-gap);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  column-gap: clamp(24px, 5vw, 80px);
+  align-items: center;
+  padding: clamp(56px, 8vw, 112px) var(--a-m) clamp(40px, 5vw, 72px);
 }
 
-.a-invite__text {
-  grid-column: 1 / span 6;
-  display: grid;
-  gap: 24px;
-}
-
-.a-invite__intro,
-.a-invite__note {
-  max-width: 36ch;
+.a-invite__title {
   margin: 0;
-}
-
-.a-invite__note {
-  font-size: var(--fs-small);
+  font-family: var(--a-display, var(--font-body--family), 'Montserrat', sans-serif);
+  font-size: clamp(2.4rem, 6.4vw, 5.5rem);
+  font-weight: var(--a-display-weight, 600);
+  letter-spacing: -0.03em;
+  line-height: 0.92;
+  text-transform: uppercase;
 }
 
 .a-invite .a-invite__stage {
-  --w: min(600px, 44vw);
-  grid-column: 7 / span 6;
-  justify-self: center;
+  --w: min(520px, 42vw);
+  justify-self: end;
   display: block;
   min-height: 0;
   padding: 0;
@@ -1021,7 +1002,6 @@
   max-width: none;
 }
 
-/* same open/close physics as the intro clutch — no extra peek loop on the letter */
 .a-invite .armel-clutch__letter {
   box-shadow: none; /* taste-skill-ignore: removes the shared letter shadow */
   background: #fbfaf8;
@@ -1054,12 +1034,16 @@
 
 @media screen and (max-width: 899px) {
   .a-invite {
-    display: block;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: start;
+    gap: 36px;
     min-height: 0;
   }
+
   .a-invite .a-invite__stage {
-    --w: calc(100vw - 2 * var(--a-m));
-    margin-top: 48px;
+    --w: min(420px, calc(100vw - 2 * var(--a-m)));
+    justify-self: center;
   }
 }
 
@@ -1072,7 +1056,7 @@
   position: relative;
   display: grid;
   gap: clamp(48px, 6vw, 88px);
-  padding: clamp(56px, 7vw, 104px) var(--a-m) 24px;
+  padding: clamp(40px, 5vw, 72px) var(--a-m) 24px;
   overflow: hidden;
   background: var(--a-burgundy);
   color: var(--a-cream);
