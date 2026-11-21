@@ -976,7 +976,22 @@ html.a-js .armel-hero__sig {
   }
 }
 
-/* ---------- menu on burgundy: light text, silver wordmark ---------- */
+/* ---------- menu on burgundy: light text, silver logo ---------- */
+.armel-hero__mark a {
+  position: relative;
+}
+
+.armel-hero__logo--silver {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 400ms ease;
+}
+
 @media screen and (max-width: 1360px) {
   .armel-drawer {
     --armel-drawer-ink: #f3eee8;
@@ -986,6 +1001,18 @@ html.a-js .armel-hero__sig {
 
   .armel-hero__bar[data-menu-open] {
     color: #f3eee8;
+  }
+
+  .armel-hero__bar .armel-hero__logo:not(.armel-hero__logo--silver) {
+    transition: opacity 400ms ease;
+  }
+
+  .armel-hero__bar[data-menu-open] .armel-hero__logo:not(.armel-hero__logo--silver) {
+    opacity: 0;
+  }
+
+  .armel-hero__bar[data-menu-open] .armel-hero__logo--silver {
+    opacity: 1;
   }
 
   .armel-hero__bar[data-menu-open] .armel-hero__count {

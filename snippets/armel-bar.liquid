@@ -179,10 +179,20 @@
     >
       <img
         class="armel-hero__logo"
-        src="{{ 'armel-logo-silver.png' | asset_url }}"
+        src="{{ 'armel-logo.png' | asset_url }}"
         alt="{{ 'accessibility.home_logo_alt' | t: store_name: shop.name }}"
+        width="240"
+        height="77"
+        decoding="async"
+      >
+      <img
+        class="armel-hero__logo armel-hero__logo--silver"
+        src="{{ 'armel-logo-silver.png' | asset_url }}"
+        alt=""
+        aria-hidden="true"
         width="1080"
         height="312"
+        loading="lazy"
         decoding="async"
       >
     </a>
