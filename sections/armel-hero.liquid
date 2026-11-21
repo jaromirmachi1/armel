@@ -28,17 +28,7 @@
 
   {% render 'armel-bar', links: section.blocks, is_home: true, bar_id: section.id %}
 
-  <div class="armel-hero__intro">
-    <h1 class="armel-hero__title" data-a-reveal="blur">{{ section.settings.heading | escape }}</h1>
-    {%- if section.settings.text != blank -%}
-      <p class="armel-hero__text" data-a-reveal style="--a-delay: 100ms;">{{ section.settings.text | escape }}</p>
-    {%- endif -%}
-    {%- if section.settings.button_label != blank -%}
-      <a class="a-btn" href="{{ section.settings.button_link | default: '#a-products' }}" data-a-reveal="scale" style="--a-delay: 180ms;">
-        {{- section.settings.button_label | escape -}}
-      </a>
-    {%- endif -%}
-  </div>
+  <h1 class="visually-hidden">{{ section.settings.heading | escape }}</h1>
 
   {%- if section.settings.show_signature -%}
     <span class="a-sig armel-hero__sig" role="img" aria-label="by Aneta &amp; Marína" style="-webkit-mask-image: url('{{ 'by-aneta-marina-black.png' | asset_url }}'); mask-image: url('{{ 'by-aneta-marina-black.png' | asset_url }}');"></span>
