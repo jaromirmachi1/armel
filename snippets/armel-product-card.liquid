@@ -49,6 +49,6 @@
         <s>{{ product.compare_at_price | money_without_trailing_zeros }}</s>
       {%- endif -%}
     </span>
-    <span class="a-card__stock">{% if product.available %}Skladem{% else %}Vyprodáno{% endif %}</span>
+    <span class="a-card__stock">{% if product.available %}{{ 'content.inventory_in_stock' | t }}{% else %}{{ 'content.product_badge_sold_out' | t }}{% endif %}</span>
   </div>
 </a>

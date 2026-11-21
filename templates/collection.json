@@ -173,7 +173,7 @@
             "stock_line": {
               "type": "custom-liquid",
               "settings": {
-                "custom_liquid": "{% if closest.product != blank %}<p style=\"margin:2px 0 0;font-size:14px;line-height:1.35;color:#7d3031\">{% if closest.product.available %}Skladem{% else %}Vyprodáno{% endif %}</p>{% endif %}"
+                "custom_liquid": "{% if closest.product != blank %}<p style=\"margin:2px 0 0;font-size:14px;line-height:1.35;color:#7d3031\">{% if closest.product.available %}{{ 'content.inventory_in_stock' | t }}{% else %}{{ 'content.product_badge_sold_out' | t }}{% endif %}</p>{% endif %}"
               }
             },
             "price_EzJzMm": {

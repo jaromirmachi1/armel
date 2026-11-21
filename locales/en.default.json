@@ -8,6 +8,16 @@
  * ------------------------------------------------------------
  */
 {
+  "armel": {
+    "language": "Language",
+    "currency": "Currency",
+    "products": "Products",
+    "gallery": "Gallery",
+    "handmade": "Handmade pieces",
+    "view_collection": "View the collection",
+    "account": "My account",
+    "returns": "Returns"
+  },
   "accessibility": {
     "account": "Account",
     "active_filters": "Active filters:",

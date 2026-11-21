@@ -1,4 +1,14 @@
 {
+  "armel": {
+    "language": "Jazyk",
+    "currency": "Měna",
+    "products": "Produkty",
+    "gallery": "Galerie",
+    "handmade": "Ručně šité kousky",
+    "view_collection": "Prohlédnout kolekci",
+    "account": "Můj účet",
+    "returns": "Vrácení"
+  },
   "blocks": {
     "load_video": "Načíst video: {{ description }}",
     "sold_out": "Vyprodáno",

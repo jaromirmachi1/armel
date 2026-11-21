@@ -28,50 +28,72 @@
       {%- endif -%}
 {%- endcapture -%}
 {%- capture armel_switch -%}
-    {%- if bar_switch -%}
-      <details class="armel-hero__switch">
-        <summary>
-          {%- if localization.country.iso_code == 'CZ' -%}
-            <svg class="armel-hero__flag" viewBox="0 0 18 12" aria-hidden="true">
-              <rect width="18" height="6" fill="#ffffff"/>
-              <rect y="6" width="18" height="6" fill="#d7141a"/>
-              <path d="M0 0l8 6-8 6z" fill="#11457e"/>
-            </svg>
-          {%- endif -%}
-          <span>{{ bar_currency }} / {{ bar_lang }}</span>
-          <svg class="armel-hero__chevron" viewBox="0 0 10 6" aria-hidden="true">
-            <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round"/>
-          </svg>
-        </summary>
-        {% form 'localization', class: 'armel-hero__switch-panel' %}
-          {%- if localization.available_languages.size > 1 -%}
-            {%- for language in localization.available_languages -%}
-              <button type="submit" name="locale_code" value="{{ language.iso_code }}" {% if language.iso_code == localization.language.iso_code %}aria-current="true"{% endif %}>
-                {{ language.endonym_name }}
-              </button>
-            {%- endfor -%}
-          {%- endif -%}
-          {%- if localization.available_countries.size > 1 -%}
-            {%- for country in localization.available_countries -%}
-              <button type="submit" name="country_code" value="{{ country.iso_code }}" {% if country.iso_code == localization.country.iso_code %}aria-current="true"{% endif %}>
-                {{ country.currency.iso_code }} · {{ country.name }}
-              </button>
-            {%- endfor -%}
-          {%- endif -%}
-        {% endform %}
-      </details>
-    {%- else -%}
-      <span class="armel-hero__switch armel-hero__switch--static">
-        {%- if localization.country.iso_code == 'CZ' or localization.country.iso_code == blank -%}
+    {%- liquid
+      assign czk_code = ''
+      assign eur_code = ''
+      assign eur_prefer = 'DE,AT,SK,FR,NL,IE,IT,ES,BE,PT,FI' | split: ','
+      for country in localization.available_countries
+        if country.currency.iso_code == 'CZK' and czk_code == blank
+          assign czk_code = country.iso_code
+        endif
+      endfor
+      for code in eur_prefer
+        if eur_code != blank
+          break
+        endif
+        for country in localization.available_countries
+          if country.currency.iso_code == 'EUR' and country.iso_code == code
+            assign eur_code = country.iso_code
+            break
+          endif
+        endfor
+      endfor
+      if eur_code == blank
+        for country in localization.available_countries
+          if country.currency.iso_code == 'EUR'
+            assign eur_code = country.iso_code
+            break
+          endif
+        endfor
+      endif
+      if czk_code == blank
+        assign czk_code = 'CZ'
+      endif
+    -%}
+    <details class="armel-hero__switch">
+      <summary>
+        {%- if bar_currency == 'CZK' -%}
           <svg class="armel-hero__flag" viewBox="0 0 18 12" aria-hidden="true">
             <rect width="18" height="6" fill="#ffffff"/>
             <rect y="6" width="18" height="6" fill="#d7141a"/>
             <path d="M0 0l8 6-8 6z" fill="#11457e"/>
           </svg>
+        {%- elsif bar_currency == 'EUR' -%}
+          <svg class="armel-hero__flag" viewBox="0 0 18 12" aria-hidden="true">
+            <rect width="18" height="12" fill="#003399"/>
+            <circle cx="9" cy="6" r="2.1" fill="none" stroke="#fc0" stroke-width="0.7"/>
+          </svg>
         {%- endif -%}
         <span>{{ bar_currency }} / {{ bar_lang }}</span>
-      </span>
-    {%- endif -%}
+        <svg class="armel-hero__chevron" viewBox="0 0 10 6" aria-hidden="true">
+          <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round"/>
+        </svg>
+      </summary>
+      <div class="armel-hero__switch-panel">
+        {% form 'localization' %}
+          <p class="armel-hero__switch-label">{{ 'armel.language' | t }}</p>
+          <button type="submit" name="locale_code" value="cs" {% if localization.language.iso_code == 'cs' %}aria-current="true"{% endif %}>CS</button>
+          <button type="submit" name="locale_code" value="en" {% if localization.language.iso_code == 'en' %}aria-current="true"{% endif %}>EN</button>
+        {% endform %}
+        {% form 'localization' %}
+          <p class="armel-hero__switch-label">{{ 'armel.currency' | t }}</p>
+          <button type="submit" name="country_code" value="{{ czk_code }}" {% if bar_currency == 'CZK' %}aria-current="true"{% endif %}>CZK</button>
+          {%- if eur_code != blank -%}
+            <button type="submit" name="country_code" value="{{ eur_code }}" {% if bar_currency == 'EUR' %}aria-current="true"{% endif %}>EUR</button>
+          {%- endif -%}
+        {% endform %}
+      </div>
+    </details>
 {%- endcapture -%}
 
 <header class="armel-hero__bar" data-armel-bar>
@@ -129,7 +151,15 @@
           {% endif %}
           {{ block.shopify_attributes }}
         >
-          {{ block.settings.label | escape }}
+          {%- liquid
+            assign shown_label = block.settings.label
+            if shown_label == 'Produkty'
+              assign shown_label = 'armel.products' | t
+            elsif shown_label == 'Galerie'
+              assign shown_label = 'armel.gallery' | t
+            endif
+          -%}
+          {{ shown_label | escape }}
         </a>
       {%- endfor -%}
     {%- else -%}
@@ -264,7 +294,15 @@
                 endif
               -%}
               <li style="--i: {{ forloop.index0 }};">
-                <a class="armel-drawer__link" href="{{ d_url }}" {% if request.path == d_url %}aria-current="page"{% endif %}>{{ block.settings.label | escape }}</a>
+                {%- liquid
+                  assign shown_label = block.settings.label
+                  if shown_label == 'Produkty'
+                    assign shown_label = 'armel.products' | t
+                  elsif shown_label == 'Galerie'
+                    assign shown_label = 'armel.gallery' | t
+                  endif
+                -%}
+                <a class="armel-drawer__link" href="{{ d_url }}" {% if request.path == d_url %}aria-current="page"{% endif %}>{{ shown_label | escape }}</a>
                 {%- if d_products -%}
                   <ul class="armel-drawer__sub" role="list">{{ armel_catalog }}</ul>
                 {%- endif -%}
@@ -284,8 +322,8 @@
       <a class="armel-drawer__feature" href="{{ routes.all_products_collection_url }}">
         <img src="{{ 'armel-clutch-closed.jpg' | asset_url }}" alt="" width="1500" height="1017" loading="lazy" decoding="async">
         <span class="armel-drawer__feature-text">
-          <span class="armel-drawer__feature-title">Ručně šité kousky</span>
-          <span class="armel-drawer__feature-cta">Prohlédnout kolekci</span>
+          <span class="armel-drawer__feature-title">{{ 'armel.handmade' | t }}</span>
+          <span class="armel-drawer__feature-cta">{{ 'armel.view_collection' | t }}</span>
         </span>
         <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4.5-4.5L15 10l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
@@ -293,8 +331,8 @@
       <div class="armel-drawer__foot">
         <div class="armel-drawer__switch">{{ armel_switch }}</div>
         <a class="armel-drawer__mail" href="mailto:thearmel.info@gmail.com">thearmel.info@gmail.com</a>
-        <a class="armel-drawer__account" href="{{ routes.account_url }}">Můj účet</a>
-        <a class="armel-drawer__account armel-drawer__account--end" href="/pages/vraceni">Vrácení</a>
+        <a class="armel-drawer__account" href="{{ routes.account_url }}">{{ 'armel.account' | t }}</a>
+        <a class="armel-drawer__account armel-drawer__account--end" href="/pages/vraceni">{{ 'armel.returns' | t }}</a>
         <span
           class="armel-drawer__sig"
           role="img"
