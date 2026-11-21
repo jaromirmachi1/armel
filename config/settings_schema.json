@@ -26,19 +26,15 @@
         "type": "select",
         "id": "armel_display_font",
         "label": "Písmo nadpisů",
-        "default": "bodoni",
+        "default": "sans",
         "options": [
           {
-            "value": "bodoni",
-            "label": "Bodoni Moda (módní serif)"
+            "value": "sans",
+            "label": "Montserrat (bezpatkové)"
           },
           {
             "value": "cormorant",
             "label": "Cormorant Garamond (jemný serif)"
-          },
-          {
-            "value": "sans",
-            "label": "Montserrat (bezpatkové)"
           }
         ]
       },

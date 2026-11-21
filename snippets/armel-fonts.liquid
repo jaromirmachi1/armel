@@ -5,17 +5,13 @@
   Every Armel section reads these variables: --a-display*, --armel-nav-*.
 {%- endcomment -%}
 {%- liquid
-  assign armel_display = settings.armel_display_font | default: 'bodoni'
+  assign armel_display = settings.armel_display_font | default: 'sans'
   assign armel_nav_upper = true
   if settings.armel_nav_uppercase == false
     assign armel_nav_upper = false
   endif
 -%}
 <style>
-  @font-face { font-family: 'Armel Bodoni'; font-weight: 400; font-display: swap; src: url('{{ 'armel-bodoni-latin-400.woff2' | asset_url }}') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212; }
-  @font-face { font-family: 'Armel Bodoni'; font-weight: 400; font-display: swap; src: url('{{ 'armel-bodoni-latin-ext-400.woff2' | asset_url }}') format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1E9F, U+20A0-20C0, U+2C60-2C7F, U+A720-A7FF; }
-  @font-face { font-family: 'Armel Bodoni'; font-weight: 500; font-display: swap; src: url('{{ 'armel-bodoni-latin-500.woff2' | asset_url }}') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212; }
-  @font-face { font-family: 'Armel Bodoni'; font-weight: 500; font-display: swap; src: url('{{ 'armel-bodoni-latin-ext-500.woff2' | asset_url }}') format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1E9F, U+20A0-20C0, U+2C60-2C7F, U+A720-A7FF; }
   {%- if armel_display == 'cormorant' %}
   @font-face { font-family: 'Armel Cormorant'; font-weight: 400; font-display: swap; src: url('{{ 'armel-cormorant-latin-400.woff2' | asset_url }}') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212; }
   @font-face { font-family: 'Armel Cormorant'; font-weight: 400; font-display: swap; src: url('{{ 'armel-cormorant-latin-ext-400.woff2' | asset_url }}') format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1E9F, U+20A0-20C0, U+2C60-2C7F, U+A720-A7FF; }
@@ -30,15 +26,10 @@
     --a-display-weight: 500;
     --a-display-tracking: 0;
     --a-display-adjust: 0.48;
-      {%- when 'sans' %}
+      {%- else %}
     --a-display: var(--font-body--family), 'Montserrat', sans-serif;
     --a-display-weight: 600;
     --a-display-tracking: -0.015em;
-    --a-display-adjust: none;
-      {%- else %}
-    --a-display: 'Armel Bodoni', 'Bodoni Moda', Didot, 'Bodoni 72', serif;
-    --a-display-weight: 500;
-    --a-display-tracking: -0.005em;
     --a-display-adjust: none;
     {%- endcase %}
     --armel-nav-case: {% if armel_nav_upper %}uppercase{% else %}none{% endif %};
