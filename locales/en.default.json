@@ -865,7 +865,199 @@
         "reveal_more_label": {
           "few": "Show this number of additional locations: %{count}",
           "many": "Show this number of additional locations: %{count}"
+        },
+        "all_stores_far_away": {
+          "title_with_item": {
+            "few": "The nearest location with your items is more than %{distance} away from %{location}",
+            "many": "The nearest location with your items is more than %{distance} away from %{location}"
+          }
+        },
+        "location_information_far_away": {
+          "few": "There is the following number of locations with your item: %{count}",
+          "many": "There is the following number of locations with your item: %{count}"
+        },
+        "location_nearby": {
+          "few": "There are several locations (%{count}) in the area with your item.",
+          "many": "There are several locations (%{count}) in the area with your item."
+        },
+        "location_nearby_short": {
+          "few": "Several nearby locations with your item (%{count})",
+          "many": "Several nearby locations with your item (%{count})"
+        },
+        "location_far_away": {
+          "few": "Several locations with your item (%{count})",
+          "many": "Several locations with your item (%{count})"
+        },
+        "toggle_more_locations": {
+          "few": "More other locations (%{count})",
+          "many": "More other locations (%{count})"
+        },
+        "pickup_unavailable_banner_title": {
+          "few": "There are no locations with your items.",
+          "many": "There are no locations with your items."
+        },
+        "pickup_unavailable_banner_title_with_country": {
+          "few": "%{country} has no locations with your items",
+          "many": "%{country} has no locations with your items"
+        },
+        "location_information_far_away_one_item": {
+          "few": "%{count} locations with your item are available",
+          "many": "%{count} locations with your item are available"
+        },
+        "location_information_far_away_other_items": {
+          "few": "%{count} locations with your items are available",
+          "many": "%{count} locations with your items are available"
+        },
+        "location_nearby_one_item": {
+          "few": "There are %{count} locations nearby with your item.",
+          "many": "There are %{count} locations nearby with your item."
+        },
+        "location_nearby_other_items": {
+          "few": "There are %{count} locations nearby with your items",
+          "many": "There are %{count} locations nearby with your items"
+        },
+        "location_nearby_short_one_item": {
+          "few": "%{count} locations nearby with your item",
+          "many": "%{count} locations nearby with your item"
+        },
+        "location_nearby_short_other_items": {
+          "few": "%{count} locations nearby with your items",
+          "many": "%{count} locations nearby with your items"
+        },
+        "location_far_away_one_item": {
+          "few": "%{count} locations with your item",
+          "many": "%{count} locations with your item"
+        },
+        "location_far_away_other_items": {
+          "few": "%{count} locations with your items",
+          "many": "%{count} locations with your items"
+        },
+        "stock_details": {
+          "ship_separately": {
+            "few": "They will be sent separately.",
+            "many": "They will be sent separately."
+          },
+          "remove_items": {
+            "few": "They will be removed from the order.",
+            "many": "They will be removed from the order."
+          }
+        },
+        "unavailable_item_count": {
+          "few": "%{count} items are unavailable",
+          "many": "%{count} items are unavailable"
+        },
+        "ship_separately_notice": {
+          "few": "%{count} items will be shipped separately",
+          "many": "%{count} items will be shipped separately"
+        },
+        "stock_details_modal": {
+          "can_ship_description": {
+            "few": "These items are out of stock at the selected pickup location.",
+            "many": "These items are out of stock at the selected pickup location."
+          },
+          "cannot_ship_description": {
+            "few": "These items are out of stock at the selected pickup point and cannot be shipped.",
+            "many": "These items are out of stock at the selected pickup point and cannot be shipped."
+          },
+          "cannot_ship_bundle_description": {
+            "few": "These items are out of stock at the selected pickup location and cannot be shipped. Items in the package will also be removed.",
+            "many": "These items are out of stock at the selected pickup location and cannot be shipped. Items in the package will also be removed."
+          }
+        },
+        "stock_details_banner": {
+          "heading": {
+            "few": "%{count} items are not available for pickup at %{location}",
+            "many": "%{count} items are not available for pickup at %{location}"
+          },
+          "ship_separately": {
+            "few": "ship separately",
+            "many": "ship separately"
+          }
+        },
+        "bundle_removal_modal": {
+          "message": {
+            "few": "The items {{items}} are part of the {{bundle}} bundle. The other items in the bundle will also be removed.",
+            "many": "The items {{items}} are part of the {{bundle}} bundle. The other items in the bundle will also be removed."
+          }
         }
+      },
+      "split_delivery": {
+        "inventory_issue_banner": {
+          "heading": {
+            "cannot_be_picked_up": {
+              "few": "%{count} items cannot be picked up",
+              "many": "%{count} items cannot be picked up"
+            },
+            "cannot_be_shipped": {
+              "few": "%{count} items could not be sent",
+              "many": "%{count} items could not be sent"
+            }
+          },
+          "remove_item": {
+            "few": "Remove items",
+            "many": "Remove items"
+          },
+          "ship_separately": {
+            "few": "Ship separately",
+            "many": "Ship separately"
+          },
+          "pick_them_up_in_store": {
+            "few": "Pick up in store",
+            "many": "Pick up in store"
+          },
+          "remove_item_only": {
+            "few": "Remove items",
+            "many": "Remove items"
+          }
+        },
+        "pickup_items_count": {
+          "few": "Pick up %{count} items",
+          "many": "Pick up %{count} items"
+        },
+        "ship_items_count": {
+          "few": "Send %{count} items",
+          "many": "Send %{count} items"
+        },
+        "items_count": {
+          "few": "%{count} items",
+          "many": "%{count} items"
+        },
+        "delivery_updated_toast": {
+          "shipping": {
+            "few": "{{count}} items were moved to be sent.",
+            "many": "{{count}} items were moved to be sent."
+          },
+          "removal": {
+            "few": "{{count}} items were removed.",
+            "many": "{{count}} items were removed."
+          }
+        }
+      },
+      "merchandise_unavailable_in_buyer_location": {
+        "remove_items_action": {
+          "few": "remove unavailable items",
+          "many": "remove unavailable items"
+        }
+      },
+      "remote_merchandise_only": {
+        "detail_item_label": {
+          "few": "{{count}} item(s)",
+          "many": "{{count}} item(s)"
+        }
+      }
+    },
+    "notices": {
+      "order": {
+        "cancel_reason": {
+          "few": "Other",
+          "many": "Other"
+        }
+      }
+    },
+    "page_titles": {
+      "search_results": {
+        "few": "Search: The following number of results was found for the query %{terms}: %{count}",
+        "many": "Search: The following number of results was found for the query %{terms}: %{count}"
       }
     }
   },
@@ -877,6 +1069,38 @@
             "few": "Gift cards have been sent to the recipients.",
             "many": "Gift cards have been sent to the recipients."
           }
+        },
+        "delivered_description_gift_card": {
+          "few": "The gift cards have been sent by email.",
+          "many": "The gift cards have been sent by email."
+        },
+        "confirmed_gift_card_additional_description": {
+          "few": "Each gift card will be sent in a separate email.",
+          "many": "Each gift card will be sent in a separate email."
+        },
+        "delivered_description_gift_card_text": {
+          "few": "The gift cards were sent in a text message.",
+          "many": "The gift cards were sent in a text message."
+        },
+        "confirmed_gift_card_additional_description_text": {
+          "few": "Each gift card will be sent in a separate text message.",
+          "many": "Each gift card will be sent in a separate text message."
+        },
+        "gift_resend_success": {
+          "few": "The gift cards have been resent.",
+          "many": "The gift cards have been resent."
+        },
+        "gift_resend_failure": {
+          "few": "There was an issue resending the gift cards. Please try again or contact us.",
+          "many": "There was an issue resending the gift cards. Please try again or contact us."
+        },
+        "tracking_number": {
+          "few": "Tracking numbers",
+          "many": "Tracking numbers"
+        },
+        "gift_card_resend_button": {
+          "few": "Resend gift cards",
+          "many": "Resend gift cards"
         }
       },
       "buy_again_review": {
@@ -1022,6 +1246,12 @@
           "few": "{{count}} items",
           "many": "{{count}} items"
         }
+      }
+    },
+    "navigation_and_structure": {
+      "store_credit_multi_currency_accessibility_label": {
+        "few": "Store credit of {{formattedBalance}} and in {{count}} other currencies",
+        "many": "Store credit of {{formattedBalance}} and in {{count}} other currencies"
       }
     }
   }
