@@ -900,13 +900,14 @@
    ========================================================================== */
 
 .a-strip {
-  padding: 0 var(--a-m) clamp(40px, 5vw, 72px);
+  margin: 0;
+  padding: 0;
 }
 
 .a-strip__track {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 8px;
+  gap: 0;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -942,17 +943,11 @@
 }
 
 @media screen and (max-width: 899px) {
-  .a-strip {
-    padding-inline: 0;
-  }
-
   .a-strip__track {
     display: flex;
-    gap: 6px;
+    gap: 0;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    scroll-padding-inline: var(--a-m);
-    padding-inline: var(--a-m);
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
