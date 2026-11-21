@@ -158,7 +158,12 @@
     </a>
 
     <div class="a-footer__legal">
-      <p class="a-footer__copy">&copy; {{ 'now' | date: '%Y' }} {{ s.legal | default: shop.name | escape }}</p>
+      <div class="a-footer__copy-wrap">
+        <p class="a-footer__copy">&copy; {{ 'now' | date: '%Y' }} {{ s.legal | default: shop.name | escape }}</p>
+        {%- if s.owner != blank -%}
+          <p class="a-footer__owner">{{ s.owner | escape }}</p>
+        {%- endif -%}
+      </div>
 
       {%- assign policies = shop.policies -%}
       {%- if policies.size > 0 -%}
@@ -200,11 +205,12 @@
     { "type": "text", "id": "contact_title", "label": "Nadpis kontaktu (když je newsletter vypnutý)", "default": "Napište nám" },
     { "type": "header", "content": "Kontakt a sítě" },
     { "type": "text", "id": "email", "label": "E-mail", "default": "thearmel.info@gmail.com" },
-    { "type": "text", "id": "place", "label": "Místo", "default": "Morava, Česká republika" },
+    { "type": "text", "id": "place", "label": "Místo", "default": "Brno, Česká republika" },
     { "type": "text", "id": "instagram_url", "label": "Instagram (celá adresa)", "default": "https://www.instagram.com/" },
     { "type": "text", "id": "tiktok_url", "label": "TikTok (celá adresa)" },
     { "type": "header", "content": "Spodní řádek" },
     { "type": "text", "id": "legal", "label": "Copyright text", "default": "armel · by Aneta & Marína" },
+    { "type": "text", "id": "owner", "label": "Provozovatel", "default": "Aneta Janoudová · IČO 17074576 · Edisonova 3117/11, Brno" },
     { "type": "checkbox", "id": "show_payment", "label": "Ikony platebních metod", "default": true },
     { "type": "checkbox", "id": "show_returns", "label": "Odkaz na Vrácení ve sloupci Informace", "info": "Přidá se jen tehdy, když už není v menu patičky.", "default": true },
     { "type": "text", "id": "returns_label", "label": "Text odkazu", "default": "Vrácení a reklamace" },
