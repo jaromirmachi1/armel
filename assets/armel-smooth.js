@@ -26,7 +26,7 @@
   function preventNode(node) {
     /* let anything with its own scroll keep native scrolling */
     return !!(node && node.closest && node.closest(
-      '[data-lenis-prevent], dialog, details[open], .armel-hero__panel, .armel-hero__nav[data-open], cart-drawer, .cart-drawer, .search-modal'
+      '[data-lenis-prevent], dialog, details[open]:not(.a-footer__col), .armel-hero__panel, .armel-hero__nav[data-open], cart-drawer, .cart-drawer, .search-modal'
     ));
   }
 

@@ -1,62 +1,162 @@
+{%- comment -%}
+  Armel footer, used on every page (homepage via index.json, other pages via layout/theme.liquid).
+  Top: a short line + newsletter (or a contact link). Middle: link columns, accordions on phones.
+  Bottom: the silver wordmark, then legal, policies, payment icons and a back-to-top link.
+{%- endcomment -%}
 {%- render 'armel-home-assets' -%}
 
-<footer class="a-footer a-scope">
+{%- liquid
+  assign s = section.settings
+  assign contact_email = s.email | default: 'thearmel.info@gmail.com'
+  assign sig = 'by-aneta-marina-black.png' | asset_url
+-%}
+
+<footer class="a-footer a-scope" data-a-footer>
+  <h2 class="visually-hidden">Patička</h2>
+
   <div class="a-footer__top">
-    <h2 class="visually-hidden">Patička</h2>
-    <div class="a-footer__cols">
-      {%- for block in section.blocks -%}
-        <nav class="a-footer__col" aria-label="{{ block.settings.title | escape }}" {{ block.shopify_attributes }} data-a-reveal style="--a-delay: {{ forloop.index0 | times: 70 }}ms;">
-          <h3 class="a-footer__col-title">{{ block.settings.title | escape }}</h3>
-          {%- if block.type == 'menu' -%}
-            <ul role="list">
-              {%- assign has_returns = false -%}
-              {%- for link in linklists[block.settings.menu].links -%}
-                {%- if link.url contains section.settings.returns_url -%}{%- assign has_returns = true -%}{%- endif -%}
-                <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
-              {%- endfor -%}
-              {%- if block.settings.menu == 'footer' and section.settings.show_returns and has_returns == false -%}
-                <li><a href="{{ section.settings.returns_url }}">{{ section.settings.returns_label | escape }}</a></li>
-              {%- endif -%}
-            </ul>
+    <div class="a-footer__intro" data-a-reveal>
+      <p class="a-footer__heading">{{ s.heading | escape }}</p>
+      <span class="a-sig a-footer__sig" role="img" aria-label="Aneta &amp; Marína" style="-webkit-mask-image: url('{{ sig }}'); mask-image: url('{{ sig }}');"></span>
+    </div>
+
+    <div class="a-footer__news" data-a-reveal style="--a-delay: 80ms;">
+      {%- if s.show_newsletter -%}
+        <p class="a-footer__label" id="ArmelFootNewsLabel-{{ section.id }}">{{ s.news_title | escape }}</p>
+        {%- form 'customer', class: 'a-footer__form', id: 'ArmelFooterNews' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter,armel-footer">
+          {%- if form.posted_successfully? -%}
+            <p class="a-footer__msg" role="status">{{ s.news_success | escape }}</p>
           {%- else -%}
-            <div class="a-footer__rte">{{ block.settings.text }}</div>
-          {%- endif -%}
-        </nav>
-      {%- else -%}
-        <nav class="a-footer__col" aria-label="Obchod" data-a-reveal>
-          <h3 class="a-footer__col-title">Obchod</h3>
-          <ul role="list">
-            {%- for link in linklists['main-menu'].links -%}
-              <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
-            {%- endfor -%}
-          </ul>
-        </nav>
-        <nav class="a-footer__col" aria-label="Informace" data-a-reveal style="--a-delay: 70ms;">
-          <h3 class="a-footer__col-title">Informace</h3>
-          <ul role="list">
-            {%- assign has_returns = false -%}
-            {%- for link in linklists.footer.links -%}
-              {%- if link.url contains section.settings.returns_url -%}{%- assign has_returns = true -%}{%- endif -%}
-              <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
-            {%- endfor -%}
-            {%- if section.settings.show_returns and has_returns == false -%}
-              <li><a href="{{ section.settings.returns_url }}">{{ section.settings.returns_label | escape }}</a></li>
+            <div class="a-footer__field">
+              <label class="visually-hidden" for="ArmelFootEmail-{{ section.id }}">E-mail</label>
+              <input
+                id="ArmelFootEmail-{{ section.id }}"
+                class="a-footer__input"
+                type="email"
+                name="contact[email]"
+                value="{{ form.email }}"
+                autocorrect="off"
+                autocapitalize="off"
+                autocomplete="email"
+                placeholder="Váš e-mail"
+                required
+                aria-describedby="ArmelFootNewsLabel-{{ section.id }}"
+                {% if form.errors %}aria-invalid="true"{% endif %}
+              >
+              <button class="a-footer__submit" type="submit">
+                <span>Odebírat</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12h15m-5-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+              </button>
+            </div>
+            {%- if form.errors -%}
+              <p class="a-footer__msg a-footer__msg--error" role="alert">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+            {%- else -%}
+              <p class="a-footer__note">{{ s.news_note | escape }}</p>
             {%- endif -%}
-          </ul>
-        </nav>
-        <div class="a-footer__col" data-a-reveal style="--a-delay: 140ms;">
-          <h3 class="a-footer__col-title">Kontakt</h3>
-          <div class="a-footer__rte"><p><a href="mailto:thearmel.info@gmail.com">thearmel.info@gmail.com</a></p></div>
-        </div>
-      {%- endfor -%}
+          {%- endif -%}
+        {%- endform -%}
+      {%- else -%}
+        <p class="a-footer__label">{{ s.contact_title | escape }}</p>
+        <a class="a-footer__big-link" href="mailto:{{ contact_email }}">
+          <span>{{ contact_email }}</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12h15m-5-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        </a>
+      {%- endif -%}
     </div>
   </div>
 
-  <div class="a-footer__bottom" data-a-reveal="scale" style="--a-delay: 120ms;">
-    <a class="a-footer__mark" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
+  <div class="a-footer__cols">
+    {%- for block in section.blocks -%}
+      <details class="a-footer__col" open {{ block.shopify_attributes }} data-a-reveal style="--a-delay: {{ forloop.index0 | times: 60 }}ms;">
+        <summary class="a-footer__col-title">{{ block.settings.title | escape }}<span class="a-footer__plus" aria-hidden="true"></span></summary>
+        {%- if block.type == 'menu' -%}
+          <ul class="a-footer__list" role="list">
+            {%- assign has_returns = false -%}
+            {%- for link in linklists[block.settings.menu].links -%}
+              {%- if link.url contains s.returns_url -%}{%- assign has_returns = true -%}{%- endif -%}
+              <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+            {%- endfor -%}
+            {%- if block.settings.menu == 'footer' and s.show_returns and has_returns == false -%}
+              <li><a href="{{ s.returns_url }}">{{ s.returns_label | escape }}</a></li>
+            {%- endif -%}
+          </ul>
+        {%- else -%}
+          <div class="a-footer__list a-footer__rte">{{ block.settings.text }}</div>
+        {%- endif -%}
+      </details>
+    {%- else -%}
+      <details class="a-footer__col" open data-a-reveal>
+        <summary class="a-footer__col-title">Obchod<span class="a-footer__plus" aria-hidden="true"></span></summary>
+        <ul class="a-footer__list" role="list">
+          {%- for link in linklists['main-menu'].links -%}
+            <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+          {%- endfor -%}
+        </ul>
+      </details>
+      <details class="a-footer__col" open data-a-reveal style="--a-delay: 60ms;">
+        <summary class="a-footer__col-title">Informace<span class="a-footer__plus" aria-hidden="true"></span></summary>
+        <ul class="a-footer__list" role="list">
+          {%- assign has_returns = false -%}
+          {%- for link in linklists.footer.links -%}
+            {%- if link.url contains s.returns_url -%}{%- assign has_returns = true -%}{%- endif -%}
+            <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+          {%- endfor -%}
+          {%- if s.show_returns and has_returns == false -%}
+            <li><a href="{{ s.returns_url }}">{{ s.returns_label | escape }}</a></li>
+          {%- endif -%}
+        </ul>
+      </details>
+      <details class="a-footer__col" open data-a-reveal style="--a-delay: 120ms;">
+        <summary class="a-footer__col-title">Kontakt<span class="a-footer__plus" aria-hidden="true"></span></summary>
+        <ul class="a-footer__list" role="list">
+          <li><a href="mailto:{{ contact_email }}">{{ contact_email }}</a></li>
+          {%- if s.place != blank -%}<li><span>{{ s.place | escape }}</span></li>{%- endif -%}
+        </ul>
+      </details>
+    {%- endfor -%}
+
+    {%- if s.instagram_url != blank -%}
+      <details class="a-footer__col" open data-a-reveal style="--a-delay: 180ms;">
+        <summary class="a-footer__col-title">Sledujte nás<span class="a-footer__plus" aria-hidden="true"></span></summary>
+        <ul class="a-footer__list" role="list">
+          <li><a href="{{ s.instagram_url }}" target="_blank" rel="noopener">Instagram</a></li>
+          {%- if s.tiktok_url != blank -%}<li><a href="{{ s.tiktok_url }}" target="_blank" rel="noopener">TikTok</a></li>{%- endif -%}
+        </ul>
+      </details>
+    {%- endif -%}
+  </div>
+
+  <div class="a-footer__bottom">
+    <a class="a-footer__mark" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}" data-a-reveal="mark">
       <img src="{{ 'armel-logo-silver.png' | asset_url }}" alt="" width="1078" height="346" loading="lazy" decoding="async">
     </a>
-    <p class="a-footer__legal">&copy; {{ 'now' | date: '%Y' }} {{ section.settings.legal | default: shop.name | escape }}</p>
+
+    <div class="a-footer__legal">
+      <p class="a-footer__copy">&copy; {{ 'now' | date: '%Y' }} {{ s.legal | default: shop.name | escape }}</p>
+
+      {%- assign policies = shop.policies -%}
+      {%- if policies.size > 0 -%}
+        <ul class="a-footer__policies" role="list">
+          {%- for policy in policies -%}
+            <li><a href="{{ policy.url }}">{{ policy.title | escape }}</a></li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if s.show_payment and shop.enabled_payment_types.size > 0 -%}
+        <ul class="a-footer__pay" role="list" aria-label="Platební metody">
+          {%- for type in shop.enabled_payment_types -%}
+            <li>{{ type | payment_type_svg_tag }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      <a class="a-footer__top-link" href="#" data-a-to-top>
+        Nahoru
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 19V5m-5 5 5-5 5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+      </a>
+    </div>
   </div>
 </footer>
 
@@ -66,7 +166,21 @@
   "tag": "section",
   "class": "a-section a-section--footer",
   "settings": [
-    { "type": "text", "id": "legal", "label": "Copyright text", "default": "armel · by Aneta & Marína · ručně šito na Moravě" },
+    { "type": "text", "id": "heading", "label": "Věta nahoře", "default": "Kožené doplňky šité ručně na Moravě, kus po kusu." },
+    { "type": "header", "content": "Newsletter" },
+    { "type": "checkbox", "id": "show_newsletter", "label": "Zobrazit přihlášení k newsletteru", "info": "Na úvodní stránce je vypnuté, protože newsletter je hned nad patičkou. Místo něj se ukáže e-mail.", "default": true },
+    { "type": "text", "id": "news_title", "label": "Nadpis", "default": "Novinky z dílny jako první" },
+    { "type": "text", "id": "news_note", "label": "Poznámka pod polem", "default": "Nové kousky a malé série, žádný spam. Odhlásit se můžete kdykoli." },
+    { "type": "text", "id": "news_success", "label": "Zpráva po přihlášení", "default": "Děkujeme, jste na seznamu." },
+    { "type": "text", "id": "contact_title", "label": "Nadpis kontaktu (když je newsletter vypnutý)", "default": "Napište nám" },
+    { "type": "header", "content": "Kontakt a sítě" },
+    { "type": "text", "id": "email", "label": "E-mail", "default": "thearmel.info@gmail.com" },
+    { "type": "text", "id": "place", "label": "Místo", "default": "Morava, Česká republika" },
+    { "type": "text", "id": "instagram_url", "label": "Instagram (celá adresa)", "default": "https://www.instagram.com/" },
+    { "type": "text", "id": "tiktok_url", "label": "TikTok (celá adresa)" },
+    { "type": "header", "content": "Spodní řádek" },
+    { "type": "text", "id": "legal", "label": "Copyright text", "default": "armel · by Aneta & Marína" },
+    { "type": "checkbox", "id": "show_payment", "label": "Ikony platebních metod", "default": true },
     { "type": "checkbox", "id": "show_returns", "label": "Odkaz na Vrácení ve sloupci Informace", "info": "Přidá se jen tehdy, když už není v menu patičky.", "default": true },
     { "type": "text", "id": "returns_label", "label": "Text odkazu", "default": "Vrácení a reklamace" },
     { "type": "text", "id": "returns_url", "label": "Adresa stránky", "default": "/pages/vraceni" }

@@ -204,9 +204,7 @@
       </main>
 
       {% unless armel_coming_soon or armel_preview or template.name == 'index' %}
-        <footer>
-          {% sections 'footer-group' %}
-        </footer>
+        {% section 'armel-footer' %}
       {% endunless %}
     </div>
 

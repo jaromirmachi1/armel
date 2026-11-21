@@ -12,40 +12,32 @@
     "armel_hero": {
       "type": "armel-hero",
       "blocks": {
-        "link_vsechny": {
+        "link_produkty": {
           "type": "link",
           "settings": {
-            "label": "Všechny produkty",
+            "label": "Produkty",
             "link": "/collections/all"
           }
         },
-        "link_pouzdra": {
+        "link_dna": {
           "type": "link",
           "settings": {
-            "label": "Laptop obaly",
-            "link": "/collections/kozena-pouzdra"
+            "label": "DNA",
+            "link": "/pages/dna"
           }
         },
-        "link_doplnky": {
+        "link_galerie": {
           "type": "link",
           "settings": {
-            "label": "Doplňky",
-            "link": "/collections/doplnky"
-          }
-        },
-        "link_zapisniky": {
-          "type": "link",
-          "settings": {
-            "label": "Leather journal",
-            "link": "/collections/zapisniky"
+            "label": "Galerie",
+            "link": "/pages/galerie"
           }
         }
       },
       "block_order": [
-        "link_vsechny",
-        "link_pouzdra",
-        "link_doplnky",
-        "link_zapisniky"
+        "link_produkty",
+        "link_dna",
+        "link_galerie"
       ],
       "settings": {}
     },
@@ -82,7 +74,9 @@
     },
     "armel_footer": {
       "type": "armel-footer",
-      "settings": {}
+      "settings": {
+        "show_newsletter": false
+      }
     }
   },
   "order": [

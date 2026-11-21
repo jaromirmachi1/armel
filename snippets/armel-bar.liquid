@@ -110,13 +110,18 @@
           if request.path == link_url or request.path == link_slash
             assign link_current = true
           endif
+          assign link_label_down = block.settings.label | downcase
+          assign is_products = false
+          if link_url == routes.all_products_collection_url or link_url contains '/collections/all' or link_label_down == 'produkty'
+            assign is_products = true
+          endif
         -%}
         <a
           href="{{ link_url }}"
           {% if link_current %}
             aria-current="page"
           {% endif %}
-          {% if link_url == routes.all_products_collection_url or link_url contains '/collections/all' %}
+          {% if is_products %}
             data-armel-collections
             aria-haspopup="dialog"
             aria-expanded="false"
@@ -128,10 +133,9 @@
         </a>
       {%- endfor -%}
     {%- else -%}
-      <a href="{{ routes.all_products_collection_url }}" {% if request.path == routes.all_products_collection_url %}aria-current="page"{% endif %} data-armel-collections aria-haspopup="dialog" aria-expanded="false" aria-controls="ArmelCollections-{{ bar_id }}">Všechny produkty</a>
-      <a href="/collections/kozena-pouzdra" {% if request.path == '/collections/kozena-pouzdra' %}aria-current="page"{% endif %}>Laptop obaly</a>
-      <a href="/collections/doplnky" {% if request.path == '/collections/doplnky' %}aria-current="page"{% endif %}>Doplňky</a>
-      <a href="/collections/zapisniky" {% if request.path == '/collections/zapisniky' %}aria-current="page"{% endif %}>Leather journal</a>
+      <a href="{{ routes.all_products_collection_url }}" {% if request.path == routes.all_products_collection_url %}aria-current="page"{% endif %} data-armel-collections aria-haspopup="dialog" aria-expanded="false" aria-controls="ArmelCollections-{{ bar_id }}">Produkty</a>
+      <a href="/pages/dna" {% if request.path == '/pages/dna' %}aria-current="page"{% endif %}>DNA</a>
+      <a href="/pages/galerie" {% if request.path == '/pages/galerie' %}aria-current="page"{% endif %}>Galerie</a>
     {%- endif -%}
   </nav>
   </div>
@@ -251,22 +255,28 @@
         <ul class="armel-drawer__links" role="list">
           {%- if links != blank -%}
             {%- for block in links -%}
-              {%- assign d_url = block.settings.link | default: routes.root_url -%}
+              {%- liquid
+                assign d_url = block.settings.link | default: routes.root_url
+                assign d_label_down = block.settings.label | downcase
+                assign d_products = false
+                if d_url == routes.all_products_collection_url or d_url contains '/collections/all' or d_label_down == 'produkty'
+                  assign d_products = true
+                endif
+              -%}
               <li style="--i: {{ forloop.index0 }};">
                 <a class="armel-drawer__link" href="{{ d_url }}" {% if request.path == d_url %}aria-current="page"{% endif %}>{{ block.settings.label | escape }}</a>
-                {%- comment -%} collections sub-list only when the menu doesn't already list them {%- endcomment -%}
-                {%- if links.size == 1 and d_url contains '/collections/all' -%}
+                {%- if d_products -%}
                   <ul class="armel-drawer__sub" role="list">{{ armel_catalog }}</ul>
                 {%- endif -%}
               </li>
             {%- endfor -%}
           {%- else -%}
             <li style="--i: 0;">
-              <a class="armel-drawer__link" href="{{ routes.all_products_collection_url }}">Všechny produkty</a>
+              <a class="armel-drawer__link" href="{{ routes.all_products_collection_url }}">Produkty</a>
               <ul class="armel-drawer__sub" role="list">{{ armel_catalog }}</ul>
             </li>
-            <li style="--i: 1;"><a class="armel-drawer__link" href="/pages/o-nas">O nás</a></li>
-            <li style="--i: 2;"><a class="armel-drawer__link" href="/pages/vraceni">Vrácení</a></li>
+            <li style="--i: 1;"><a class="armel-drawer__link" href="/pages/dna">DNA</a></li>
+            <li style="--i: 2;"><a class="armel-drawer__link" href="/pages/galerie">Galerie</a></li>
           {%- endif -%}
         </ul>
       </nav>
