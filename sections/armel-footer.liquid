@@ -22,40 +22,65 @@
 
     <div class="a-footer__news" data-a-reveal style="--a-delay: 80ms;">
       {%- if s.show_newsletter -%}
-        <p class="a-footer__label" id="ArmelFootNewsLabel-{{ section.id }}">{{ s.news_title | escape }}</p>
-        {%- form 'customer', class: 'a-footer__form', id: 'ArmelFooterNews' -%}
-          <input type="hidden" name="contact[tags]" value="newsletter,armel-footer">
-          {%- if form.posted_successfully? -%}
-            <p class="a-footer__msg" role="status">{{ s.news_success | escape }}</p>
-          {%- else -%}
-            <div class="a-footer__field">
-              <label class="visually-hidden" for="ArmelFootEmail-{{ section.id }}">E-mail</label>
-              <input
-                id="ArmelFootEmail-{{ section.id }}"
-                class="a-footer__input"
-                type="email"
-                name="contact[email]"
-                value="{{ form.email }}"
-                autocorrect="off"
-                autocapitalize="off"
-                autocomplete="email"
-                placeholder="Váš e-mail"
-                required
-                aria-describedby="ArmelFootNewsLabel-{{ section.id }}"
-                {% if form.errors %}aria-invalid="true"{% endif %}
-              >
-              <button class="a-footer__submit" type="submit">
-                <span>Odebírat</span>
-                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12h15m-5-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
-              </button>
+        {{ 'armel-newsletter.css' | asset_url | stylesheet_tag }}
+        <div class="armel-newsletter-section a-footer__clutch">
+          <div class="armel-newsletter" data-armel-newsletter>
+            <div
+              class="armel-clutch"
+              id="ArmelFooterClutch-{{ section.id }}"
+              data-armel-clutch
+              aria-expanded="false"
+              aria-label="{{ s.news_title | escape }}"
+            >
+              <div class="armel-clutch__flap" aria-hidden="true">
+                <img class="armel-clutch__flap-outside" src="{{ 'clutch-flap-outside.webp' | asset_url }}" alt="" width="1600" height="500" decoding="async">
+                <img class="armel-clutch__flap-inside" src="{{ 'clutch-flap-inside.webp' | asset_url }}" alt="" width="1600" height="500" decoding="async">
+              </div>
+              <div class="armel-clutch__letter">
+                <p class="armel-clutch__letter-title">{{ s.news_title | escape }}</p>
+                {%- if s.news_note != blank -%}
+                  <p class="armel-clutch__letter-copy">{{ s.news_note | escape }}</p>
+                {%- endif -%}
+                {%- form 'customer', class: 'armel-clutch__form', id: 'ArmelFooterNews' -%}
+                  <input type="hidden" name="contact[tags]" value="newsletter,armel-footer">
+                  {%- if form.posted_successfully? -%}
+                    <p class="armel-clutch__message armel-clutch__message--success" role="status" data-armel-form-success tabindex="-1">
+                      {{ s.news_success | escape }}
+                    </p>
+                  {%- else -%}
+                    <div class="armel-clutch__field">
+                      <label class="visually-hidden" for="ArmelFootEmail-{{ section.id }}">E-mail</label>
+                      <input
+                        id="ArmelFootEmail-{{ section.id }}"
+                        class="armel-clutch__input"
+                        type="email"
+                        name="contact[email]"
+                        value="{{ form.email }}"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        autocomplete="email"
+                        placeholder="Váš e-mail"
+                        required
+                        {% if form.errors %}
+                          aria-invalid="true"
+                          aria-describedby="ArmelFootEmailError-{{ section.id }}"
+                        {% endif %}
+                      >
+                      <button class="armel-clutch__submit" type="submit">Odebírat</button>
+                    </div>
+                    {%- if form.errors -%}
+                      <p id="ArmelFootEmailError-{{ section.id }}" class="armel-clutch__message armel-clutch__message--error" role="alert" data-armel-form-error>
+                        {{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}
+                      </p>
+                    {%- endif -%}
+                  {%- endif -%}
+                {%- endform -%}
+              </div>
+              <img class="armel-clutch__body" src="{{ 'clutch-body.webp' | asset_url }}" alt="" width="1600" height="980" decoding="async" loading="lazy">
             </div>
-            {%- if form.errors -%}
-              <p class="a-footer__msg a-footer__msg--error" role="alert">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
-            {%- else -%}
-              <p class="a-footer__note">{{ s.news_note | escape }}</p>
-            {%- endif -%}
-          {%- endif -%}
-        {%- endform -%}
+          </div>
+        </div>
+        <script src="{{ 'armel-newsletter.js' | asset_url }}" defer></script>
       {%- else -%}
         <p class="a-footer__label">{{ s.contact_title | escape }}</p>
         <a class="a-footer__big-link" href="mailto:{{ contact_email }}">

@@ -1091,6 +1091,48 @@
   align-items: end;
 }
 
+/* Clutch sits in the newsletter slot. The box already reserves the open flap.
+   Higher specificity than .armel-newsletter-section so the full-page stage doesn't apply. */
+.a-footer .a-footer__clutch.armel-newsletter-section {
+  --w: min(440px, 100%);
+  display: block;
+  justify-self: end;
+  width: min(440px, 100%);
+  min-height: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--a-cream);
+}
+
+.a-footer .a-footer__clutch .armel-newsletter {
+  max-width: none;
+  justify-items: end;
+}
+
+.a-footer .a-footer__clutch .armel-clutch__letter {
+  background: #fbfaf8;
+  text-transform: none;
+}
+
+.a-footer .a-footer__clutch .armel-clutch__letter-title,
+.a-footer .a-footer__clutch .armel-clutch__letter-copy,
+.a-footer .a-footer__clutch .armel-clutch__input,
+.a-footer .a-footer__clutch .armel-clutch__submit,
+.a-footer .a-footer__clutch .armel-clutch__message {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.a-footer .a-footer__clutch .armel-clutch__letter-title {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.a-footer .a-footer__clutch .armel-clutch__input::placeholder {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
 .a-footer__heading {
   max-width: 17ch;
   margin: 0;
@@ -1397,6 +1439,9 @@
   .a-footer__top {
     grid-template-columns: 1fr;
     align-items: start;
+  }
+  .a-footer .a-footer__clutch.armel-newsletter-section {
+    justify-self: start;
   }
   .a-footer__cols {
     grid-template-columns: repeat(2, minmax(0, 1fr));
