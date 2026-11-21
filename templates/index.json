@@ -48,10 +48,6 @@
         "limit": 8
       }
     },
-    "armel_about": {
-      "type": "armel-about",
-      "settings": {}
-    },
     "armel_feature": {
       "type": "armel-feature",
       "settings": {}
@@ -82,7 +78,6 @@
   "order": [
     "armel_hero",
     "armel_showcase",
-    "armel_about",
     "armel_feature",
     "armel_invite",
     "armel_gallery",
