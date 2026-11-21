@@ -120,11 +120,11 @@
           "type": "_product-card",
           "static": true,
           "settings": {
-            "product_card_gap": 4,
+            "product_card_gap": 8,
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
-            "border_radius": 0,
+            "border_radius": 10,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
@@ -134,11 +134,11 @@
             "card-gallery": {
               "type": "_product-card-gallery",
               "settings": {
-                "image_ratio": "adapt",
+                "image_ratio": "square",
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
-                "border_radius": 0,
+                "border_radius": 10,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -170,6 +170,12 @@
               },
               "blocks": {}
             },
+            "stock_line": {
+              "type": "custom-liquid",
+              "settings": {
+                "custom_liquid": "{% if closest.product != blank %}<p style=\"margin:2px 0 0;font-size:14px;line-height:1.35;color:#7d3031\">{% if closest.product.available %}Skladem{% else %}Vyprodáno{% endif %}</p>{% endif %}"
+              }
+            },
             "price_EzJzMm": {
               "type": "price",
               "settings": {
@@ -195,7 +201,8 @@
           "block_order": [
             "card-gallery",
             "product_title_4nY4eT",
-            "price_EzJzMm"
+            "price_EzJzMm",
+            "stock_line"
           ]
         }
       },
