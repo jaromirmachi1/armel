@@ -1359,13 +1359,7 @@
   font-size: var(--fs-small);
 }
 
-.a-footer__copy-wrap {
-  display: grid;
-  gap: 2px;
-}
-
-.a-footer__copy,
-.a-footer__owner {
+.a-footer__copy {
   margin: 0;
   opacity: 0.75;
 }
