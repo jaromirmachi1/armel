@@ -82,8 +82,8 @@
       <div class="armel-hero__switch-panel">
         {% form 'localization' %}
           <p class="armel-hero__switch-label">{{ 'armel.language' | t }}</p>
-          <button type="submit" name="locale_code" value="cs" {% if localization.language.iso_code == 'cs' %}aria-current="true"{% endif %}>CS</button>
-          <button type="submit" name="locale_code" value="en" {% if localization.language.iso_code == 'en' %}aria-current="true"{% endif %}>EN</button>
+          <button type="submit" name="language_code" value="cs" {% if localization.language.iso_code == 'cs' %}aria-current="true"{% endif %}>CS</button>
+          <button type="submit" name="language_code" value="en" {% if localization.language.iso_code == 'en' %}aria-current="true"{% endif %}>EN</button>
         {% endform %}
         {% form 'localization' %}
           <p class="armel-hero__switch-label">{{ 'armel.currency' | t }}</p>
