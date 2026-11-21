@@ -1552,7 +1552,7 @@
 }
 
 .a-dna__intro {
-  max-width: 38rem;
+  max-width: 44rem;
   margin-bottom: clamp(40px, 6vw, 72px);
 }
 
@@ -1567,15 +1567,21 @@
 
 .a-dna__lead {
   margin: 0;
-  max-width: 42ch;
+  max-width: 52ch;
   font-size: var(--fs-body);
   line-height: 1.55;
 }
 
+.a-dna__credit {
+  margin: 18px 0 0;
+  font-size: var(--fs-body);
+  font-style: italic;
+}
+
 .a-dna__grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(28px, 4vw, 48px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(28px, 4vw, 48px) clamp(28px, 5vw, 64px);
   margin-bottom: clamp(48px, 7vw, 80px);
 }
 
@@ -1587,7 +1593,7 @@
 
 .a-dna__copy p {
   margin: 0;
-  max-width: 34ch;
+  max-width: 42ch;
 }
 
 .a-dna__sub {

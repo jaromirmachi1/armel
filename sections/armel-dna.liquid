@@ -7,7 +7,10 @@
   <div class="a-dna__intro">
     <h1 class="a-dna__title" data-a-reveal="blur">{{ section.settings.heading | default: page.title | escape }}</h1>
     {%- if section.settings.lead != blank -%}
-      <p class="a-dna__lead" data-a-reveal style="--a-delay: 90ms;">{{ section.settings.lead | escape }}</p>
+      <p class="a-dna__lead" data-a-reveal style="--a-delay: 90ms;">{{ section.settings.lead | escape | newline_to_br }}</p>
+    {%- endif -%}
+    {%- if section.settings.credit != blank -%}
+      <p class="a-dna__credit" data-a-reveal style="--a-delay: 120ms;">{{ section.settings.credit | escape }}</p>
     {%- endif -%}
   </div>
 
@@ -20,9 +23,13 @@
       <h2 class="a-dna__sub">{{ section.settings.sub_2 | escape }}</h2>
       <p>{{ section.settings.text_2 | escape }}</p>
     </div>
-    <div class="a-dna__copy" data-a-reveal style="--a-delay: 240ms;">
+    <div class="a-dna__copy" data-a-reveal="left" style="--a-delay: 220ms;">
       <h2 class="a-dna__sub">{{ section.settings.sub_3 | escape }}</h2>
       <p>{{ section.settings.text_3 | escape }}</p>
+    </div>
+    <div class="a-dna__copy" data-a-reveal="right" style="--a-delay: 260ms;">
+      <h2 class="a-dna__sub">{{ section.settings.sub_4 | escape }}</h2>
+      <p>{{ section.settings.text_4 | escape }}</p>
     </div>
   </div>
 
@@ -79,28 +86,36 @@
       "type": "textarea",
       "id": "lead",
       "label": "Úvod",
-      "default": "ARMEL je ruční práce dvou kamarádek z Moravy. Každý kousek navrhujeme, řežeme a šijeme samy — od prvního střihu po poslední nýt."
+      "default": "ARMEL vznikl z našeho dlouholetého přátelství a společné vášně pro kreativitu. S láskou navrhujeme a vlastnoručně šijeme unikátní kožené doplňky. Za každým kouskem stojí hodiny ruční práce a kus našeho srdce. Od výběru materiálu až po poslední steh je všechno v našich rukách."
     },
-    { "type": "text", "id": "sub_1", "label": "Podnadpis 1", "default": "Z přátelství" },
+    { "type": "text", "id": "credit", "label": "Podpis pod úvodem", "default": "– Aneta & Marína" },
+    { "type": "text", "id": "sub_1", "label": "Podnadpis 1", "default": "Italská prémiová kůže" },
     {
       "type": "textarea",
       "id": "text_1",
       "label": "Text 1",
-      "default": "Značka vznikla z dlouholetého přátelství a společné vášně pro materiál. Za každým doplňkem stojí hodiny u stolu a kus našeho srdce."
+      "default": "Pracujeme výhradně s vysoce kvalitní italskou kůží. Vybíráme ji pro její jedinečné vlastnosti a odolnost, díky které vám naše kousky budou dělat radost dlouhé roky. S úctou k materiálu aktivně zpracováváme i zbytkové usně a zachraňujeme odřezky, které by bez povšimnutí skončily jako odpad. Věříme, že opravdová udržitelnost spočívá v poctivém zpracování a ohleduplnosti ke zdrojům."
     },
-    { "type": "text", "id": "sub_2", "label": "Podnadpis 2", "default": "Bez pásové linky" },
+    { "type": "text", "id": "sub_2", "label": "Podnadpis 2", "default": "Ruční výroba" },
     {
       "type": "textarea",
       "id": "text_2",
       "label": "Text 2",
-      "default": "Žádná sériová výroba. Italská kůže, kožešina a stříbrné detaily — každý kus je trochu jiný, protože ho šijeme ručně."
+      "default": "Žádná sériová výroba ani pásová linka. Všechny doplňky vlastnoručně navrhujeme, řežeme a šijeme od prvního do posledního stehu samy dvě."
     },
-    { "type": "text", "id": "sub_3", "label": "Podnadpis 3", "default": "Morava" },
+    { "type": "text", "id": "sub_3", "label": "Podnadpis 3", "default": "Doma na Moravě" },
     {
       "type": "textarea",
       "id": "text_3",
       "label": "Text 3",
-      "default": "Šijeme doma na Moravě. Malé série, pečlivý výběr materiálu a doplňky, které mají vydržet roky nošení."
+      "default": "Všechno vzniká u nás na Moravě v České republice – s úctou k lokálnímu řemeslu a naší planetě."
+    },
+    { "type": "text", "id": "sub_4", "label": "Podnadpis 4", "default": "originALITA" },
+    {
+      "type": "textarea",
+      "id": "text_4",
+      "label": "Text 4",
+      "default": "Díky vlastnoručnímu zpracování a přírodnímu charakteru prémiové kůže je každý kousek unikátní. Drobné nuance a nepravidelnosti kůže nejsou vadou, ale pečetí originality."
     },
     { "type": "image_picker", "id": "image", "label": "Fotka" },
     { "type": "text", "id": "caption", "label": "Popisek fotky", "default": "Ručně šité detaily z naší dílny" },

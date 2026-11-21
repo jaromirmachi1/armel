@@ -11,7 +11,22 @@
   "sections": {
     "dna": {
       "type": "armel-dna",
-      "settings": {}
+      "settings": {
+        "heading": "DNA",
+        "lead": "ARMEL vznikl z našeho dlouholetého přátelství a společné vášně pro kreativitu. S láskou navrhujeme a vlastnoručně šijeme unikátní kožené doplňky. Za každým kouskem stojí hodiny ruční práce a kus našeho srdce. Od výběru materiálu až po poslední steh je všechno v našich rukách.",
+        "credit": "– Aneta & Marína",
+        "sub_1": "Italská prémiová kůže",
+        "text_1": "Pracujeme výhradně s vysoce kvalitní italskou kůží. Vybíráme ji pro její jedinečné vlastnosti a odolnost, díky které vám naše kousky budou dělat radost dlouhé roky. S úctou k materiálu aktivně zpracováváme i zbytkové usně a zachraňujeme odřezky, které by bez povšimnutí skončily jako odpad. Věříme, že opravdová udržitelnost spočívá v poctivém zpracování a ohleduplnosti ke zdrojům.",
+        "sub_2": "Ruční výroba",
+        "text_2": "Žádná sériová výroba ani pásová linka. Všechny doplňky vlastnoručně navrhujeme, řežeme a šijeme od prvního do posledního stehu samy dvě.",
+        "sub_3": "Doma na Moravě",
+        "text_3": "Všechno vzniká u nás na Moravě v České republice – s úctou k lokálnímu řemeslu a naší planetě.",
+        "sub_4": "originALITA",
+        "text_4": "Díky vlastnoručnímu zpracování a přírodnímu charakteru prémiové kůže je každý kousek unikátní. Drobné nuance a nepravidelnosti kůže nejsou vadou, ale pečetí originality.",
+        "caption": "Ručně šité detaily z naší dílny",
+        "background": "#EFEDEA",
+        "text": "#4B1D1E"
+      }
     },
     "footer": {
       "type": "armel-footer",
