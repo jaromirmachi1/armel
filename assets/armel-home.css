@@ -976,12 +976,16 @@
 
 .a-invite__title {
   margin: 0;
+  max-width: 100%;
   font-family: var(--a-display, var(--font-body--family), 'Montserrat', sans-serif);
-  font-size: clamp(2.4rem, 6.4vw, 5.5rem);
+  font-size: clamp(1.75rem, 4.2vw + 0.4rem, 5.5rem);
   font-weight: var(--a-display-weight, 600);
   letter-spacing: -0.03em;
   line-height: 0.92;
   text-transform: uppercase;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: keep-all;
 }
 
 .a-invite .a-invite__stage {
@@ -991,6 +995,21 @@
   min-height: 0;
   padding: 0;
   background: transparent;
+}
+
+/* Tablet: keep one line; shrink type and clutch so both fit side by side */
+@media screen and (max-width: 1200px) and (min-width: 900px) {
+  .a-invite {
+    column-gap: clamp(16px, 2.4vw, 32px);
+  }
+
+  .a-invite__title {
+    font-size: clamp(1.55rem, 3.1vw, 2.75rem);
+  }
+
+  .a-invite .a-invite__stage {
+    --w: min(400px, 38vw);
+  }
 }
 
 .a-invite .armel-newsletter {
