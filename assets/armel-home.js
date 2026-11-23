@@ -50,9 +50,9 @@
       if (!nav || !prev || !next) return;
       if (!track.clientWidth) return;
       var max = track.scrollWidth - track.clientWidth - 2;
-      nav.hidden = max <= 0;
+      nav.hidden = false;
       prev.disabled = track.scrollLeft <= 2;
-      next.disabled = track.scrollLeft >= max;
+      next.disabled = max <= 0 || track.scrollLeft >= max;
     }
     if (prev) prev.addEventListener('click', function () {
       track.scrollBy({ left: -step(), behavior: reduce ? 'auto' : 'smooth' });

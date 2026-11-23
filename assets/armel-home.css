@@ -622,8 +622,27 @@
   gap: 10px;
 }
 
-.a-rail__nav[hidden] {
-  display: none;
+.a-showcase .a-icon-btn {
+  background: #f6f1e8;
+  color: #7d3031;
+}
+
+.a-showcase .a-icon-btn:disabled {
+  opacity: 0.4;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .a-showcase .a-icon-btn:not(:disabled):hover {
+    background: #fff;
+    color: #7d3031;
+  }
+  .a-showcase .a-icon-btn:not(:disabled):hover svg {
+    color: #7d3031;
+  }
+}
+
+.a-showcase .a-icon-btn:active {
+  transform: scale(0.97);
 }
 
 .a-showcase__foot .a-link {
