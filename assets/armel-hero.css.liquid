@@ -553,29 +553,48 @@ html.a-js .armel-hero__sig {
   outline-offset: 3px;
 }
 
-/* Cream wash under the bar, darker veil toward the campaign type */
+/* Darker veil toward the campaign type. The cream wash lives on the bar. */
 .armel-hero::after {
   content: '';
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background:
-    linear-gradient(
+  background: linear-gradient(
+    180deg,
+    rgb(42 18 19 / 0) 48%,
+    rgb(42 18 19 / 0.08) 68%,
+    rgb(42 18 19 / 0.28) 86%,
+    rgb(42 18 19 / 0.48) 100%
+  );
+}
+
+@media (hover: hover) and (pointer: fine) and (min-width: 990px) {
+  .armel-hero__bar::after {
+    content: '';
+    position: absolute;
+    z-index: -2;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 44svh;
+    pointer-events: none;
+    background: linear-gradient(
       180deg,
       rgb(246 241 232 / 0.82) 0%,
-      rgb(246 241 232 / 0.62) 8%,
-      rgb(246 241 232 / 0.34) 18%,
-      rgb(246 241 232 / 0.12) 30%,
-      rgb(246 241 232 / 0) 44%
-    ),
-    linear-gradient(
-      180deg,
-      rgb(42 18 19 / 0) 48%,
-      rgb(42 18 19 / 0.08) 68%,
-      rgb(42 18 19 / 0.28) 86%,
-      rgb(42 18 19 / 0.48) 100%
+      rgb(246 241 232 / 0.62) 18%,
+      rgb(246 241 232 / 0.34) 41%,
+      rgb(246 241 232 / 0.12) 68%,
+      rgb(246 241 232 / 0) 100%
     );
+    opacity: 0;
+    transition: opacity 220ms var(--armel-ease);
+  }
+
+  .armel-hero__bar:hover::after,
+  .armel-hero__bar:focus-within::after {
+    opacity: 1;
+  }
 }
 
 /* ---------- campaign copy over the media ---------- */
@@ -695,6 +714,12 @@ html.a-js .armel-hero__copy {
     object-position: 50% 0%;
     transform-origin: 50% 0;
     animation-name: armel-hero-drift-sm;
+  }
+
+  .armel-hero__video {
+    animation: none;
+    transform: none;
+    object-position: center center;
   }
 
   .armel-hero[data-armel-hero-video] .armel-hero__photo:not(.armel-hero__video) {
@@ -865,6 +890,7 @@ html.a-js .armel-hero__copy {
   }
   .armel-hero__bar,
   .armel-hero__bar::before,
+  .armel-hero__bar::after,
   .armel-hero__mark {
     transition: none !important;
   }

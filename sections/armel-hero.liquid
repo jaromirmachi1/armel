@@ -25,6 +25,7 @@
       poster="{{ poster_url }}"
       aria-hidden="true"
     >
+      <source src="{{ 'armel-hero-mobile.mp4' | asset_url }}" type="video/mp4" media="(max-width: 989px)">
       <source src="{{ 'armel-hero.mp4' | asset_url }}" type="video/mp4">
     </video>
     {%- if section.settings.image != blank -%}
