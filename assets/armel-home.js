@@ -48,6 +48,7 @@
     }
     function update() {
       if (!nav || !prev || !next) return;
+      if (!track.clientWidth) return;
       var max = track.scrollWidth - track.clientWidth - 2;
       nav.hidden = max <= 0;
       prev.disabled = track.scrollLeft <= 2;
@@ -61,6 +62,8 @@
     });
     track.addEventListener('scroll', update, { passive: true });
     window.addEventListener('resize', update);
+    window.addEventListener('load', update);
+    requestAnimationFrame(function () { requestAnimationFrame(update); });
 
     var down = false, moved = false, justDragged = false, startX = 0, startLeft = 0;
     track.addEventListener('click', function (e) {

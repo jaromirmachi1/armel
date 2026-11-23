@@ -5,10 +5,16 @@
 
 {%- liquid
   assign collection = section.settings.collection
-  if collection == blank or collection.products_count == 0
-    assign collection = collections.all
-  endif
   assign limit = section.settings.limit
+  assign showcase_has_products = false
+  if collection != blank
+    for product in collection.products limit: 1
+      assign showcase_has_products = true
+    endfor
+  endif
+  unless showcase_has_products
+    assign collection = collections.all
+  endunless
 -%}
 
 <div
@@ -42,13 +48,14 @@
 
   <div class="a-rail" data-a-rail>
     <ul class="a-rail__track" role="list" data-a-rail-track tabindex="0" aria-label="{{ section.settings.heading | default: 'Produkty' | escape }}">
-      {%- if collection != blank and collection.products_count > 0 -%}
-        {%- for product in collection.products limit: limit -%}
-          <li class="a-rail__item" data-a-reveal="scale" style="--a-delay: {{ forloop.index0 | at_most: 4 | times: 80 }}ms;">
-            {%- render 'armel-product-card', product: product -%}
-          </li>
-        {%- endfor -%}
-      {%- else -%}
+      {%- assign showcase_rendered = 0 -%}
+      {%- for product in collection.products limit: limit -%}
+        {%- assign showcase_rendered = showcase_rendered | plus: 1 -%}
+        <li class="a-rail__item" data-a-reveal="scale" style="--a-delay: {{ forloop.index0 | at_most: 4 | times: 80 }}ms;">
+          {%- render 'armel-product-card', product: product -%}
+        </li>
+      {%- endfor -%}
+      {%- if showcase_rendered == 0 -%}
         {%- for i in (1..5) -%}
           <li class="a-rail__item" data-a-reveal="scale" style="--a-delay: {{ forloop.index0 | at_most: 4 | times: 80 }}ms;">
             <a class="a-card" href="{{ routes.all_products_collection_url }}">
@@ -71,7 +78,7 @@
   </div>
 
   <div class="a-showcase__foot" data-a-reveal style="--a-delay: 120ms;">
-    <div class="a-rail__nav" data-a-rail-nav hidden>
+    <div class="a-rail__nav" data-a-rail-nav>
       <button class="a-icon-btn" type="button" data-a-rail-prev aria-label="Předchozí produkty">
         <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
