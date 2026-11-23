@@ -458,20 +458,26 @@ html.a-js .armel-hero__sig {
 .armel-hero__copy {
   position: absolute;
   z-index: 2;
-  left: 50%;
+  right: 0;
   bottom: clamp(48px, 12svh, 120px);
+  left: 0;
   display: grid;
   justify-items: center;
   gap: clamp(22px, 3.2vw, 36px);
   width: min(920px, calc(100% - 2 * var(--armel-m)));
+  margin-inline: auto;
   padding: 0;
   text-align: center;
   color: #f6f1e8;
-  transform: translateX(-50%);
 }
 
 html.a-js .armel-hero__copy {
-  animation: armel-hero-copy-in 980ms var(--armel-ease) 180ms both;
+  animation: armel-hero-copy-fade 980ms var(--armel-ease) 180ms both;
+}
+
+@keyframes armel-hero-copy-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .armel-hero__title {
@@ -726,9 +732,6 @@ html.a-js .armel-hero__copy {
     animation: none;
     transform: none;
     opacity: 1;
-  }
-  html.a-js .armel-hero__copy {
-    transform: translateX(-50%);
   }
   .armel-hero__video {
     display: none;
