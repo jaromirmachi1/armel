@@ -4,6 +4,8 @@
 {%- liquid
   assign hero_alt = section.settings.image_alt
   assign use_video = section.settings.enable_video
+  assign cta_label = section.settings.button_label
+  assign cta_link = section.settings.button_link | default: routes.all_products_collection_url
   if section.settings.image != blank
     assign poster_url = section.settings.image | image_url: width: 2400
   else
@@ -21,7 +23,7 @@
       playsinline
       preload="metadata"
       poster="{{ poster_url }}"
-      aria-label="{{ hero_alt | escape }}"
+      aria-hidden="true"
     >
       <source src="{{ 'armel-hero.mp4' | asset_url }}" type="video/mp4">
     </video>
@@ -33,18 +35,16 @@
           widths: '750, 1100, 1500, 2000, 2400',
           sizes: '100vw',
           class: 'armel-hero__photo armel-hero__photo--fallback',
-          alt: hero_alt,
-          fetchpriority: 'high',
+          alt: '',
           loading: 'eager'
       }}
     {%- else -%}
       <img
         class="armel-hero__photo armel-hero__photo--fallback"
         src="{{ poster_url }}"
-        alt="{{ hero_alt | escape }}"
+        alt=""
         width="1280"
         height="720"
-        fetchpriority="high"
         decoding="async"
       >
     {%- endif -%}
@@ -74,7 +74,19 @@
 
   {% render 'armel-bar', links: section.blocks, is_home: true, bar_id: section.id %}
 
-  <h1 class="visually-hidden">{{ section.settings.heading | escape }}</h1>
+  <div class="armel-hero__copy">
+    <h1 class="armel-hero__title">
+      {%- if section.settings.heading != blank -%}
+        <span class="armel-hero__line">{{ section.settings.heading | escape }}</span>
+      {%- endif -%}
+      {%- if section.settings.text != blank -%}
+        <span class="armel-hero__line">{{ section.settings.text | escape }}</span>
+      {%- endif -%}
+    </h1>
+    {%- if cta_label != blank -%}
+      <a class="armel-hero__cta" href="{{ cta_link }}">{{ cta_label | escape }}</a>
+    {%- endif -%}
+  </div>
 
   {%- if section.settings.show_signature -%}
     <span class="a-sig armel-hero__sig" role="img" aria-label="by Aneta &amp; Marína" style="-webkit-mask-image: url('{{ 'by-aneta-marina-black.png' | asset_url }}'); mask-image: url('{{ 'by-aneta-marina-black.png' | asset_url }}');"></span>
@@ -109,10 +121,30 @@
       "label": "Photograph description",
       "default": "Ručně šitá pouzdra Armel z kůže a kožešiny, zavěšená na kovových kroužcích"
     },
-    { "type": "text", "id": "heading", "label": "Nadpis", "default": "Kožené doplňky šité ručně na Moravě" },
-    { "type": "textarea", "id": "text", "label": "Text", "default": "Pouzdra a psaníčka z italské kůže se srstí a stříbrnými nýty. Každý kus je jiný, šijeme je samy dvě." },
-    { "type": "text", "id": "button_label", "label": "Tlačítko", "default": "Prohlédnout kousky" },
-    { "type": "url", "id": "button_link", "label": "Odkaz tlačítka" },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Řádek 1",
+      "default": "Unikátní kousky z italské kůže"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Řádek 2",
+      "default": "S láskou ručně ušité na Moravě"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Tlačítko",
+      "default": "Nová kolekce"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Odkaz tlačítka",
+      "info": "Prázdné = celá kolekce"
+    },
     { "type": "checkbox", "id": "show_signature", "label": "Podpis „by Aneta & Marína“", "default": false }
   ],
   "blocks": [

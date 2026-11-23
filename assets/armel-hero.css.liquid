@@ -443,41 +443,89 @@ html.a-js .armel-hero__sig {
   outline-offset: 3px;
 }
 
-/* ---------- intro ---------- */
-.armel-hero__intro {
-  position: relative;
+/* Soft veil so white campaign type stays readable on the film */
+.armel-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgb(42 18 19 / 0.18) 0%, rgb(42 18 19 / 0.08) 28%, rgb(42 18 19 / 0.22) 62%, rgb(42 18 19 / 0.55) 100%);
+}
+
+/* ---------- campaign copy over the media ---------- */
+.armel-hero__copy {
+  position: absolute;
   z-index: 2;
-  align-self: end;
-  justify-self: start;
+  left: 50%;
+  bottom: clamp(48px, 12svh, 120px);
   display: grid;
-  justify-items: start;
-  gap: 20px;
-  width: min(42rem, 48vw);
-  padding: 0 var(--armel-m) clamp(32px, 6svh, 64px);
+  justify-items: center;
+  gap: clamp(22px, 3.2vw, 36px);
+  width: min(920px, calc(100% - 2 * var(--armel-m)));
+  padding: 0;
+  text-align: center;
+  color: #f6f1e8;
+  transform: translateX(-50%);
+}
+
+html.a-js .armel-hero__copy {
+  animation: armel-hero-copy-in 980ms var(--armel-ease) 180ms both;
 }
 
 .armel-hero__title {
+  display: grid;
+  gap: 0.35em;
   margin: 0;
-  max-width: 13em;
-  font-family: var(--a-display, inherit);
-  font-size: clamp(26px, 2.6vw, 38px);
-  font-weight: var(--a-display-weight, 600);
+  font-family: var(--a-display, var(--font-body--family), 'Montserrat', sans-serif);
+  font-size: clamp(15px, 1.55vw + 0.55rem, 26px);
+  font-weight: 500;
   font-size-adjust: var(--a-display-adjust, none);
-  line-height: 1.08;
-  letter-spacing: var(--a-display-tracking, -0.025em);
+  line-height: 1.35;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   text-wrap: balance;
 }
 
-.armel-hero__text {
-  margin: 0;
-  max-width: 30em;
-  font-size: 14px;
-  line-height: 1.5;
-  color: #3d1a1b;
+.armel-hero__line {
+  display: block;
 }
 
-.armel-hero__intro .a-btn {
-  margin-top: 8px;
+.armel-hero__cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 30px;
+  border: 1px solid rgb(246 241 232 / 0.92);
+  background: rgb(246 241 232 / 0.92);
+  color: #7d3031;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: transform 200ms var(--armel-ease), background-color 220ms ease, color 220ms ease, border-color 220ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .armel-hero__cta:hover {
+    background: transparent;
+    color: #f6f1e8;
+    border-color: rgb(246 241 232 / 0.92);
+  }
+}
+
+.armel-hero__cta:active {
+  transform: scale(0.97);
+}
+
+.armel-hero__cta:focus-visible {
+  outline: 2px solid #f6f1e8;
+  outline-offset: 3px;
 }
 
 .armel-hero__sig {
@@ -527,6 +575,21 @@ html.a-js .armel-hero__sig {
   @keyframes armel-hero-drift-sm {
     from { transform: scale(1.04); }
     to { transform: scale(1.1); }
+  }
+
+  .armel-hero__copy {
+    bottom: max(40px, calc(env(safe-area-inset-bottom) + 28px));
+    gap: 20px;
+  }
+
+  .armel-hero__title {
+    font-size: clamp(13px, 2.8vw + 0.35rem, 17px);
+    letter-spacing: 0.12em;
+  }
+
+  .armel-hero__cta {
+    min-height: 46px;
+    width: min(100%, 280px);
   }
 
   .armel-hero__sig {
@@ -658,10 +721,14 @@ html.a-js .armel-hero__sig {
 
 @media (prefers-reduced-motion: reduce) {
   .armel-hero__photo,
-  html.a-js .armel-hero__sig {
+  html.a-js .armel-hero__sig,
+  html.a-js .armel-hero__copy {
     animation: none;
     transform: none;
     opacity: 1;
+  }
+  html.a-js .armel-hero__copy {
+    transform: translateX(-50%);
   }
   .armel-hero__video {
     display: none;

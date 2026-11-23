@@ -40,7 +40,11 @@
         "link_galerie"
       ],
       "settings": {
-        "enable_video": true
+        "enable_video": true,
+        "heading": "Unikátní kousky z italské kůže",
+        "text": "S láskou ručně ušité na Moravě",
+        "button_label": "Nová kolekce",
+        "button_link": "/collections/all"
       }
     },
     "armel_showcase": {
