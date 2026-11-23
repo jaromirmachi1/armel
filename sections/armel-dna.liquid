@@ -4,72 +4,32 @@
 {%- render 'armel-home-assets' -%}
 
 <section class="a-dna a-scope" style="--a-bg: {{ section.settings.background }}; --a-fg: {{ section.settings.text }};">
-  <div class="a-dna__intro">
-    <h1 class="a-dna__title" data-a-reveal="blur">{{ section.settings.heading | default: page.title | escape }}</h1>
+  <h1 class="visually-hidden">{{ section.settings.heading | default: page.title | escape }}</h1>
+  <div class="a-dna__sheet">
     {%- if section.settings.lead != blank -%}
-      <p class="a-dna__lead" data-a-reveal style="--a-delay: 90ms;">{{ section.settings.lead | escape | newline_to_br }}</p>
+      <p class="a-dna__lead">{{ section.settings.lead | escape | newline_to_br }}</p>
     {%- endif -%}
     {%- if section.settings.credit != blank -%}
-      <p class="a-dna__credit" data-a-reveal style="--a-delay: 120ms;">{{ section.settings.credit | escape }}</p>
+      <p class="a-dna__credit">{{ section.settings.credit | escape }}</p>
     {%- endif -%}
-  </div>
 
-  <div class="a-dna__grid">
-    <div class="a-dna__copy" data-a-reveal="left" style="--a-delay: 120ms;">
-      <h2 class="a-dna__sub">{{ section.settings.sub_1 | escape }}</h2>
+    <div class="a-dna__block">
+      <h2>{{ section.settings.sub_1 | escape }}</h2>
       <p>{{ section.settings.text_1 | escape }}</p>
     </div>
-    <div class="a-dna__copy" data-a-reveal="right" style="--a-delay: 180ms;">
-      <h2 class="a-dna__sub">{{ section.settings.sub_2 | escape }}</h2>
+    <div class="a-dna__block">
+      <h2>{{ section.settings.sub_2 | escape }}</h2>
       <p>{{ section.settings.text_2 | escape }}</p>
     </div>
-    <div class="a-dna__copy" data-a-reveal="left" style="--a-delay: 220ms;">
-      <h2 class="a-dna__sub">{{ section.settings.sub_3 | escape }}</h2>
+    <div class="a-dna__block">
+      <h2>{{ section.settings.sub_3 | escape }}</h2>
       <p>{{ section.settings.text_3 | escape }}</p>
     </div>
-    <div class="a-dna__copy" data-a-reveal="right" style="--a-delay: 260ms;">
-      <h2 class="a-dna__sub">{{ section.settings.sub_4 | escape }}</h2>
+    <div class="a-dna__block">
+      <h2>{{ section.settings.sub_4 | escape }}</h2>
       <p>{{ section.settings.text_4 | escape }}</p>
     </div>
   </div>
-
-  <figure class="a-dna__figure" data-a-reveal="clip" style="--a-delay: 160ms;">
-    {%- if section.settings.image != blank -%}
-      {{
-        section.settings.image
-        | image_url: width: 2000
-        | image_tag:
-          widths: '800, 1200, 1600, 2000',
-          sizes: '100vw',
-          loading: 'lazy',
-          alt: section.settings.image.alt
-      }}
-    {%- else -%}
-      <img
-        src="{{ 'armel-clutch-closed.jpg' | asset_url }}"
-        alt="Zavřené psaníčko Armel z kůže se srstí"
-        width="1800"
-        height="1221"
-        loading="lazy"
-        decoding="async"
-      >
-    {%- endif -%}
-    {%- if section.settings.caption != blank -%}
-      <figcaption>{{ section.settings.caption | escape }}</figcaption>
-    {%- endif -%}
-  </figure>
-
-  {%- if page.content != blank -%}
-    <div class="a-dna__body rte" data-a-reveal>{{ page.content }}</div>
-  {%- endif -%}
-
-  <span
-    class="a-sig a-dna__sig"
-    role="img"
-    aria-label="by Aneta &amp; Marína"
-    style="-webkit-mask-image: url('{{ 'by-aneta-marina-black.png' | asset_url }}'); mask-image: url('{{ 'by-aneta-marina-black.png' | asset_url }}');"
-    data-a-reveal="scale"
-  ></span>
 </section>
 
 {% schema %}
@@ -120,7 +80,7 @@
     { "type": "image_picker", "id": "image", "label": "Fotka" },
     { "type": "text", "id": "caption", "label": "Popisek fotky", "default": "Ručně šité detaily z naší dílny" },
     { "type": "color", "id": "background", "label": "Pozadí", "default": "#EFEDEA" },
-    { "type": "color", "id": "text", "label": "Text", "default": "#4B1D1E" }
+    { "type": "color", "id": "text", "label": "Text", "default": "#7D3031" }
   ],
   "presets": [{ "name": "Armel – DNA" }]
 }
