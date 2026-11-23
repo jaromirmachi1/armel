@@ -50,6 +50,9 @@
     "armel_showcase": {
       "type": "armel-showcase",
       "settings": {
+        "heading": "",
+        "heading_2": "",
+        "show_signature": false,
         "collection": "",
         "limit": 8
       }

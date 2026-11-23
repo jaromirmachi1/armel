@@ -13,26 +13,32 @@
   id="a-products"
   style="--a-bg: {{ section.settings.background }}; --a-fg: {{ section.settings.text }}; --a-tile: {{ section.settings.tile }};"
 >
-  <header class="a-showcase__head">
-    <h2 class="a-showcase__title">
-      <span data-a-reveal="blur">{{ section.settings.heading | escape }}</span>
-      {%- if section.settings.heading_2 != blank -%}
-        <span data-a-reveal="blur" style="--a-delay: 90ms;">{{ section.settings.heading_2 | escape }}</span>
+  {%- if section.settings.heading != blank or section.settings.heading_2 != blank or section.settings.show_signature -%}
+    <header class="a-showcase__head">
+      {%- if section.settings.heading != blank or section.settings.heading_2 != blank -%}
+        <h2 class="a-showcase__title">
+          {%- if section.settings.heading != blank -%}
+            <span data-a-reveal="blur">{{ section.settings.heading | escape }}</span>
+          {%- endif -%}
+          {%- if section.settings.heading_2 != blank -%}
+            <span data-a-reveal="blur" style="--a-delay: 90ms;">{{ section.settings.heading_2 | escape }}</span>
+          {%- endif -%}
+        </h2>
       {%- endif -%}
-    </h2>
-    {%- if section.settings.show_signature -%}
-      <span
-        class="a-sig a-showcase__sig"
-        role="img"
-        aria-label="by Aneta &amp; Marína"
-        data-a-reveal="scale"
-        style="-webkit-mask-image: url('{{ 'by-aneta-marina-black.png' | asset_url }}'); mask-image: url('{{ 'by-aneta-marina-black.png' | asset_url }}'); --a-delay: 160ms;"
-      ></span>
-    {%- endif -%}
-  </header>
+      {%- if section.settings.show_signature -%}
+        <span
+          class="a-sig a-showcase__sig"
+          role="img"
+          aria-label="by Aneta &amp; Marína"
+          data-a-reveal="scale"
+          style="-webkit-mask-image: url('{{ 'by-aneta-marina-black.png' | asset_url }}'); mask-image: url('{{ 'by-aneta-marina-black.png' | asset_url }}'); --a-delay: 160ms;"
+        ></span>
+      {%- endif -%}
+    </header>
+  {%- endif -%}
 
   <div class="a-rail" data-a-rail>
-    <ul class="a-rail__track" role="list" data-a-rail-track tabindex="0" aria-label="{{ section.settings.heading | escape }}">
+    <ul class="a-rail__track" role="list" data-a-rail-track tabindex="0" aria-label="{{ section.settings.heading | default: 'Produkty' | escape }}">
       {%- if collection != blank and collection.products_count > 0 -%}
         {%- for product in collection.products limit: limit -%}
           <li class="a-rail__item" data-a-reveal="scale" style="--a-delay: {{ forloop.index0 | at_most: 4 | times: 80 }}ms;">
@@ -77,9 +83,9 @@
   "tag": "section",
   "class": "a-section a-section--showcase",
   "settings": [
-    { "type": "text", "id": "heading", "label": "Nadpis – 1. řádek", "default": "Unikátní kousky z italské kůže" },
-    { "type": "text", "id": "heading_2", "label": "Nadpis – 2. řádek", "default": "S láskou ručně ušité na Moravě" },
-    { "type": "checkbox", "id": "show_signature", "label": "Podpis „by Aneta & Marína“", "default": true },
+    { "type": "text", "id": "heading", "label": "Nadpis – 1. řádek", "default": "" },
+    { "type": "text", "id": "heading_2", "label": "Nadpis – 2. řádek", "default": "" },
+    { "type": "checkbox", "id": "show_signature", "label": "Podpis „by Aneta & Marína“", "default": false },
     { "type": "collection", "id": "collection", "label": "Kolekce" },
     { "type": "range", "id": "limit", "label": "Počet produktů", "min": 3, "max": 16, "step": 1, "default": 8 },
     {
