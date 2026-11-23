@@ -510,18 +510,18 @@ html.a-js .armel-hero__sig {
 /* ---------- phone ---------- */
 @media screen and (max-width: 989px) {
   .armel-hero {
-    min-height: 0;
-    grid-template-rows: 56svh auto;
+    min-height: 100svh;
+    min-height: 100dvh;
   }
 
   .armel-hero__photo {
-    position: relative;
-    grid-row: 1;
-    grid-column: 1;
-    height: 56svh;
     object-position: 50% 0%;
     transform-origin: 50% 0;
     animation-name: armel-hero-drift-sm;
+  }
+
+  .armel-hero[data-armel-hero-video] .armel-hero__photo:not(.armel-hero__video) {
+    animation: none;
   }
 
   @keyframes armel-hero-drift-sm {
@@ -529,27 +529,9 @@ html.a-js .armel-hero__sig {
     to { transform: scale(1.1); }
   }
 
-  .armel-hero__intro {
-    grid-row: 2;
-    grid-column: 1;
-    justify-self: stretch;
-    width: 100%;
-    max-width: 40rem;
-    gap: 16px;
-    padding: 28px var(--armel-m) 40px;
-  }
-
-  .armel-hero__title {
-    font-size: clamp(24px, 6.6vw, 30px);
-  }
-
-  .armel-hero__intro .a-btn {
-    width: 100%;
-  }
-
   .armel-hero__sig {
-    top: calc(56svh - 52px);
-    bottom: auto;
+    top: auto;
+    bottom: max(24px, env(safe-area-inset-bottom));
     left: auto;
     right: var(--armel-m);
     width: 150px;
