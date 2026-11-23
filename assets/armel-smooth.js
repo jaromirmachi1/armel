@@ -72,5 +72,10 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setup);
   else setup();
 
+  /* After Lenis attaches, snap to the top so a restored scroll position does not stick. */
+  requestAnimationFrame(function () {
+    if (lenis && typeof lenis.scrollTo === 'function') lenis.scrollTo(0, { immediate: true });
+  });
+
   window.armelSmooth = window.armelSmooth || true;
 })();

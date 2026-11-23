@@ -65,6 +65,29 @@
     {% endif %}
 
     {{ content_for_header }}
+    <script>
+      /* Always open at the top on load / refresh / back-forward cache. */
+      (function () {
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+        function toTop() {
+          var wrapper = document.querySelector('.page-wrapper');
+          if (wrapper) wrapper.scrollTop = 0;
+          if (window.armelSmooth && typeof window.armelSmooth.scrollTo === 'function') {
+            window.armelSmooth.scrollTo(0, { immediate: true });
+          }
+          window.scrollTo(0, 0);
+          if (document.documentElement) document.documentElement.scrollTop = 0;
+          if (document.body) document.body.scrollTop = 0;
+        }
+        toTop();
+        window.addEventListener('pageshow', function (event) {
+          toTop();
+          if (event.persisted) requestAnimationFrame(toTop);
+        });
+        document.addEventListener('DOMContentLoaded', toTop);
+        window.addEventListener('load', toTop);
+      })();
+    </script>
   </head>
 
   <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }} template-{{ template.name }}{% if armel_coming_soon or armel_preview %} template-index{% endif %}{% if armel_coming_soon %} armel-coming-soon{% endif %}">
