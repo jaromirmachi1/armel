@@ -26,7 +26,7 @@
   font-family: var(--font-body--family), 'Montserrat', 'Avenir Next', 'Segoe UI', sans-serif;
 }
 
-/* ---------- photograph ---------- */
+/* ---------- photograph / video ---------- */
 .armel-hero__photo {
   position: absolute;
   inset: 0;
@@ -40,6 +40,22 @@
      and run off the bottom edge, leaving the wall on the left for the words */
   transform-origin: 0 8%;
   animation: armel-hero-drift 26s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+}
+
+.armel-hero__video {
+  z-index: 1;
+  animation: none;
+  transform: none;
+  background: #e4e2df;
+}
+
+.armel-hero__photo--fallback {
+  z-index: 0;
+}
+
+.armel-hero[data-armel-hero-video] .armel-hero__photo:not(.armel-hero__video) {
+  animation: none;
+  transform: none;
 }
 
 @keyframes armel-hero-drift {
@@ -664,6 +680,9 @@ html.a-js .armel-hero__sig {
     animation: none;
     transform: none;
     opacity: 1;
+  }
+  .armel-hero__video {
+    display: none;
   }
   html.a-js .armel-hero__bar {
     animation: none;

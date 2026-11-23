@@ -39,7 +39,9 @@
         "link_dna",
         "link_galerie"
       ],
-      "settings": {}
+      "settings": {
+        "enable_video": true
+      }
     },
     "armel_showcase": {
       "type": "armel-showcase",

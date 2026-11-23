@@ -1,8 +1,54 @@
 {%- render 'armel-home-assets' -%}
 {{ 'armel-hero.css' | asset_url | stylesheet_tag }}
 
-<div class="armel-hero" data-armel-hero>
-  {%- if section.settings.image != blank -%}
+{%- liquid
+  assign hero_alt = section.settings.image_alt
+  assign use_video = section.settings.enable_video
+  if section.settings.image != blank
+    assign poster_url = section.settings.image | image_url: width: 2400
+  else
+    assign poster_url = 'armel-hero-poster.jpg' | asset_url
+  endif
+-%}
+
+<div class="armel-hero" data-armel-hero{% if use_video %} data-armel-hero-video{% endif %}>
+  {%- if use_video -%}
+    <video
+      class="armel-hero__photo armel-hero__video"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      poster="{{ poster_url }}"
+      aria-label="{{ hero_alt | escape }}"
+    >
+      <source src="{{ 'armel-hero.mp4' | asset_url }}" type="video/mp4">
+    </video>
+    {%- if section.settings.image != blank -%}
+      {{
+        section.settings.image
+        | image_url: width: 2400
+        | image_tag:
+          widths: '750, 1100, 1500, 2000, 2400',
+          sizes: '100vw',
+          class: 'armel-hero__photo armel-hero__photo--fallback',
+          alt: hero_alt,
+          fetchpriority: 'high',
+          loading: 'eager'
+      }}
+    {%- else -%}
+      <img
+        class="armel-hero__photo armel-hero__photo--fallback"
+        src="{{ poster_url }}"
+        alt="{{ hero_alt | escape }}"
+        width="1280"
+        height="720"
+        fetchpriority="high"
+        decoding="async"
+      >
+    {%- endif -%}
+  {%- elsif section.settings.image != blank -%}
     {{
       section.settings.image
       | image_url: width: 2400
@@ -10,7 +56,7 @@
         widths: '750, 1100, 1500, 2000, 2400',
         sizes: '100vw',
         class: 'armel-hero__photo',
-        alt: section.settings.image_alt,
+        alt: hero_alt,
         fetchpriority: 'high',
         loading: 'eager'
     }}
@@ -18,7 +64,7 @@
     <img
       class="armel-hero__photo"
       src="{{ 'ArmelHero.png' | asset_url }}"
-      alt="{{ section.settings.image_alt | escape }}"
+      alt="{{ hero_alt | escape }}"
       width="1367"
       height="833"
       fetchpriority="high"
@@ -45,10 +91,17 @@
   },
   "settings": [
     {
+      "type": "checkbox",
+      "id": "enable_video",
+      "label": "Použít hero video",
+      "info": "Místo fotky přehraje ztlumené video z tématu (armel-hero.mp4). Při reduced motion zůstane poster.",
+      "default": true
+    },
+    {
       "type": "image_picker",
       "id": "image",
-      "label": "Photograph",
-      "info": "Leave empty to use the Armel hero photograph in theme assets."
+      "label": "Photograph / poster",
+      "info": "Poster pro video a záloha, když je video vypnuté. Prázdné = vestavěný poster / ArmelHero.png."
     },
     {
       "type": "text",
