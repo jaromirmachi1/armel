@@ -34,7 +34,11 @@
     if (rail.__armel) return;
     rail.__armel = true;
     var track = rail.querySelector('[data-a-rail-track]');
+    var section = rail.closest('.a-showcase');
+    var nav = section && section.querySelector('[data-a-rail-nav]');
     if (!track) return;
+    var prev = nav && nav.querySelector('[data-a-rail-prev]');
+    var next = nav && nav.querySelector('[data-a-rail-next]');
 
     function step() {
       var item = track.querySelector('.a-rail__item');
@@ -42,6 +46,21 @@
       var gap = parseFloat(getComputedStyle(track).columnGap) || 0;
       return item.getBoundingClientRect().width + gap;
     }
+    function update() {
+      if (!nav || !prev || !next) return;
+      var max = track.scrollWidth - track.clientWidth - 2;
+      nav.hidden = max <= 0;
+      prev.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft >= max;
+    }
+    if (prev) prev.addEventListener('click', function () {
+      track.scrollBy({ left: -step(), behavior: reduce ? 'auto' : 'smooth' });
+    });
+    if (next) next.addEventListener('click', function () {
+      track.scrollBy({ left: step(), behavior: reduce ? 'auto' : 'smooth' });
+    });
+    track.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
 
     var down = false, moved = false, justDragged = false, startX = 0, startLeft = 0;
     track.addEventListener('click', function (e) {
@@ -67,6 +86,7 @@
         track.scrollTo({ left: Math.round(track.scrollLeft / s) * s, behavior: reduce ? 'auto' : 'smooth' });
       }
     });
+    update();
   }
 
   /* ---------- frame: one picture place, contents change ---------- */

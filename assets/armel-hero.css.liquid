@@ -244,10 +244,45 @@ html.a-js .armel-hero__sig {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px;
+  width: 100%;
 }
 
-.armel-mega__grid[hidden] {
+.armel-mega__pane {
+  display: grid;
+  gap: 28px;
+  justify-items: center;
+}
+
+.armel-mega__pane[hidden] {
   display: none;
+}
+
+.armel-mega__more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 28px;
+  border: 1px solid #7d3031;
+  border-radius: 999px;
+  color: #7d3031;
+  background: transparent;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .armel-mega__more:hover {
+    background: #7d3031;
+    color: #f6f1e8;
+  }
+}
+
+.armel-mega__more:active {
+  transform: scale(0.97);
 }
 
 .armel-mega__card {

@@ -52,9 +52,9 @@
       "settings": {
         "heading": "",
         "heading_2": "",
-        "show_signature": false,
+        "show_signature": true,
         "collection": "",
-        "limit": 8
+        "limit": 12
       }
     },
     "armel_feature": {
