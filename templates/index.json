@@ -53,7 +53,7 @@
         "heading": "",
         "heading_2": "",
         "show_signature": true,
-        "collection": "",
+        "collection": "all",
         "limit": 12
       }
     },

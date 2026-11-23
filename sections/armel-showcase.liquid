@@ -4,17 +4,11 @@
 {%- render 'armel-home-assets' -%}
 
 {%- liquid
-  assign collection = section.settings.collection
   assign limit = section.settings.limit
-  assign showcase_has_products = false
-  if collection != blank
-    for product in collection.products limit: 1
-      assign showcase_has_products = true
-    endfor
+  assign showcase_collection = section.settings.collection
+  if showcase_collection == blank
+    assign showcase_collection = collections.all
   endif
-  unless showcase_has_products
-    assign collection = collections.all
-  endunless
 -%}
 
 <div
@@ -46,34 +40,21 @@
     </header>
   {%- endif -%}
 
-  <div class="a-rail" data-a-rail>
+  <div
+    class="a-rail"
+    data-a-rail
+    data-a-catalog="{{ routes.all_products_collection_url }}/products.json?limit={{ limit }}"
+    data-a-limit="{{ limit }}"
+    data-a-currency="{{ cart.currency.iso_code | default: shop.currency }}"
+    data-a-stock="{{ 'content.inventory_in_stock' | t | escape }}"
+    data-a-sold="{{ 'content.product_badge_sold_out' | t | escape }}"
+  >
     <ul class="a-rail__track" role="list" data-a-rail-track tabindex="0" aria-label="{{ section.settings.heading | default: 'Produkty' | escape }}">
-      {%- assign showcase_rendered = 0 -%}
-      {%- for product in collection.products limit: limit -%}
-        {%- assign showcase_rendered = showcase_rendered | plus: 1 -%}
+      {%- for product in showcase_collection.products limit: limit -%}
         <li class="a-rail__item" data-a-reveal="scale" style="--a-delay: {{ forloop.index0 | at_most: 4 | times: 80 }}ms;">
           {%- render 'armel-product-card', product: product -%}
         </li>
       {%- endfor -%}
-      {%- if showcase_rendered == 0 -%}
-        {%- for i in (1..5) -%}
-          <li class="a-rail__item" data-a-reveal="scale" style="--a-delay: {{ forloop.index0 | at_most: 4 | times: 80 }}ms;">
-            <a class="a-card" href="{{ routes.all_products_collection_url }}">
-              <div class="a-card__media">
-                {{ 'product-' | append: i | placeholder_svg_tag: 'a-card__placeholder' }}
-                <span class="a-card__plus" aria-hidden="true">
-                  <svg viewBox="0 0 20 20" fill="none"><path d="M10 4.5v11M4.5 10h11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-                </span>
-              </div>
-              <div class="a-card__meta">
-                <span class="a-card__title">Název produktu</span>
-                <span class="a-card__price">1 490 Kč</span>
-                <span class="a-card__stock">{{ 'content.inventory_in_stock' | t }}</span>
-              </div>
-            </a>
-          </li>
-        {%- endfor -%}
-      {%- endif -%}
     </ul>
   </div>
 
@@ -87,7 +68,7 @@
       </button>
     </div>
     {%- if section.settings.link_label != blank -%}
-      <a class="a-link" href="{% if collection != blank %}{{ collection.url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}">
+      <a class="a-link" href="{{ showcase_collection.url | default: routes.all_products_collection_url }}">
         {{- section.settings.link_label | escape -}}
         <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4.5-4.5L15 10l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>

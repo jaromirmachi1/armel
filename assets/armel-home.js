@@ -63,7 +63,66 @@
     track.addEventListener('scroll', update, { passive: true });
     window.addEventListener('resize', update);
     window.addEventListener('load', update);
-    requestAnimationFrame(function () { requestAnimationFrame(update); });
+
+    function esc(value) {
+      return String(value == null ? '' : value).replace(/[&<>"']/g, function (char) {
+        return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char];
+      });
+    }
+    function money(amount) {
+      var value = parseFloat(amount);
+      if (!isFinite(value)) return '';
+      var currency = rail.getAttribute('data-a-currency') || 'CZK';
+      try {
+        return new Intl.NumberFormat(document.documentElement.lang || 'cs-CZ', {
+          style: 'currency',
+          currency: currency,
+          maximumFractionDigits: value % 1 === 0 ? 0 : 2
+        }).format(value);
+      } catch (error) {
+        return value + ' ' + currency;
+      }
+    }
+    function loadCatalog() {
+      if (track.querySelector('.a-card__img')) return Promise.resolve();
+      var url = rail.getAttribute('data-a-catalog');
+      if (!url) return Promise.resolve();
+      var limit = parseInt(rail.getAttribute('data-a-limit'), 10) || 12;
+      return fetch(url, { credentials: 'same-origin' })
+        .then(function (response) { return response.json(); })
+        .then(function (data) {
+          var products = (data && data.products ? data.products : []).slice(0, limit);
+          if (!products.length) return;
+          var stock = rail.getAttribute('data-a-stock') || '';
+          var sold = rail.getAttribute('data-a-sold') || '';
+          track.innerHTML = products.map(function (product) {
+            var variant = (product.variants || [])[0] || {};
+            var images = product.images || [];
+            var available = (product.variants || []).some(function (item) { return item.available; });
+            var photo = images[0] && images[0].src ? images[0].src + (images[0].src.indexOf('?') === -1 ? '?' : '&') + 'width=800' : '';
+            var alt = images[1] && images[1].src ? images[1].src + (images[1].src.indexOf('?') === -1 ? '?' : '&') + 'width=800' : '';
+            var price = money(variant.price);
+            var compare = variant.compare_at_price && parseFloat(variant.compare_at_price) > parseFloat(variant.price)
+              ? '<s>' + esc(money(variant.compare_at_price)) + '</s>'
+              : '';
+            return '<li class="a-rail__item is-in">' +
+              '<a class="a-card' + (available ? '' : ' a-card--sold') + '" href="/products/' + esc(product.handle) + '">' +
+                '<div class="a-card__media">' +
+                  (photo ? '<img class="a-card__img" src="' + esc(photo) + '" alt="' + esc(product.title) + '" loading="lazy">' : '') +
+                  (alt ? '<img class="a-card__img a-card__img--alt" src="' + esc(alt) + '" alt="" loading="lazy">' : '') +
+                  '<span class="a-card__plus" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none"><path d="M10 4.5v11M4.5 10h11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>' +
+                '</div>' +
+                '<div class="a-card__meta">' +
+                  '<span class="a-card__title">' + esc(product.title) + '</span>' +
+                  '<span class="a-card__price">' + esc(price) + compare + '</span>' +
+                  '<span class="a-card__stock">' + esc(available ? stock : sold) + '</span>' +
+                '</div>' +
+              '</a>' +
+            '</li>';
+          }).join('');
+        })
+        .catch(function () {});
+    }
 
     var down = false, moved = false, justDragged = false, startX = 0, startLeft = 0;
     track.addEventListener('click', function (e) {
@@ -89,7 +148,10 @@
         track.scrollTo({ left: Math.round(track.scrollLeft / s) * s, behavior: reduce ? 'auto' : 'smooth' });
       }
     });
-    update();
+    loadCatalog().then(function () {
+      update();
+      requestAnimationFrame(update);
+    });
   }
 
   /* ---------- frame: one picture place, contents change ---------- */
