@@ -443,7 +443,7 @@ html.a-js .armel-hero__sig {
   outline-offset: 3px;
 }
 
-/* Soft veil so white campaign type stays readable on the film */
+/* Cream wash under the bar, darker veil toward the campaign type */
 .armel-hero::after {
   content: '';
   position: absolute;
@@ -451,7 +451,18 @@ html.a-js .armel-hero__sig {
   z-index: 1;
   pointer-events: none;
   background:
-    linear-gradient(180deg, rgb(42 18 19 / 0.18) 0%, rgb(42 18 19 / 0.08) 28%, rgb(42 18 19 / 0.22) 62%, rgb(42 18 19 / 0.55) 100%);
+    linear-gradient(
+      180deg,
+      rgb(246 241 232 / 0.86) 0%,
+      rgb(246 241 232 / 0.55) 72px,
+      rgb(246 241 232 / 0) 22%
+    ),
+    linear-gradient(
+      180deg,
+      rgb(42 18 19 / 0) 40%,
+      rgb(42 18 19 / 0.18) 68%,
+      rgb(42 18 19 / 0.5) 100%
+    );
 }
 
 /* ---------- campaign copy over the media ---------- */
