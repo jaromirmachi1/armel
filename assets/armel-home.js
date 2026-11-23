@@ -61,7 +61,12 @@
       track.scrollBy({ left: step(), behavior: reduce ? 'auto' : 'smooth' });
     });
     track.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
+    var railWidth = window.innerWidth;
+    window.addEventListener('resize', function () {
+      if (window.innerWidth === railWidth) return;
+      railWidth = window.innerWidth;
+      update();
+    });
     window.addEventListener('load', update);
 
     function esc(value) {
@@ -241,7 +246,12 @@
       /* Horizon scrolls .page-wrapper instead of the window from 990px up */
       var wrapper = document.querySelector('.page-wrapper');
       if (wrapper) wrapper.addEventListener('scroll', onParallaxScroll, { passive: true });
-      window.addEventListener('resize', onParallaxScroll);
+      var parallaxWidth = window.innerWidth;
+      window.addEventListener('resize', function () {
+        if (window.innerWidth === parallaxWidth) return;
+        parallaxWidth = window.innerWidth;
+        onParallaxScroll();
+      });
     }
     parallaxMeasure();
   }

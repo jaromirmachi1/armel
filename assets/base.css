@@ -25,10 +25,19 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Safari's toolbar changes dvh while it shows. A smooth root scroll then fights that resize. */
+@media (hover: none) and (pointer: coarse) {
+  html,
+  body,
+  .page-wrapper {
+    scroll-behavior: auto;
+  }
+}
+
 @media (min-width: 990px) {
   html:has(.page-wrapper),
   html:has(.page-wrapper) body {
-    height: 100dvh;
+    height: 100svh;
     overflow: hidden;
   }
 }
@@ -48,17 +57,23 @@ html[scroll-lock] {
 .page-wrapper {
   display: flex;
   flex-direction: column;
-  min-height: 100dvh;
+  min-height: 100svh;
   transition: margin-inline-end var(--animation-speed) var(--animation-timing-fade-out);
 }
 
 @media (min-width: 990px) {
   .page-wrapper {
-    height: 100dvh;
+    height: 100svh;
     overflow-y: auto;
     scroll-behavior: smooth;
     scrollbar-width: thin;
     scrollbar-color: rgb(var(--color-foreground-rgb) / var(--opacity-40)) var(--color-background);
+  }
+
+  @media (hover: none) and (pointer: coarse) {
+    .page-wrapper {
+      scroll-behavior: auto;
+    }
   }
 
   .page-wrapper--drawer-open shopify-account::part(dialog) {

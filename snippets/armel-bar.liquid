@@ -464,7 +464,12 @@
     }
     window.addEventListener('scroll', onScroll, { passive: true });
     if (wrapper) wrapper.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
+    var barWidth = window.innerWidth;
+    window.addEventListener('resize', function () {
+      if (window.innerWidth === barWidth) return;
+      barWidth = window.innerWidth;
+      onScroll();
+    });
     syncScrolled();
     /* switch transitions on only after the first paint, so a reload mid-page doesn't animate */
     requestAnimationFrame(function () {
