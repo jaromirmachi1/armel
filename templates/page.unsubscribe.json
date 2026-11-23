@@ -1,0 +1,36 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "unsubscribe": {
+      "type": "armel-unsubscribe",
+      "settings": {
+        "heading": "Odhlášení z newsletteru",
+        "intro": "Zadejte e-mail, na který dostáváte novinky z dílny. Odhlásíme vás co nejdřív.",
+        "placeholder": "Váš e-mail",
+        "button_label": "Odhlásit",
+        "success": "Hotovo. Tento e-mail už od nás novinky nedostane.",
+        "subject": "Odhlášení z newsletteru",
+        "body_prefix": "Prosím o odhlášení tohoto e-mailu z Armel newsletteru.",
+        "note": "Něco nefunguje? Napište nám na",
+        "email": "thearmel.info@gmail.com",
+        "background": "#EFEDEA",
+        "text": "#4B1D1E"
+      }
+    },
+    "footer": {
+      "type": "armel-footer",
+      "settings": {
+        "show_newsletter": false
+      }
+    }
+  },
+  "order": ["unsubscribe", "footer"]
+}

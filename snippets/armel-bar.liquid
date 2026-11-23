@@ -27,6 +27,91 @@
         <li><a href="/collections/zapisniky">Leather journal</a></li>
       {%- endif -%}
 {%- endcapture -%}
+{%- capture armel_mega -%}
+  {%- liquid
+    assign mega_sources = ''
+    for link in linklists.main-menu.links
+      assign mega_sources = mega_sources | append: link.url | append: '##'
+      for child in link.links
+        assign mega_sources = mega_sources | append: child.url | append: '##'
+      endfor
+    endfor
+    assign mega_urls = mega_sources | split: '##'
+    assign mega_sources = ''
+    for mega_url in mega_urls
+      if mega_url contains '/collections/'
+        unless mega_url contains '/collections/all'
+          assign mega_handle = mega_url | split: '/collections/' | last | split: '/' | first | split: '?' | first
+          if mega_handle != blank
+            assign mega_col = collections[mega_handle]
+            if mega_col != blank and mega_col.products_count > 0
+              unless mega_sources contains mega_handle
+                assign mega_sources = mega_sources | append: mega_handle | append: '||'
+              endunless
+            endif
+          endif
+        endunless
+      endif
+    endfor
+    if mega_sources == blank
+      assign mega_sources = 'kozena-pouzdra||doplnky||zapisniky||'
+    endif
+    assign mega_handles = mega_sources | split: '||'
+    assign mega_index = 0
+  -%}
+  <div class="armel-mega">
+    <div class="armel-mega__cats" role="tablist">
+      {%- for handle in mega_handles -%}
+        {%- if handle != blank -%}
+          {%- assign mega_col = collections[handle] -%}
+          {%- if mega_col != blank and mega_col.products_count > 0 -%}
+            <a
+              href="{{ mega_col.url }}"
+              role="tab"
+              data-mega-cat="{{ mega_index }}"
+              {% if mega_index == 0 %}aria-selected="true"{% endif %}
+            >{{ mega_col.title | escape }}</a>
+            {%- assign mega_index = mega_index | plus: 1 -%}
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    {%- assign mega_index = 0 -%}
+    {%- for handle in mega_handles -%}
+      {%- if handle != blank -%}
+        {%- assign mega_col = collections[handle] -%}
+        {%- if mega_col != blank and mega_col.products_count > 0 -%}
+          <div class="armel-mega__grid" role="tabpanel" data-mega-grid="{{ mega_index }}" {% unless mega_index == 0 %}hidden{% endunless %}>
+            {%- for product in mega_col.products limit: 4 -%}
+              <a class="armel-mega__card" href="{{ product.url }}">
+                <span class="armel-mega__media">
+                  {%- if product.featured_image != blank -%}
+                    {{
+                      product.featured_image
+                      | image_url: width: 640
+                      | image_tag:
+                        widths: '240, 360, 480, 640',
+                        sizes: '22vw',
+                        loading: 'lazy',
+                        alt: product.featured_image.alt
+                    }}
+                  {%- else -%}
+                    {{ 'product-1' | placeholder_svg_tag }}
+                  {%- endif -%}
+                </span>
+                <span class="armel-mega__meta">
+                  <span class="armel-mega__name">{{ product.title | escape }}</span>
+                  <span class="armel-mega__price">{{ product.price | money }}</span>
+                </span>
+              </a>
+            {%- endfor -%}
+          </div>
+          {%- assign mega_index = mega_index | plus: 1 -%}
+        {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+{%- endcapture -%}
 {%- capture armel_switch -%}
     {%- liquid
       assign czk_code = ''
@@ -274,9 +359,7 @@
     aria-label="Kolekce"
     aria-hidden="true"
   >
-    <ul role="list">
-      {{ armel_catalog }}
-    </ul>
+    {{ armel_mega }}
   </div>
 
   <div class="armel-drawer" id="ArmelDrawer-{{ bar_id }}" data-armel-drawer aria-hidden="true">
@@ -459,6 +542,19 @@
       catalogTimer = setTimeout(function () { setCatalog(false); }, 140);
     }
 
+    function showMega(index) {
+      if (!panel) return;
+      panel.querySelectorAll('[data-mega-cat]').forEach(function (tab) {
+        var on = tab.getAttribute('data-mega-cat') === String(index);
+        if (on) tab.setAttribute('aria-selected', 'true');
+        else tab.removeAttribute('aria-selected');
+      });
+      panel.querySelectorAll('[data-mega-grid]').forEach(function (grid) {
+        if (grid.getAttribute('data-mega-grid') === String(index)) grid.removeAttribute('hidden');
+        else grid.setAttribute('hidden', '');
+      });
+    }
+
     if (catalog && panel && canHover) {
       catalog.addEventListener('pointerenter', function () {
         clearTimeout(catalogTimer);
@@ -467,6 +563,14 @@
       catalog.addEventListener('pointerleave', queueCatalogClose);
       panel.addEventListener('pointerenter', function () { clearTimeout(catalogTimer); });
       panel.addEventListener('pointerleave', queueCatalogClose);
+      panel.querySelectorAll('[data-mega-cat]').forEach(function (tab) {
+        tab.addEventListener('pointerenter', function () {
+          showMega(tab.getAttribute('data-mega-cat'));
+        });
+        tab.addEventListener('focus', function () {
+          showMega(tab.getAttribute('data-mega-cat'));
+        });
+      });
       catalog.addEventListener('focus', function () { setCatalog(true); });
       panel.addEventListener('focusout', function (event) {
         if (!panel.contains(event.relatedTarget) && event.relatedTarget !== catalog) setCatalog(false);

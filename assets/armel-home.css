@@ -489,8 +489,8 @@
 
 .a-rail__item {
   flex: none;
-  /* 3.6 tiles on desktop, the next one peeks in */
-  width: calc((100vw - 2 * var(--a-m) - 3 * clamp(14px, 2.2vw, 32px)) / 3.55);
+  /* Four tiles across on desktop */
+  width: calc((100vw - 2 * var(--a-m) - 3 * clamp(14px, 2.2vw, 32px)) / 4);
   scroll-snap-align: start;
 }
 

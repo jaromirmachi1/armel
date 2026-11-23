@@ -1,0 +1,128 @@
+/* Quiet unsubscribe page — linked from emails only */
+
+.a-unsub {
+  padding: clamp(72px, 12vw, 160px) var(--a-m) clamp(80px, 12vw, 180px);
+}
+
+.a-unsub__inner {
+  display: grid;
+  gap: clamp(28px, 4vw, 40px);
+  width: min(100%, 420px);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.a-unsub__head {
+  display: grid;
+  gap: 14px;
+}
+
+.a-unsub__title {
+  margin: 0;
+  font-family: var(--a-display, var(--font-body--family), 'Montserrat', sans-serif);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: var(--a-display-weight, 600);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--a-burgundy, #7d3031);
+  text-wrap: balance;
+}
+
+.a-unsub__intro {
+  margin: 0;
+  font-size: var(--fs-body, 14px);
+  line-height: 1.55;
+  opacity: 0.88;
+}
+
+.a-unsub__form {
+  display: grid;
+  gap: 12px;
+}
+
+.a-unsub__field {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: stretch;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 28%, transparent);
+}
+
+.a-unsub__input {
+  min-width: 0;
+  min-height: 48px;
+  padding: 0 4px 0 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  outline: none;
+}
+
+.a-unsub__input::placeholder {
+  color: color-mix(in srgb, currentColor 48%, transparent);
+}
+
+.a-unsub__submit {
+  min-height: 48px;
+  padding: 0 4px 0 16px;
+  border: 0;
+  background: transparent;
+  color: var(--a-burgundy, #7d3031);
+  font: 600 inherit;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 200ms ease, transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.a-unsub__submit:hover {
+  opacity: 0.72;
+}
+
+.a-unsub__submit:active {
+  transform: scale(0.97);
+}
+
+.a-unsub__submit:focus-visible,
+.a-unsub__input:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+.a-unsub__success {
+  margin: 0;
+  padding: 18px 0;
+  font-size: var(--fs-body, 14px);
+  line-height: 1.5;
+}
+
+.a-unsub__error {
+  margin: 0;
+  font-size: var(--fs-small, 12px);
+  color: #7d3031;
+}
+
+.a-unsub__note {
+  margin: 0;
+  font-size: var(--fs-small, 12px);
+  line-height: 1.5;
+  opacity: 0.72;
+}
+
+.a-unsub__note a {
+  color: inherit;
+  text-underline-offset: 3px;
+}
+
+@media screen and (max-width: 549px) {
+  .a-unsub__field {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding-bottom: 8px;
+  }
+
+  .a-unsub__submit {
+    justify-self: end;
+    padding-inline: 0;
+  }
+}

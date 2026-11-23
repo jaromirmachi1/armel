@@ -25,7 +25,11 @@
     {% case section.settings.layout_type %}
       {% when 'grid' %}
         .product-grid--{{ section.id }}:is(.product-grid--grid) {
-          --product-grid-columns-desktop: repeat(auto-fill, minmax({{ product_card_size }}, 1fr));
+          /* Cap at four products per row on desktop / tablet */
+          --product-grid-columns-desktop: repeat(
+            auto-fill,
+            minmax(max({{ product_card_size }}, calc((100% - {{ section.settings.columns_gap_horizontal }}px * 3) / 4)), 1fr)
+          );
         }
 
 

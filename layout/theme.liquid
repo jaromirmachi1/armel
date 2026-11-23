@@ -38,7 +38,7 @@
       </script>
     {%- endif -%}
 
-    {%- if armel_preview -%}
+    {%- if armel_preview or template.suffix == 'unsubscribe' -%}
       <meta name="robots" content="noindex, nofollow">
     {%- elsif armel_catalog and settings.coming_soon_lock and request.design_mode == false and theme.role == 'main' -%}
       <meta name="robots" content="noindex, nofollow">
