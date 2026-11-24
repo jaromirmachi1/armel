@@ -7,7 +7,7 @@
 
 {%- liquid
   assign s = section.settings
-  assign contact_email = s.email | default: 'thearmel.info@gmail.com'
+  assign contact_email = s.email | default: 'info@armelhouse.com'
   assign sig = 'by-aneta-marina-black.png' | asset_url
 -%}
 
@@ -219,7 +219,7 @@
     { "type": "text", "id": "news_success", "label": "Zpráva po přihlášení", "default": "Děkujeme, jste na seznamu." },
     { "type": "text", "id": "contact_title", "label": "Nadpis kontaktu (když je newsletter vypnutý)", "default": "Napište nám" },
     { "type": "header", "content": "Kontakt a sítě" },
-    { "type": "text", "id": "email", "label": "E-mail", "default": "thearmel.info@gmail.com" },
+    { "type": "text", "id": "email", "label": "E-mail", "default": "info@armelhouse.com" },
     { "type": "text", "id": "place", "label": "Místo", "default": "Brno, Česká republika" },
     { "type": "text", "id": "owner", "label": "Provozovatel", "info": "Oddělte části znakem · — každá se ukáže na vlastním řádku pod kontaktem.", "default": "Aneta Janoudová · IČO 17074576 · Edisonova 3117/11, Brno" },
     { "type": "text", "id": "instagram_url", "label": "Instagram (celá adresa)", "default": "https://www.instagram.com/armelhouse/" },
@@ -245,7 +245,7 @@
       "name": "Text",
       "settings": [
         { "type": "text", "id": "title", "label": "Nadpis", "default": "Kontakt" },
-        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>thearmel.info@gmail.com</p>" }
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>info@armelhouse.com</p>" }
       ]
     }
   ],

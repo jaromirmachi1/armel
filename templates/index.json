@@ -82,6 +82,7 @@
       "type": "armel-footer",
       "settings": {
         "show_newsletter": false,
+        "email": "info@armelhouse.com",
         "instagram_url": "https://www.instagram.com/armelhouse/"
       }
     }

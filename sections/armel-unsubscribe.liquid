@@ -6,7 +6,7 @@
 {{ 'armel-unsubscribe.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
-  assign contact_email = section.settings.email | default: 'thearmel.info@gmail.com'
+  assign contact_email = section.settings.email | default: 'info@armelhouse.com'
 -%}
 
 <section class="a-unsub a-scope" style="--a-bg: {{ section.settings.background }}; --a-fg: {{ section.settings.text }};">
@@ -136,7 +136,7 @@
       "type": "text",
       "id": "email",
       "label": "Kontaktní e-mail",
-      "default": "thearmel.info@gmail.com"
+      "default": "info@armelhouse.com"
     },
     { "type": "color", "id": "background", "label": "Pozadí", "default": "#EFEDEA" },
     { "type": "color", "id": "text", "label": "Text", "default": "#4B1D1E" }
