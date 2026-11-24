@@ -17,7 +17,11 @@
     "view_collection": "View the collection",
     "show_collection": "View the full collection",
     "account": "My account",
-    "returns": "Returns"
+    "returns": "Returns",
+    "marks": "Craft",
+    "mark_hand": "Handmade",
+    "mark_moravia": "Sewn in Moravia",
+    "mark_leather": "Premium Italian leather"
   },
   "accessibility": {
     "account": "Account",

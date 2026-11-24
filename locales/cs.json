@@ -17,7 +17,11 @@
     "view_collection": "Prohlédnout kolekci",
     "show_collection": "Zobrazit celou kolekci",
     "account": "Můj účet",
-    "returns": "Vrácení"
+    "returns": "Vrácení",
+    "marks": "Řemeslo",
+    "mark_hand": "Ruční práce",
+    "mark_moravia": "Ušito na Moravě",
+    "mark_leather": "Prémiová italská kůže"
   },
   "blocks": {
     "load_video": "Načíst video: {{ description }}",

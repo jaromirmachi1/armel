@@ -467,7 +467,9 @@
   padding: 0 var(--a-m) 6px;
   list-style: none;
   overflow-x: auto;
-  overscroll-behavior-x: contain;
+  overflow-y: hidden;
+  overscroll-behavior: contain;
+  touch-action: pan-x;
   scroll-snap-type: x mandatory;
   scroll-padding-inline: var(--a-m);
   scrollbar-width: none;

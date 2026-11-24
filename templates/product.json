@@ -178,6 +178,11 @@
                 "price_tVjtKg"
               ]
             },
+            "armel_marks": {
+              "type": "armel-marks",
+              "settings": {},
+              "blocks": {}
+            },
             "divider_VJhene": {
               "type": "_divider",
               "name": "t:names.divider",
@@ -302,6 +307,7 @@
           },
           "block_order": [
             "group_icgrde",
+            "armel_marks",
             "divider_VJhene",
             "variant_picker_R3rGDr",
             "buy_buttons_eYQEYi",
