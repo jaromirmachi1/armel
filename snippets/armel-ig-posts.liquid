@@ -1,0 +1,41 @@
+{%- comment -%}
+  Saved posts from https://www.instagram.com/armelhouse/
+  Each photo opens that exact post. view: strip (homepage row) or grid (Galerie).
+{%- endcomment -%}
+{%- liquid
+  assign ig_posts = 'armel-ig-01.jpg|Video|https://www.instagram.com/armelhouse/reel/DgF3gwJvO7k/;;armel-ig-02.jpg|Kožené psaníčko|https://www.instagram.com/armelhouse/p/Df5QkNTtl6I/;;armel-ig-03.jpg|Z dílny|https://www.instagram.com/armelhouse/p/DfhutjjDSvp/;;armel-ig-04.jpg|Ulice|https://www.instagram.com/armelhouse/reel/DfXmkBmt01U/;;armel-ig-05.jpg|Kůže|https://www.instagram.com/armelhouse/p/DfFSkvxjVHl/;;armel-ig-06.jpg|Kabát|https://www.instagram.com/armelhouse/reel/DfC2jhJtwtV/;;armel-ig-07.jpg|Pouzdro|https://www.instagram.com/armelhouse/p/De__7FBNdUQ/;;armel-ig-08.jpg|Ruční šití|https://www.instagram.com/armelhouse/reel/DewsAwBtYbt/;;armel-ig-09.jpg|Peněženka|https://www.instagram.com/armelhouse/p/Der0ppINwdw/;;armel-ig-10.jpg|Doplněk|https://www.instagram.com/armelhouse/p/DejU5C8DVSo/;;armel-ig-11.jpg|Na stole|https://www.instagram.com/armelhouse/p/Deeg3TQtiQi/;;armel-ig-12.jpg|Detail|https://www.instagram.com/armelhouse/p/DebpyYZDWHR/' | split: ';;'
+  assign ig_limit = limit | default: 12 | plus: 0
+-%}
+{%- for post in ig_posts limit: ig_limit -%}
+  {%- assign parts = post | split: '|' -%}
+  {%- if view == 'strip' -%}
+    <li class="a-strip__item" data-a-reveal style="--a-delay: {{ forloop.index0 | times: 50 }}ms;">
+      <a class="a-strip__link" href="{{ parts[2] }}" target="_blank" rel="noopener" aria-label="{{ parts[1] }} — Instagram">
+        <img
+          src="{{ parts[0] | asset_url }}"
+          alt="{{ parts[1] }}"
+          width="640"
+          height="640"
+          loading="lazy"
+          decoding="async"
+        >
+      </a>
+    </li>
+  {%- else -%}
+    <li class="a-ig__item" data-a-reveal style="--a-delay: {{ forloop.index0 | times: 60 }}ms;">
+      <a class="a-ig__card" href="{{ parts[2] }}" target="_blank" rel="noopener" aria-label="{{ parts[1] }} — Instagram">
+        <span class="a-ig__media">
+          <img
+            src="{{ parts[0] | asset_url }}"
+            alt="{{ parts[1] }}"
+            width="640"
+            height="640"
+            loading="lazy"
+            decoding="async"
+          >
+        </span>
+        <span class="a-ig__caption">{{ parts[1] }}</span>
+      </a>
+    </li>
+  {%- endif -%}
+{%- endfor -%}

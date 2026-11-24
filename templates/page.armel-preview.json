@@ -73,6 +73,7 @@
       "type": "armel-gallery",
       "settings": {
         "heading": "Galerie",
+        "handle_link": "https://www.instagram.com/armelhouse/",
         "background": "#7D3031",
         "text": "#EFEDEA"
       }

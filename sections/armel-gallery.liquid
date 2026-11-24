@@ -4,7 +4,7 @@
 {%- render 'armel-home-assets' -%}
 
 {%- liquid
-  assign ig_home = section.settings.handle_link | default: 'https://www.instagram.com/'
+  assign ig_home = section.settings.handle_link | default: 'https://www.instagram.com/armelhouse/'
 -%}
 
 <section
@@ -49,22 +49,7 @@
         </li>
       {%- endfor -%}
     {%- else -%}
-      {%- assign defaults = 'armel-sq-rivets.jpg|Nýty na klopě;armel-strip-2.jpg|Psaníčko pod paží;armel-strip-3.jpg|Bílá, zebra, koňak;armel-strip-1.jpg|Přívěsky na karabinách;armel-sq-suede.jpg|Klopa zevnitř' | split: ';' -%}
-      {%- for d in defaults -%}
-        {%- assign parts = d | split: '|' -%}
-        <li class="a-strip__item" data-a-reveal style="--a-delay: {{ forloop.index0 | times: 50 }}ms;">
-          <a class="a-strip__link" href="{{ ig_home }}" target="_blank" rel="noopener" aria-label="{{ parts[1] }}">
-            <img
-              src="{{ parts[0] | asset_url }}"
-              alt="{{ parts[1] }}"
-              width="900"
-              height="900"
-              loading="lazy"
-              decoding="async"
-            >
-          </a>
-        </li>
-      {%- endfor -%}
+      {%- render 'armel-ig-posts', view: 'strip', limit: 5 -%}
     {%- endif -%}
   </ul>
 </section>

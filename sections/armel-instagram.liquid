@@ -4,7 +4,7 @@
 {%- render 'armel-home-assets' -%}
 
 {%- liquid
-  assign ig_home = section.settings.handle_link | default: 'https://www.instagram.com/'
+  assign ig_home = section.settings.handle_link | default: 'https://www.instagram.com/armelhouse/'
 -%}
 
 <section class="a-ig a-scope" style="--a-bg: {{ section.settings.background }}; --a-fg: {{ section.settings.text }};">
@@ -66,25 +66,7 @@
         </li>
       {%- endfor -%}
     {%- else -%}
-      {%- assign defaults = 'armel-sq-rivets.jpg|Nýty na klopě;armel-strip-1.jpg|Přívěsky na karabinách;armel-sq-suede.jpg|Klopa zevnitř;armel-strip-2.jpg|Psaníčko pod paží;armel-strip-3.jpg|Bílá, zebra, koňak;armel-clutch-closed.jpg|Zavřené psaníčko' | split: ';' -%}
-      {%- for d in defaults -%}
-        {%- assign parts = d | split: '|' -%}
-        <li class="a-ig__item" data-a-reveal style="--a-delay: {{ forloop.index0 | times: 60 }}ms;">
-          <a class="a-ig__card" href="{{ ig_home }}" target="_blank" rel="noopener" aria-label="{{ parts[1] }} — Instagram">
-            <span class="a-ig__media">
-              <img
-                src="{{ parts[0] | asset_url }}"
-                alt="{{ parts[1] }}"
-                width="900"
-                height="900"
-                loading="lazy"
-                decoding="async"
-              >
-            </span>
-            <span class="a-ig__caption">{{ parts[1] }}</span>
-          </a>
-        </li>
-      {%- endfor -%}
+      {%- render 'armel-ig-posts', view: 'grid', limit: 12 -%}
     {%- endif -%}
   </ul>
 </section>
@@ -106,7 +88,7 @@
       "label": "Text",
       "default": "Jak se Armel nosí — fotky z dílny i z ulice. Kliknutím otevřete příspěvek na Instagramu."
     },
-    { "type": "text", "id": "handle", "label": "Instagram text", "default": "Instagram" },
+    { "type": "text", "id": "handle", "label": "Instagram text", "default": "@armelhouse" },
     { "type": "url", "id": "handle_link", "label": "Instagram profil" },
     { "type": "color", "id": "background", "label": "Pozadí", "default": "#EFEDEA" },
     { "type": "color", "id": "text", "label": "Text", "default": "#4B1D1E" }

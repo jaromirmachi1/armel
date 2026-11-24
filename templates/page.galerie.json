@@ -11,7 +11,10 @@
   "sections": {
     "galerie": {
       "type": "armel-instagram",
-      "settings": {}
+      "settings": {
+        "handle": "@armelhouse",
+        "handle_link": "https://www.instagram.com/armelhouse/"
+      }
     },
     "footer": {
       "type": "armel-footer",
