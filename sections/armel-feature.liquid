@@ -39,7 +39,7 @@
       <p class="a-feature__text" data-a-reveal style="--a-delay: 100ms;">{{ section.settings.text_body | escape }}</p>
     {%- endif -%}
     {%- if section.settings.button_label != blank -%}
-      <a data-a-reveal="scale" style="--a-delay: 180ms;" class="a-btn a-btn--light" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">
+      <a data-a-reveal="scale" style="--a-delay: 180ms;" class="a-btn a-btn--light" href="{{ section.settings.button_link | default: '/products/mystery-box' }}">
         {{- section.settings.button_label | escape -}}
       </a>
     {%- endif -%}
@@ -61,7 +61,7 @@
     { "type": "text", "id": "title", "label": "Název (psací písmo)", "default": "Mystery Box" },
     { "type": "textarea", "id": "text_body", "label": "Text", "default": "Jeden kousek, který vybereme za tebe. Co v krabičce bude, zjistíš až doma; jisté je jen to, že stejný nikdo mít nebude." },
     { "type": "text", "id": "button_label", "label": "Tlačítko", "default": "Chci se překvapit" },
-    { "type": "url", "id": "button_link", "label": "Odkaz tlačítka" },
+    { "type": "url", "id": "button_link", "label": "Odkaz tlačítka", "default": "/products/mystery-box" },
     { "type": "select", "id": "content_position", "label": "Pozice textu", "default": "center", "options": [
       { "value": "top", "label": "Nahoře" },
       { "value": "center", "label": "Uprostřed" },

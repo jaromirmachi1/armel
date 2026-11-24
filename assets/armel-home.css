@@ -991,11 +991,13 @@
    ========================================================================== */
 
 .a-invite {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
   column-gap: clamp(24px, 5vw, 80px);
   align-items: center;
-  padding: clamp(56px, 8vw, 112px) var(--a-m) clamp(40px, 5vw, 72px);
+  padding: clamp(28px, 3vw, 40px) var(--a-m);
 }
 
 .a-invite__title {
@@ -1019,6 +1021,19 @@
   min-height: 0;
   padding: 0;
   background: transparent;
+}
+
+/* The shared clutch reserves room above the bag for the open flap.
+   Here that room is empty, so the closed bag is only as tall as the leather. */
+.a-invite .armel-clutch {
+  height: calc(var(--w) * 0.6125);
+}
+
+.a-invite .armel-clutch.is-open,
+.a-invite .armel-clutch:has([data-armel-form-success]),
+.a-invite .armel-clutch:has([data-armel-form-error]) {
+  height: calc(var(--w) * 1.0925);
+  margin-top: calc(var(--w) * -0.48);
 }
 
 /* Tablet: keep one line; shrink type and clutch so both fit side by side */

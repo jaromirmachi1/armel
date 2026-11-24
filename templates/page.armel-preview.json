@@ -59,7 +59,9 @@
     },
     "armel_feature": {
       "type": "armel-feature",
-      "settings": {}
+      "settings": {
+        "button_link": "/products/mystery-box"
+      }
     },
     "armel_invite": {
       "type": "armel-invite",
