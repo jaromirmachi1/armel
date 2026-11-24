@@ -632,8 +632,17 @@ html.a-js .armel-hero__copy {
   .armel-hero__copy {
     top: 28px;
     bottom: 0;
-    height: fit-content;
-    margin-block: auto;
+    /* height:auto (not fit-content): Safari stretches fit-content when top and bottom are both set */
+    height: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    align-content: center;
+    align-items: center;
+  }
+
+  .armel-hero__cta {
+    align-self: center;
+    height: auto;
   }
 }
 
