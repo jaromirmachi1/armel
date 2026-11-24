@@ -755,6 +755,27 @@ html.a-js .armel-hero__copy {
   }
 }
 
+/* Phone: the two phrases stay one line each. */
+@media screen and (max-width: 749px) {
+  .armel-hero__copy {
+    width: calc(100% - 32px);
+  }
+
+  .armel-hero__title {
+    container-type: inline-size;
+    width: 100%;
+    gap: 0.28em;
+    font-size: clamp(10.5px, 3.15vw, 14px);
+    letter-spacing: 0.055em;
+    line-height: 1.4;
+  }
+
+  .armel-hero__line {
+    font-size: min(14.5px, 3.55cqi);
+    white-space: nowrap;
+  }
+}
+
 @media screen and (max-width: 1360px) {
   .armel-hero__toggle {
     display: inline-flex;
