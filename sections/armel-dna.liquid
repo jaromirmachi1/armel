@@ -5,6 +5,31 @@
 
 <section class="a-dna a-scope" style="--a-bg: {{ section.settings.background }}; --a-fg: {{ section.settings.text }};">
   <h1 class="visually-hidden">{{ section.settings.heading | default: page.title | escape }}</h1>
+  <figure class="a-dna__figure">
+    {%- if section.settings.image != blank -%}
+      {{
+        section.settings.image
+        | image_url: width: 1600
+        | image_tag:
+          class: 'a-dna__photo',
+          widths: '600, 900, 1200, 1600',
+          sizes: '(min-width: 750px) 38rem, 100vw',
+          alt: 'Aneta a Marína',
+          loading: 'eager',
+          fetchpriority: 'high'
+      }}
+    {%- else -%}
+      <img
+        class="a-dna__photo"
+        src="{{ 'armel-dna.jpg' | asset_url }}"
+        alt="Aneta a Marína"
+        width="1536"
+        height="2304"
+        loading="eager"
+        fetchpriority="high"
+      >
+    {%- endif -%}
+  </figure>
   <div class="a-dna__sheet">
     {%- if section.settings.lead != blank -%}
       <p class="a-dna__lead">{{ section.settings.lead | escape | newline_to_br }}</p>

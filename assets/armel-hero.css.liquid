@@ -47,6 +47,16 @@
   animation: none;
   transform: none;
   background: #e4e2df;
+  pointer-events: none;
+}
+
+.armel-hero__video::-webkit-media-controls,
+.armel-hero__video::-webkit-media-controls-start-playback-button,
+.armel-hero__video::-webkit-media-controls-overlay-play-button {
+  display: none !important;
+  -webkit-appearance: none;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .armel-hero__photo--fallback {
@@ -616,6 +626,20 @@ html.a-js .armel-hero__sig {
 
 html.a-js .armel-hero__copy {
   animation: armel-hero-copy-fade 980ms var(--armel-ease) 180ms both;
+}
+
+@media screen and (min-width: 990px) {
+  .armel-hero {
+    height: 68svh;
+    min-height: 68svh;
+  }
+
+  .armel-hero__copy {
+    top: 28px;
+    bottom: 0;
+    height: fit-content;
+    margin-block: auto;
+  }
 }
 
 @keyframes armel-hero-copy-fade {

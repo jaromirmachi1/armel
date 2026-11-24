@@ -9,23 +9,7 @@
 
 <section class="a-ig a-scope" style="--a-bg: {{ section.settings.background }}; --a-fg: {{ section.settings.text }};">
   <header class="a-ig__head">
-    <h1 class="a-ig__title" data-a-reveal="blur">{{ section.settings.heading | default: page.title | escape }}</h1>
-    {%- if section.settings.intro != blank -%}
-      <p class="a-ig__intro" data-a-reveal style="--a-delay: 90ms;">{{ section.settings.intro | escape }}</p>
-    {%- endif -%}
-    {%- if section.settings.handle != blank -%}
-      <a
-        class="a-link a-ig__handle"
-        href="{{ ig_home }}"
-        target="_blank"
-        rel="noopener"
-        data-a-reveal="scale"
-        style="--a-delay: 140ms;"
-      >
-        {{- section.settings.handle | escape -}}
-        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4.5-4.5L15 10l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    {%- endif -%}
+    <h1 class="a-ig__title">{{ section.settings.heading | default: page.title | escape }}</h1>
   </header>
 
   <ul class="a-ig__grid" role="list">
@@ -59,9 +43,6 @@
                 {{ 'lifestyle-1' | placeholder_svg_tag }}
               {%- endif -%}
             </span>
-            {%- if block.settings.caption != blank -%}
-              <span class="a-ig__caption">{{ block.settings.caption | escape }}</span>
-            {%- endif -%}
           </a>
         </li>
       {%- endfor -%}

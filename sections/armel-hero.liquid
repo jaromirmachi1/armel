@@ -16,18 +16,50 @@
 <div class="armel-hero" data-armel-hero{% if use_video %} data-armel-hero-video{% endif %}>
   {%- if use_video -%}
     <video
+      id="ArmelHeroVideo-{{ section.id }}"
       class="armel-hero__photo armel-hero__video"
       autoplay
       muted
       loop
       playsinline
-      preload="metadata"
+      webkit-playsinline
+      preload="auto"
       poster="{{ poster_url }}"
+      disablepictureinpicture
+      disableremoteplayback
       aria-hidden="true"
     >
       <source src="{{ 'armel-hero-mobile.mp4' | asset_url }}" type="video/mp4" media="(max-width: 989px)">
       <source src="{{ 'armel-hero.mp4' | asset_url }}" type="video/mp4">
     </video>
+    <script>
+      (function () {
+        var video = document.getElementById('ArmelHeroVideo-{{ section.id }}');
+        if (!video || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        video.muted = true;
+        video.defaultMuted = true;
+        video.playsInline = true;
+        video.setAttribute('muted', '');
+        video.setAttribute('playsinline', '');
+        video.setAttribute('webkit-playsinline', '');
+        if (window.matchMedia('(max-width: 989px)').matches) {
+          video.src = {{ 'armel-hero-mobile.mp4' | asset_url | json }};
+        }
+        function kick() {
+          if (!video.paused && video.readyState > 2) return;
+          var pending = video.play();
+          if (pending && pending.catch) pending.catch(function () {});
+        }
+        kick();
+        video.addEventListener('loadeddata', kick);
+        video.addEventListener('canplay', kick);
+        document.addEventListener('visibilitychange', function () {
+          if (!document.hidden) kick();
+        });
+        document.addEventListener('touchstart', kick, { passive: true, once: true });
+        document.addEventListener('WeixinJSBridgeReady', kick, false);
+      })();
+    </script>
     {%- if section.settings.image != blank -%}
       {{
         section.settings.image

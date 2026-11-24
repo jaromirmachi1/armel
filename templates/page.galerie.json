@@ -12,7 +12,9 @@
     "galerie": {
       "type": "armel-instagram",
       "settings": {
-        "handle": "@armelhouse",
+        "heading": "Galerie",
+        "intro": "",
+        "handle": "",
         "handle_link": "https://www.instagram.com/armelhouse/"
       }
     },
