@@ -226,7 +226,7 @@
         {%- endif -%}
       </main>
 
-      {% unless armel_coming_soon or armel_preview or template.name == 'index' %}
+      {% unless armel_coming_soon or armel_preview or template.name == 'index' or template.suffix == 'dna' or template.suffix == 'galerie' or template.suffix == 'unsubscribe' %}
         {% section 'armel-footer' %}
       {% endunless %}
     </div>
