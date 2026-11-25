@@ -916,6 +916,8 @@
 
 .a-feature .a-btn {
   margin-top: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 /* ==========================================================================

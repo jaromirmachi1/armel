@@ -60,7 +60,7 @@
     "armel_feature": {
       "type": "armel-feature",
       "settings": {
-        "button_label": "Coming soon",
+        "button_label": "COMING SOON",
         "button_link": "/products/mystery-box"
       }
     },
