@@ -5,11 +5,12 @@
 
 {%- liquid
   assign ig_home = section.settings.handle_link | default: 'https://www.instagram.com/armelhouse/'
+  assign ig_heading = section.settings.heading | default: page.title
 -%}
 
 <section class="a-ig a-scope" style="--a-bg: {{ section.settings.background }}; --a-fg: {{ section.settings.text }};">
   <header class="a-ig__head">
-    <h1 class="a-ig__title">{% render 'armel-line', key: 'gallery', text: section.settings.heading | default: page.title %}</h1>
+    <h1 class="a-ig__title">{% render 'armel-line', key: 'gallery', text: ig_heading %}</h1>
   </header>
 
   <ul class="a-ig__grid" role="list">

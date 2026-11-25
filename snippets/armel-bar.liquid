@@ -375,7 +375,13 @@
         <ul class="armel-drawer__links" role="list">
           {%- if links != blank -%}
             {%- for block in links -%}
-              {%- capture d_url -%}{%- render 'armel-href', path: block.settings.link | default: routes.root_url -%}{%- endcapture -%}
+              {%- liquid
+                assign d_path = block.settings.link
+                if d_path == blank
+                  assign d_path = routes.root_url
+                endif
+              -%}
+              {%- capture d_url -%}{%- render 'armel-href', path: d_path -%}{%- endcapture -%}
               {%- liquid
                 assign d_url = d_url | strip
                 assign d_label_down = block.settings.label | downcase

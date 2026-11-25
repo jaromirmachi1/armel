@@ -64,7 +64,13 @@
       </p>
     {%- endif -%}
 
-    {%- capture cart_continue -%}{%- render 'armel-href', path: settings.empty_cart_button_link | default: routes.all_products_collection_url -%}{%- endcapture -%}
+    {%- liquid
+      assign cart_continue_path = settings.empty_cart_button_link
+      if cart_continue_path == blank
+        assign cart_continue_path = routes.all_products_collection_url
+      endif
+    -%}
+    {%- capture cart_continue -%}{%- render 'armel-href', path: cart_continue_path -%}{%- endcapture -%}
     <a
       class="button cart-items__empty-button"
       href="{{ cart_continue | strip }}"
