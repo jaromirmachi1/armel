@@ -562,7 +562,7 @@
   font-weight: 600;
 }
 
-.a-card--sold .a-card__img {
+.a-card--sold .a-card__img:not(.a-card__img--alt) {
   opacity: 0.55;
 }
 
