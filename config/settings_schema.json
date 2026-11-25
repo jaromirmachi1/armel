@@ -14,8 +14,8 @@
         "type": "checkbox",
         "id": "coming_soon_lock",
         "label": "Show newsletter on every page",
-        "info": "Visitors always see the Armel newsletter. Header, footer, and other storefront pages stay hidden. Turn this off when you launch.",
-        "default": true
+        "info": "Replaces the homepage with the newsletter. Leave this off. The newsletter with the password is Shopify’s password page.",
+        "default": false
       }
     ]
   },
