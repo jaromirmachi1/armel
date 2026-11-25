@@ -901,8 +901,10 @@
 
 .a-feature__title {
   font-size: clamp(56px, 6.4vw, 96px);
-  line-height: 0.9;
-  padding: 0 0.12em;
+  /* Script swashes sit outside the em box. This heading is a grid item, so the
+     browser clips that ink. The line box and padding keep the strokes inside. */
+  line-height: 1.2;
+  padding: 0.28em 0.2em 0.34em;
 }
 
 .a-feature__text {
