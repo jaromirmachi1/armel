@@ -19,6 +19,12 @@
     "show_collection": "View the full collection",
     "account": "My account",
     "returns": "Returns",
+    "gate": {
+      "label": "Password",
+      "placeholder": "Password",
+      "button": "Enter",
+      "error": "Wrong password"
+    },
     "marks": "Craft",
     "mark_hand": "Handmade",
     "mark_moravia": "Sewn in Moravia",

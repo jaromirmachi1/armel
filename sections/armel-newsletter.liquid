@@ -146,6 +146,32 @@
     >
     <p class="armel-newsletter__label">{{ section.settings.brand_label | escape }}</p>
   </div>
+
+  {%- if request.page_type == 'password' -%}
+    {%- form 'storefront_password', class: 'armel-newsletter__gate' -%}
+      <label class="visually-hidden" for="ArmelGatePassword">{{ 'armel.gate.label' | t }}</label>
+      <div class="armel-newsletter__gate-field">
+        <input
+          id="ArmelGatePassword"
+          type="password"
+          name="password"
+          autocomplete="current-password"
+          placeholder="{{ 'armel.gate.placeholder' | t }}"
+          {% if form.errors %}
+            aria-invalid="true"
+            aria-describedby="ArmelGatePassword-error"
+            autofocus
+          {% endif %}
+        >
+        <button type="submit">{{ 'armel.gate.button' | t }}</button>
+      </div>
+      {%- if form.errors -%}
+        <p id="ArmelGatePassword-error" class="armel-newsletter__gate-error" role="alert">
+          {{ 'armel.gate.error' | t }}
+        </p>
+      {%- endif -%}
+    {%- endform -%}
+  {%- endif -%}
 </section>
 
 <script src="{{ 'armel-newsletter.js' | asset_url }}" defer></script>

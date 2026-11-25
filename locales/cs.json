@@ -19,6 +19,12 @@
     "show_collection": "Zobrazit celou kolekci",
     "account": "Můj účet",
     "returns": "Vrácení",
+    "gate": {
+      "label": "Heslo",
+      "placeholder": "Heslo",
+      "button": "Vstoupit",
+      "error": "Heslo není správné"
+    },
     "marks": "Řemeslo",
     "mark_hand": "Ruční práce",
     "mark_moravia": "Ušito na Moravě",

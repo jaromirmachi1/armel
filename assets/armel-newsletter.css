@@ -285,6 +285,74 @@
   color: var(--armel-muted);
 }
 
+.armel-newsletter__gate {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  width: min(280px, 78vw);
+  margin-top: 22px;
+}
+
+.armel-newsletter__gate-field {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 8px;
+  width: 100%;
+  border-bottom: 1px solid rgb(125 48 49 / 0.35);
+}
+
+.armel-newsletter__gate-field:focus-within {
+  border-color: #7d3031;
+}
+
+.armel-newsletter__gate-field input {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 10px 0 9px;
+  border: 0;
+  background: transparent;
+  color: #7d3031;
+  font: inherit;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  caret-color: #7d3031;
+  outline: none;
+}
+
+.armel-newsletter__gate-field input::placeholder {
+  color: rgb(125 48 49 / 0.45);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 11px;
+}
+
+.armel-newsletter__gate-field button {
+  margin: 0;
+  padding: 0 0 8px;
+  border: 0;
+  background: transparent;
+  color: #7d3031;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.armel-newsletter__gate-field button:active {
+  transform: scale(0.97);
+}
+
+.armel-newsletter__gate-error {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: #7d3031;
+}
+
 @media (max-height: 760px) {
   .armel-newsletter-section {
     --armel-stack-chrome: 7.5rem;
