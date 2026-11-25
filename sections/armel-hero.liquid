@@ -11,7 +11,14 @@
     render 'armel-line', key: 'hero.button', text: section.settings.button_label
   endcapture
   assign cta_label = cta_label | strip
-  assign cta_link = section.settings.button_link | default: routes.all_products_collection_url
+  if section.settings.button_link != blank
+    capture cta_link
+      render 'armel-href', path: section.settings.button_link
+    endcapture
+    assign cta_link = cta_link | strip
+  else
+    assign cta_link = routes.all_products_collection_url
+  endif
   if section.settings.image != blank
     assign poster_url = section.settings.image | image_url: width: 2400
   else

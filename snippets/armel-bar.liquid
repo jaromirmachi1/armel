@@ -22,9 +22,12 @@
         {%- endif -%}
       {%- endfor -%}
       {%- if armel_catalog_count == 0 -%}
-        <li><a href="/collections/kozena-pouzdra">{{ 'armel.mega.laptop' | t }}</a></li>
-        <li><a href="/collections/doplnky">{{ 'armel.mega.accessories' | t }}</a></li>
-        <li><a href="/collections/zapisniky">{{ 'armel.mega.journal' | t }}</a></li>
+        {%- capture laptop_href -%}{%- render 'armel-href', path: '/collections/kozena-pouzdra' -%}{%- endcapture -%}
+        {%- capture accessories_href -%}{%- render 'armel-href', path: '/collections/doplnky' -%}{%- endcapture -%}
+        {%- capture journal_href -%}{%- render 'armel-href', path: '/collections/zapisniky' -%}{%- endcapture -%}
+        <li><a href="{{ laptop_href | strip }}">{{ 'armel.mega.laptop' | t }}</a></li>
+        <li><a href="{{ accessories_href | strip }}">{{ 'armel.mega.accessories' | t }}</a></li>
+        <li><a href="{{ journal_href | strip }}">{{ 'armel.mega.journal' | t }}</a></li>
       {%- endif -%}
 {%- endcapture -%}
 {%- capture armel_mega -%}
@@ -180,11 +183,13 @@
       </summary>
       <div class="armel-hero__switch-panel">
         {% form 'localization' %}
+          <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
           <p class="armel-hero__switch-label">{{ 'armel.language' | t }}</p>
           <button type="submit" name="language_code" value="cs" {% if localization.language.iso_code == 'cs' %}aria-current="true"{% endif %}>CS</button>
           <button type="submit" name="language_code" value="en" {% if localization.language.iso_code == 'en' %}aria-current="true"{% endif %}>EN</button>
         {% endform %}
         {% form 'localization' %}
+          <input type="hidden" name="language_code" value="{{ localization.language.iso_code }}">
           <p class="armel-hero__switch-label">{{ 'armel.currency' | t }}</p>
           <button type="submit" name="country_code" value="{{ czk_code }}" {% if bar_currency == 'CZK' %}aria-current="true"{% endif %}>CZK</button>
           {%- if eur_code != blank -%}
@@ -226,6 +231,10 @@
           if link_url == blank
             assign link_url = routes.root_url
           endif
+        -%}
+        {%- capture link_url -%}{%- render 'armel-href', path: link_url -%}{%- endcapture -%}
+        {%- liquid
+          assign link_url = link_url | strip
           assign link_slash = link_url | append: '/'
           assign link_current = false
           if request.path == link_url or request.path == link_slash
@@ -263,8 +272,12 @@
       {%- endfor -%}
     {%- else -%}
       <a href="{{ routes.all_products_collection_url }}" {% if request.path == routes.all_products_collection_url %}aria-current="page"{% endif %} data-armel-collections aria-haspopup="dialog" aria-expanded="false" aria-controls="ArmelCollections-{{ bar_id }}">{{ 'armel.products' | t }}</a>
-      <a href="/pages/dna" {% if request.path == '/pages/dna' %}aria-current="page"{% endif %}>DNA</a>
-      <a href="/pages/galerie" {% if request.path == '/pages/galerie' %}aria-current="page"{% endif %}>{{ 'armel.gallery' | t }}</a>
+      {%- capture dna_href -%}{%- render 'armel-href', path: '/pages/dna' -%}{%- endcapture -%}
+      {%- capture galerie_href -%}{%- render 'armel-href', path: '/pages/galerie' -%}{%- endcapture -%}
+      {%- assign dna_href = dna_href | strip -%}
+      {%- assign galerie_href = galerie_href | strip -%}
+      <a href="{{ dna_href }}" {% if request.path == dna_href %}aria-current="page"{% endif %}>DNA</a>
+      <a href="{{ galerie_href }}" {% if request.path == galerie_href %}aria-current="page"{% endif %}>{{ 'armel.gallery' | t }}</a>
     {%- endif -%}
   </nav>
   </div>
@@ -382,8 +395,9 @@
         <ul class="armel-drawer__links" role="list">
           {%- if links != blank -%}
             {%- for block in links -%}
+              {%- capture d_url -%}{%- render 'armel-href', path: block.settings.link | default: routes.root_url -%}{%- endcapture -%}
               {%- liquid
-                assign d_url = block.settings.link | default: routes.root_url
+                assign d_url = d_url | strip
                 assign d_label_down = block.settings.label | downcase
                 assign d_products = false
                 if d_url == routes.all_products_collection_url or d_url contains '/collections/all' or d_label_down == 'produkty'
@@ -410,8 +424,8 @@
               <a class="armel-drawer__link" href="{{ routes.all_products_collection_url }}">{{ 'armel.products' | t }}</a>
               <ul class="armel-drawer__sub" role="list">{{ armel_catalog }}</ul>
             </li>
-            <li style="--i: 1;"><a class="armel-drawer__link" href="/pages/dna">DNA</a></li>
-            <li style="--i: 2;"><a class="armel-drawer__link" href="/pages/galerie">{{ 'armel.gallery' | t }}</a></li>
+            <li style="--i: 1;"><a class="armel-drawer__link" href="{{ dna_href | strip }}">DNA</a></li>
+            <li style="--i: 2;"><a class="armel-drawer__link" href="{{ galerie_href | strip }}">{{ 'armel.gallery' | t }}</a></li>
           {%- endif -%}
         </ul>
       </nav>
@@ -429,7 +443,8 @@
         <div class="armel-drawer__switch">{{ armel_switch }}</div>
         <a class="armel-drawer__mail" href="mailto:info@armelhouse.com">info@armelhouse.com</a>
         <a class="armel-drawer__account" href="{{ routes.account_url }}">{{ 'armel.account' | t }}</a>
-        <a class="armel-drawer__account armel-drawer__account--end" href="/pages/vraceni">{{ 'armel.returns' | t }}</a>
+        {%- capture returns_href -%}{%- render 'armel-href', path: '/pages/vraceni' -%}{%- endcapture -%}
+        <a class="armel-drawer__account armel-drawer__account--end" href="{{ returns_href | strip }}">{{ 'armel.returns' | t }}</a>
         <span
           class="armel-drawer__sig"
           role="img"

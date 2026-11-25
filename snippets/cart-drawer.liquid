@@ -136,6 +136,12 @@
 {%- endif -%}
 
 {% stylesheet %}
+  /* The homepage bar is a fixed layer at z-index 20 and spans the viewport,
+     so it sits on top of this drawer (z-index 9) and swallows the close click. */
+  #cart-drawer .theme-drawer__dialog {
+    z-index: calc(40 + var(--drawer-stack-order, 0));
+  }
+
   cart-drawer-component {
     --cart-drawer-padding: var(--theme-drawer-padding);
     --font-paragraph--line-height: 1;

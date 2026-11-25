@@ -13,7 +13,14 @@
     assign card_media = p.featured_media
   else
     assign card_title = section.settings.title
-    assign card_url = section.settings.link | default: routes.all_products_collection_url
+    if section.settings.link != blank
+      capture card_url
+        render 'armel-href', path: section.settings.link
+      endcapture
+      assign card_url = card_url | strip
+    else
+      assign card_url = routes.all_products_collection_url
+    endif
     assign card_line = section.settings.line
     assign card_price = section.settings.price
   endif

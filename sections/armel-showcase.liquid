@@ -44,6 +44,7 @@
     class="a-rail"
     data-a-rail
     data-a-catalog="{{ routes.all_products_collection_url }}/products.json?limit={{ limit }}"
+    data-a-root="{% if routes.root_url == '/' %}{% else %}{{ routes.root_url }}{% endif %}"
     data-a-limit="{{ limit }}"
     data-a-currency="{{ cart.currency.iso_code | default: shop.currency }}"
     data-a-stock="{{ 'content.inventory_in_stock' | t | escape }}"

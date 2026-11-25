@@ -1,0 +1,34 @@
+{%- comment -%}
+  Keep an internal link in the current language.
+  Czech stays /pages/dna. English becomes /en/pages/dna.
+  {% render 'armel-href', path: '/pages/dna' %}
+{%- endcomment -%}
+{%- liquid
+  assign armel_href = path | strip
+  if armel_href == blank or armel_href == '/'
+    echo routes.root_url
+  elsif armel_href contains '://' or armel_href contains 'mailto:' or armel_href contains 'tel:' or armel_href == '#'
+    echo armel_href
+  else
+    assign locale_root = routes.root_url
+    if locale_root == blank or locale_root == '/'
+      assign locale_root = ''
+    endif
+    assign href_lead = armel_href | slice: 0
+    unless href_lead == '/'
+      assign armel_href = '/' | append: armel_href
+    endunless
+    if locale_root == blank or armel_href == locale_root
+      echo armel_href
+    else
+      assign locale_prefix = locale_root | append: '/'
+      assign prefix_length = locale_prefix | size
+      assign href_head = armel_href | slice: 0, prefix_length
+      if href_head == locale_prefix
+        echo armel_href
+      else
+        echo locale_root | append: armel_href
+      endif
+    endif
+  endif
+-%}

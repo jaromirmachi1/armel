@@ -3,6 +3,19 @@
   Used for Mystery Box, but works for any campaign.
 {%- endcomment -%}
 {%- render 'armel-home-assets' -%}
+{%- liquid
+  if section.settings.button_link != blank
+    capture feature_href
+      render 'armel-href', path: section.settings.button_link
+    endcapture
+    assign feature_href = feature_href | strip
+  else
+    capture feature_href
+      render 'armel-href', path: '/products/mystery-box'
+    endcapture
+    assign feature_href = feature_href | strip
+  endif
+-%}
 
 <div
   class="a-feature a-scope a-feature--{{ section.settings.content_position }}"
@@ -24,7 +37,7 @@
       <img
         class="a-feature__img"
         src="{{ 'armel-mystery-box.jpg' | asset_url }}"
-        alt="{{ section.settings.title | escape }}"
+        alt="{% render 'armel-line', key: 'feature.title', text: section.settings.title %}"
         width="791"
         height="682"
         loading="lazy"
@@ -34,13 +47,13 @@
   </div>
 
   <div class="a-feature__content">
-    <h2 class="a-script a-feature__title" data-a-reveal="blur">{{ section.settings.title | escape }}</h2>
+    <h2 class="a-script a-feature__title" data-a-reveal="blur">{% render 'armel-line', key: 'feature.title', text: section.settings.title %}</h2>
     {%- if section.settings.text_body != blank -%}
-      <p class="a-feature__text" data-a-reveal style="--a-delay: 100ms;">{{ section.settings.text_body | escape }}</p>
+      <p class="a-feature__text" data-a-reveal style="--a-delay: 100ms;">{% render 'armel-line', key: 'feature.body', text: section.settings.text_body %}</p>
     {%- endif -%}
     {%- if section.settings.button_label != blank -%}
-      <a data-a-reveal="scale" style="--a-delay: 180ms;" class="a-btn a-btn--light" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">
-        {{- section.settings.button_label | escape -}}
+      <a data-a-reveal="scale" style="--a-delay: 180ms;" class="a-btn a-btn--light" href="{{ feature_href }}">
+        {%- render 'armel-line', key: 'feature.button', text: section.settings.button_label -%}
       </a>
     {%- endif -%}
   </div>

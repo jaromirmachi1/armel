@@ -9,6 +9,10 @@
   assign s = section.settings
   assign contact_email = s.email | default: 'info@armelhouse.com'
   assign sig = 'by-aneta-marina-black.png' | asset_url
+  capture returns_href
+    render 'armel-href', path: s.returns_url
+  endcapture
+  assign returns_href = returns_href | strip
 -%}
 
 <footer class="a-footer a-scope" data-a-footer>
@@ -122,7 +126,7 @@
               <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
             {%- endfor -%}
             {%- if block.settings.menu == 'footer' and s.show_returns and has_returns == false -%}
-              <li><a href="{{ s.returns_url }}">{% render 'armel-line', key: 'footer.returns', text: s.returns_label %}</a></li>
+              <li><a href="{{ returns_href }}">{% render 'armel-line', key: 'footer.returns', text: s.returns_label %}</a></li>
             {%- endif -%}
           </ul>
         {%- else -%}
@@ -161,7 +165,7 @@
             <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
           {%- endfor -%}
           {%- if s.show_returns and has_returns == false -%}
-            <li><a href="{{ s.returns_url }}">{% render 'armel-line', key: 'footer.returns', text: s.returns_label %}</a></li>
+            <li><a href="{{ returns_href }}">{% render 'armel-line', key: 'footer.returns', text: s.returns_label %}</a></li>
           {%- endif -%}
         </ul>
       </details>

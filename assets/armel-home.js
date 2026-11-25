@@ -100,6 +100,8 @@
           if (!products.length) return;
           var stock = rail.getAttribute('data-a-stock') || '';
           var sold = rail.getAttribute('data-a-sold') || '';
+          var root = rail.getAttribute('data-a-root') || '';
+          if (root === '/') root = '';
           track.innerHTML = products.map(function (product) {
             var variant = (product.variants || [])[0] || {};
             var images = product.images || [];
@@ -111,7 +113,7 @@
               ? '<s>' + esc(money(variant.compare_at_price)) + '</s>'
               : '';
             return '<li class="a-rail__item is-in">' +
-              '<a class="a-card' + (available ? '' : ' a-card--sold') + '" href="/products/' + esc(product.handle) + '">' +
+              '<a class="a-card' + (available ? '' : ' a-card--sold') + '" href="' + root + '/products/' + esc(product.handle) + '">' +
                 '<div class="a-card__media">' +
                   (photo ? '<img class="a-card__img" src="' + esc(photo) + '" alt="' + esc(product.title) + '" loading="lazy">' : '') +
                   (alt ? '<img class="a-card__img a-card__img--alt" src="' + esc(alt) + '" alt="" loading="lazy">' : '') +
