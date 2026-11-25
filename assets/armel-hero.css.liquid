@@ -630,19 +630,7 @@ html.a-js .armel-hero__copy {
 
 @media screen and (min-width: 990px) {
   .armel-hero__copy {
-    top: 28px;
-    bottom: 0;
-    /* height:auto (not fit-content): Safari stretches fit-content when top and bottom are both set */
-    height: auto;
-    margin-top: auto;
-    margin-bottom: auto;
-    align-content: center;
-    align-items: center;
-  }
-
-  .armel-hero__cta {
-    align-self: center;
-    height: auto;
+    bottom: max(40px, calc(env(safe-area-inset-bottom) + 28px));
   }
 }
 
