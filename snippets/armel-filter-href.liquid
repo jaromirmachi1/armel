@@ -1,82 +1,12 @@
 {%- comment -%}
-  Opens the products page with one Shopify category filter already on.
-  Never /collections/zapisniky. Those addresses are not the catalog.
-  {% render 'armel-filter-href', handle: 'zapisniky', tag: 'obaly-na-denik', title: 'Leather journal' %}
+  Products page with one tag filter. Never a /collections/handle address.
+  {% render 'armel-filter-href', tag: 'obaly-na-denik' %}
 {%- endcomment -%}
 {%- liquid
-  assign wanted_handle = handle | strip
   assign wanted_tag = tag | strip
-  assign wanted_title = title | strip
-  assign catalog = routes.all_products_collection_url
-  assign query = ''
-
-  capture handle_slug
-    render 'armel-slug', text: wanted_handle
-  endcapture
-  assign handle_slug = handle_slug | strip
-
-  capture tag_slug
-    render 'armel-slug', text: wanted_tag
-  endcapture
-  assign tag_slug = tag_slug | strip
-
-  capture title_slug
-    render 'armel-slug', text: wanted_title
-  endcapture
-  assign title_slug = title_slug | strip
-
-  for filter in collections.all.filters
-    assign filter_name = filter.label | downcase | strip
-    assign filter_param = filter.param_name | downcase
-    assign is_color = false
-    if filter_param contains 'color' or filter_param contains 'colour' or filter_param contains 'barva'
-      assign is_color = true
-    endif
-    if filter_name contains 'color' or filter_name contains 'colour' or filter_name contains 'barva' or filter_name contains 'farbe'
-      assign is_color = true
-    endif
-    unless is_color
-      for value in filter.values
-        capture value_slug
-          render 'armel-slug', text: value.label
-        endcapture
-        assign value_slug = value_slug | strip
-        assign value_raw = value.value | downcase | strip
-        assign matches = false
-        if handle_slug != blank and value_slug == handle_slug
-          assign matches = true
-        endif
-        if wanted_handle != blank and value_raw == wanted_handle
-          assign matches = true
-        endif
-        if tag_slug != blank and value_slug == tag_slug
-          assign matches = true
-        endif
-        if wanted_tag != blank and value_raw == wanted_tag
-          assign matches = true
-        endif
-        if title_slug != blank and value_slug == title_slug
-          assign matches = true
-        endif
-        if matches and value.url_to_add contains '?'
-          assign query = value.url_to_add | split: '?' | last
-          break
-        endif
-      endfor
-    endunless
-    if query != blank
-      break
-    endif
-  endfor
-
-  if query == blank and wanted_tag != blank
-    assign query = 'filter.p.tag=' | append: wanted_tag
+  assign found = routes.all_products_collection_url
+  if wanted_tag != blank
+    assign found = found | append: '?filter.p.tag=' | append: wanted_tag
   endif
-
-  assign found = catalog
-  if query != blank
-    assign found = catalog | append: '?' | append: query
-  endif
+  echo found
 -%}
-{%- capture localized -%}{%- render 'armel-href', path: found -%}{%- endcapture -%}
-{{- localized | strip -}}

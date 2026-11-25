@@ -10,40 +10,9 @@
 -%}
 
 {%- capture armel_catalog -%}
-      {%- assign armel_catalog_count = 0 -%}
-      {%- for link in linklists.main-menu.links -%}
-        {%- if link.url contains '/collections/' -%}
-          {%- unless link.url contains '/collections/all' or link.url == routes.collections_url -%}
-            {%- assign armel_catalog_count = armel_catalog_count | plus: 1 -%}
-            {%- liquid
-              assign cat_tag = ''
-              assign cat_key = link.object.handle | default: ''
-              if link.url contains '/collections/doplnky' or cat_key == 'doplnky'
-                assign cat_key = 'doplnky'
-                assign cat_tag = 'obaly-na-balzam'
-              elsif link.url contains '/collections/kozena-pouzdra' or cat_key == 'kozena-pouzdra'
-                assign cat_key = 'kozena-pouzdra'
-                assign cat_tag = 'laptop-obaly'
-              elsif link.url contains '/collections/zapisniky' or cat_key == 'zapisniky'
-                assign cat_key = 'zapisniky'
-                assign cat_tag = 'obaly-na-denik'
-              endif
-            -%}
-            {%- capture cat_url -%}{%- render 'armel-filter-href', handle: cat_key, tag: cat_tag, title: link.title -%}{%- endcapture -%}
-            <li>
-              <a href="{{ cat_url | strip }}">{{ link.title | escape }}</a>
-            </li>
-          {%- endunless -%}
-        {%- endif -%}
-      {%- endfor -%}
-      {%- if armel_catalog_count == 0 -%}
-        {%- capture laptop_href -%}{%- render 'armel-filter-href', handle: 'kozena-pouzdra', tag: 'laptop-obaly' -%}{%- endcapture -%}
-        {%- capture accessories_href -%}{%- render 'armel-filter-href', handle: 'doplnky', tag: 'obaly-na-balzam' -%}{%- endcapture -%}
-        {%- capture journal_href -%}{%- render 'armel-filter-href', handle: 'zapisniky', tag: 'obaly-na-denik' -%}{%- endcapture -%}
-        <li><a href="{{ laptop_href | strip }}">{{ 'armel.mega.laptop' | t }}</a></li>
-        <li><a href="{{ accessories_href | strip }}">{{ 'armel.mega.accessories' | t }}</a></li>
-        <li><a href="{{ journal_href | strip }}">{{ 'armel.mega.journal' | t }}</a></li>
-      {%- endif -%}
+      <li><a href="{{ routes.all_products_collection_url }}?filter.p.tag=laptop-obaly">{{ 'armel.mega.laptop' | t }}</a></li>
+      <li><a href="{{ routes.all_products_collection_url }}?filter.p.tag=obaly-na-balzam">{{ 'armel.mega.accessories' | t }}</a></li>
+      <li><a href="{{ routes.all_products_collection_url }}?filter.p.tag=obaly-na-denik">{{ 'armel.mega.journal' | t }}</a></li>
 {%- endcapture -%}
 {%- capture armel_mega -%}
   {%- liquid
@@ -62,8 +31,7 @@
         {%- if mega_col != blank and mega_col.products_count > 0 -%}
           {%- assign mega_title = mega_col.title | escape -%}
         {%- endif -%}
-        {%- capture mega_href -%}{%- render 'armel-filter-href', handle: mega_handles[mega_i], tag: mega_tag -%}{%- endcapture -%}
-        {%- assign mega_href = mega_href | strip -%}
+        {%- assign mega_href = routes.all_products_collection_url | append: '?filter.p.tag=' | append: mega_tag -%}
         <a
           href="{{ mega_href }}"
           role="tab"
@@ -79,8 +47,7 @@
       {%- if mega_col != blank and mega_col.products_count > 0 -%}
         {%- assign mega_from_collection = true -%}
       {%- endif -%}
-      {%- capture mega_href -%}{%- render 'armel-filter-href', handle: mega_handles[mega_i], tag: mega_tag -%}{%- endcapture -%}
-      {%- assign mega_href = mega_href | strip -%}
+      {%- assign mega_href = routes.all_products_collection_url | append: '?filter.p.tag=' | append: mega_tag -%}
       <div class="armel-mega__pane" role="tabpanel" data-mega-grid="{{ mega_i }}" {% unless forloop.first %}hidden{% endunless %}>
         <div class="armel-mega__grid">
           {%- assign mega_shown = 0 -%}
