@@ -1,0 +1,82 @@
+{%- comment -%}
+  Category handles and color slugs for one product.
+  Echoes "doplnky,kozena-pouzdra|cerna:Černá,hneda:Hnědá"
+{%- endcomment -%}
+{%- liquid
+  assign cats = ''
+  assign colors = ''
+  assign tag_blob = product.tags | join: ',' | downcase
+  assign type_blob = product.type | downcase
+
+  assign cat_doplnky = collections['doplnky']
+  assign cat_pouzdra = collections['kozena-pouzdra']
+  assign cat_zapisniky = collections['zapisniky']
+
+  if cat_doplnky != blank and product.collections contains cat_doplnky
+    assign cats = cats | append: 'doplnky,'
+  endif
+  if tag_blob contains 'doplnky' or tag_blob contains 'obaly-na-balzam' or type_blob contains 'dopln'
+    unless cats contains 'doplnky'
+      assign cats = cats | append: 'doplnky,'
+    endunless
+  endif
+
+  if cat_pouzdra != blank and product.collections contains cat_pouzdra
+    assign cats = cats | append: 'kozena-pouzdra,'
+  endif
+  if tag_blob contains 'kozena-pouzdra' or tag_blob contains 'laptop-obaly' or type_blob contains 'pouzdr' or type_blob contains 'laptop'
+    unless cats contains 'kozena-pouzdra'
+      assign cats = cats | append: 'kozena-pouzdra,'
+    endunless
+  endif
+
+  if cat_zapisniky != blank and product.collections contains cat_zapisniky
+    assign cats = cats | append: 'zapisniky,'
+  endif
+  if tag_blob contains 'zapisniky' or tag_blob contains 'obaly-na-denik' or type_blob contains 'zapis' or type_blob contains 'denik' or type_blob contains 'journal'
+    unless cats contains 'zapisniky'
+      assign cats = cats | append: 'zapisniky,'
+    endunless
+  endif
+
+  assign color_names = 'barva,color,colour,barva kůže,barva kuze,barva kože,barva koze' | split: ','
+  assign known_colors = '|cerna|bila|hneda|burgundska|bordo|konak|kremova|bezova|cervena|modra|zelena|seda|seda-tmava|prirodni|ruzova|zlata|stribrna|black|white|brown|burgundy|cognac|cream|beige|red|blue|green|grey|gray|natural|pink|gold|silver|tan|camel|'
+
+  for option in product.options_with_values
+    assign oname = option.name | downcase | strip
+    if color_names contains oname
+      for value in option.values
+        if value.name != blank
+          assign raw = value.name
+        else
+          assign raw = value
+        endif
+        capture slug
+          render 'armel-slug', text: raw
+        endcapture
+        assign slug = slug | strip
+        if slug != blank
+          unless colors contains slug
+            assign colors = colors | append: slug | append: ':' | append: raw | append: ','
+          endunless
+        endif
+      endfor
+    endif
+  endfor
+
+  assign tag_list = product.tags
+  for tag in tag_list
+    capture slug
+      render 'armel-slug', text: tag
+    endcapture
+    assign slug = slug | strip
+    assign mark = '|' | append: slug | append: '|'
+    if known_colors contains mark
+      unless colors contains slug
+        assign colors = colors | append: slug | append: ':' | append: tag | append: ','
+      endunless
+    endif
+  endfor
+
+  echo cats | append: '|' | append: colors
+-%}

@@ -15,16 +15,31 @@
         {%- if link.url contains '/collections/' -%}
           {%- unless link.url contains '/collections/all' or link.url == routes.collections_url -%}
             {%- assign armel_catalog_count = armel_catalog_count | plus: 1 -%}
+            {%- liquid
+              assign cat_url = link.url
+              if link.url contains '/collections/doplnky'
+                assign cat_key = 'doplnky'
+              elsif link.url contains '/collections/kozena-pouzdra'
+                assign cat_key = 'kozena-pouzdra'
+              elsif link.url contains '/collections/zapisniky'
+                assign cat_key = 'zapisniky'
+              else
+                assign cat_key = ''
+              endif
+            -%}
+            {%- if cat_key != blank -%}
+              {%- capture cat_url -%}{%- render 'armel-cat-href', kat: cat_key -%}{%- endcapture -%}
+            {%- endif -%}
             <li>
-              <a href="{{ link.url }}">{{ link.title | escape }}</a>
+              <a href="{{ cat_url | strip }}">{{ link.title | escape }}</a>
             </li>
           {%- endunless -%}
         {%- endif -%}
       {%- endfor -%}
       {%- if armel_catalog_count == 0 -%}
-        {%- capture laptop_href -%}{%- render 'armel-href', path: '/collections/kozena-pouzdra' -%}{%- endcapture -%}
-        {%- capture accessories_href -%}{%- render 'armel-href', path: '/collections/doplnky' -%}{%- endcapture -%}
-        {%- capture journal_href -%}{%- render 'armel-href', path: '/collections/zapisniky' -%}{%- endcapture -%}
+        {%- capture laptop_href -%}{%- render 'armel-cat-href', kat: 'kozena-pouzdra' -%}{%- endcapture -%}
+        {%- capture accessories_href -%}{%- render 'armel-cat-href', kat: 'doplnky' -%}{%- endcapture -%}
+        {%- capture journal_href -%}{%- render 'armel-cat-href', kat: 'zapisniky' -%}{%- endcapture -%}
         <li><a href="{{ laptop_href | strip }}">{{ 'armel.mega.laptop' | t }}</a></li>
         <li><a href="{{ accessories_href | strip }}">{{ 'armel.mega.accessories' | t }}</a></li>
         <li><a href="{{ journal_href | strip }}">{{ 'armel.mega.journal' | t }}</a></li>
@@ -45,11 +60,10 @@
         {%- capture mega_title -%}{%- render 'armel-line', key: mega_title_keys[mega_i], text: mega_titles[mega_i] -%}{%- endcapture -%}
         {%- assign mega_title = mega_title | strip -%}
         {%- if mega_col != blank and mega_col.products_count > 0 -%}
-          {%- assign mega_href = mega_col.url -%}
           {%- assign mega_title = mega_col.title | escape -%}
-        {%- else -%}
-          {%- assign mega_href = routes.all_products_collection_url | append: '/' | append: mega_tag -%}
         {%- endif -%}
+        {%- capture mega_href -%}{%- render 'armel-cat-href', kat: mega_handles[mega_i] -%}{%- endcapture -%}
+        {%- assign mega_href = mega_href | strip -%}
         <a
           href="{{ mega_href }}"
           role="tab"
@@ -64,10 +78,9 @@
       {%- assign mega_from_collection = false -%}
       {%- if mega_col != blank and mega_col.products_count > 0 -%}
         {%- assign mega_from_collection = true -%}
-        {%- assign mega_href = mega_col.url -%}
-      {%- else -%}
-        {%- assign mega_href = routes.all_products_collection_url | append: '/' | append: mega_tag -%}
       {%- endif -%}
+      {%- capture mega_href -%}{%- render 'armel-cat-href', kat: mega_handles[mega_i] -%}{%- endcapture -%}
+      {%- assign mega_href = mega_href | strip -%}
       <div class="armel-mega__pane" role="tabpanel" data-mega-grid="{{ mega_i }}" {% unless forloop.first %}hidden{% endunless %}>
         <div class="armel-mega__grid">
           {%- assign mega_shown = 0 -%}
@@ -444,7 +457,7 @@
         <a class="armel-drawer__mail" href="mailto:info@armelhouse.com">info@armelhouse.com</a>
         <a class="armel-drawer__account" href="{{ routes.account_url }}">{{ 'armel.account' | t }}</a>
         {%- capture returns_href -%}{%- render 'armel-href', path: '/pages/vraceni' -%}{%- endcapture -%}
-        <a class="armel-drawer__account armel-drawer__account--end" href="{{ returns_href | strip }}">{{ 'armel.returns' | t }}</a>
+        <a class="armel-drawer__account armel-drawer__account--end" href="{{ returns_href | strip }}">{{ 'armel.returns_link' | t }}</a>
         <span
           class="armel-drawer__sig"
           role="img"

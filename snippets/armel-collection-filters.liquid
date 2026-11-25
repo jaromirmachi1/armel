@@ -1,0 +1,227 @@
+{%- comment -%}
+  Category and color filters for the products collection.
+  {% render 'armel-collection-filters', kat: armel_kat, color: armel_color %}
+{%- endcomment -%}
+{%- liquid
+  assign filter_kat = kat | default: ''
+  assign filter_color = color | default: ''
+  if filter_kat == blank
+    if collection.handle == 'doplnky' or collection.handle == 'kozena-pouzdra' or collection.handle == 'zapisniky'
+      assign filter_kat = collection.handle
+    endif
+  endif
+
+  assign cat_handles = 'kozena-pouzdra,doplnky,zapisniky' | split: ','
+  assign cat_keys = 'mega.laptop,mega.accessories,mega.journal' | split: ','
+
+  assign scan = collection
+  if filter_kat != blank and collections[filter_kat].products.first != blank
+    assign scan = collections[filter_kat]
+  endif
+
+  assign seen_colors = '|'
+  assign color_items = ''
+  for product in scan.products limit: 50
+    capture meta
+      render 'armel-product-meta', product: product
+    endcapture
+    assign pairs = meta | strip | split: '|' | last
+    assign pair_list = pairs | split: ','
+    for pair in pair_list
+      if pair == blank
+        continue
+      endif
+      assign slug = pair | split: ':' | first | strip
+      assign label = pair | split: ':' | last | strip
+      assign mark = '|' | append: slug | append: '|'
+      if slug != blank
+        unless seen_colors contains mark
+          assign seen_colors = seen_colors | append: slug | append: '|'
+          assign color_items = color_items | append: slug | append: ':' | append: label | append: ','
+        endunless
+      endif
+    endfor
+  endfor
+-%}
+
+<nav class="a-filters" aria-label="{{ 'content.filters' | t }}">
+  <div class="a-filters__row" role="group" aria-label="{{ 'armel.collections' | t }}">
+    <a
+      class="a-filters__link"
+      href="{% render 'armel-cat-href' %}"
+      {% if filter_kat == blank and filter_color == blank %}aria-current="true"{% endif %}
+    >{{ 'armel.filter_all' | t }}</a>
+    {%- for handle in cat_handles -%}
+      {%- assign cat_col = collections[handle] -%}
+      {%- if cat_col != blank and cat_col.products.first != blank -%}
+        <a
+          class="a-filters__link"
+          href="{% render 'armel-cat-href', kat: handle %}"
+          {% if filter_kat == handle %}aria-current="true"{% endif %}
+        >{{ 'armel.' | append: cat_keys[forloop.index0] | t }}</a>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
+  {%- if color_items != blank -%}
+    <div class="a-filters__row a-filters__row--colors" role="group" aria-label="{{ 'armel.filter_color' | t }}">
+      {%- assign color_list = color_items | split: ',' -%}
+      {%- for pair in color_list -%}
+        {%- if pair == blank -%}
+          {%- continue -%}
+        {%- endif -%}
+        {%- assign slug = pair | split: ':' | first | strip -%}
+        {%- assign label = pair | split: ':' | last | strip -%}
+        {%- capture tkey -%}armel.colors.{{ slug }}{%- endcapture -%}
+        {%- assign tlabel = tkey | t -%}
+        {%- if tlabel == blank or tlabel contains 'translation missing' or tlabel contains 'armel.colors.' -%}
+          {%- assign tlabel = label -%}
+        {%- endif -%}
+        {%- liquid
+          case slug
+            when 'cerna', 'black'
+              assign hex = '#1c1c1c'
+            when 'bila', 'white'
+              assign hex = '#f6f1e8'
+            when 'hneda', 'brown'
+              assign hex = '#6b3a2a'
+            when 'burgundska', 'burgundy', 'bordo'
+              assign hex = '#7d3031'
+            when 'konak', 'cognac', 'camel', 'tan'
+              assign hex = '#8a5a32'
+            when 'kremova', 'cream'
+              assign hex = '#e7dcc8'
+            when 'bezova', 'beige'
+              assign hex = '#cbb89a'
+            when 'cervena', 'red'
+              assign hex = '#8e2f2f'
+            when 'modra', 'blue'
+              assign hex = '#2c3e55'
+            when 'zelena', 'green'
+              assign hex = '#3d4f3a'
+            when 'seda', 'grey', 'gray', 'seda-tmava'
+              assign hex = '#8a8680'
+            when 'prirodni', 'natural'
+              assign hex = '#c4a574'
+            when 'ruzova', 'pink'
+              assign hex = '#c48b8b'
+            when 'zlata', 'gold'
+              assign hex = '#b08d57'
+            when 'stribrna', 'silver'
+              assign hex = '#b7b7b7'
+            else
+              assign hex = '#c4a574'
+          endcase
+        -%}
+        {%- if filter_color == slug -%}
+          {%- capture swatch_href -%}{% render 'armel-cat-href', kat: filter_kat %}{%- endcapture -%}
+        {%- else -%}
+          {%- capture swatch_href -%}{% render 'armel-cat-href', kat: filter_kat, color: slug %}{%- endcapture -%}
+        {%- endif -%}
+        <a
+          class="a-filters__swatch"
+          href="{{ swatch_href | strip }}"
+          aria-label="{{ tlabel | escape }}"
+          {% if filter_color == slug %}aria-current="true"{% endif %}
+        >
+          <span style="background: {{ hex }};"></span>
+        </a>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</nav>
+
+{% stylesheet %}
+  .a-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0 0 28px;
+    color: #7d3031;
+  }
+
+  .a-filters__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 22px;
+  }
+
+  .a-filters__row--colors {
+    gap: 0;
+  }
+
+  .a-filters__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: #7d3031;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    line-height: 1;
+    text-decoration: none;
+    text-transform: uppercase;
+    border-bottom: 1px solid transparent;
+  }
+
+  .a-filters__link:hover {
+    border-bottom-color: rgb(125 48 49 / 0.4);
+  }
+
+  .a-filters__link[aria-current='true'] {
+    border-bottom-color: #7d3031;
+  }
+
+  .a-filters__link:active {
+    transform: scale(0.97);
+  }
+
+  .a-filters__link:focus-visible,
+  .a-filters__swatch:focus-visible {
+    outline: 2px solid #7d3031;
+    outline-offset: 3px;
+  }
+
+  .a-filters__swatch {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .a-filters__swatch span {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid rgb(125 48 49 / 0.35);
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.35);
+  }
+
+  .a-filters__swatch[aria-current='true'] span {
+    outline: 1px solid #7d3031;
+    outline-offset: 3px;
+  }
+
+  .a-filters__swatch:active {
+    transform: scale(0.97);
+  }
+
+  @media screen and (max-width: 749px) {
+    .a-filters {
+      padding-inline: var(--page-margin);
+    }
+  }
+
+  .a-filters__none {
+    grid-column: 1 / -1;
+    margin: 8px 0 0;
+    color: #7d3031;
+    font-size: 15px;
+    line-height: 1.5;
+    list-style: none;
+  }
+{% endstylesheet %}

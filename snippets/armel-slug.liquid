@@ -1,0 +1,9 @@
+{%- comment -%}
+  {% render 'armel-slug', text: 'Černá' %} → cerna
+{%- endcomment -%}
+{%- liquid
+  assign slug = text | downcase | strip
+  assign slug = slug | replace: 'á', 'a' | replace: 'ä', 'a' | replace: 'č', 'c' | replace: 'ď', 'd' | replace: 'é', 'e' | replace: 'ě', 'e' | replace: 'í', 'i' | replace: 'ľ', 'l' | replace: 'ĺ', 'l' | replace: 'ň', 'n' | replace: 'ó', 'o' | replace: 'ô', 'o' | replace: 'ř', 'r' | replace: 'ŕ', 'r' | replace: 'š', 's' | replace: 'ť', 't' | replace: 'ú', 'u' | replace: 'ů', 'u' | replace: 'ý', 'y' | replace: 'ž', 'z'
+  assign slug = slug | replace: ' ', '-' | replace: '_', '-' | replace: '/', '-'
+  echo slug
+-%}

@@ -39,7 +39,7 @@
     class="section product-grid-container{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
     style="--padding-block-start: {{ section.settings.padding-block-start }}px; --padding-block-end: {{ section.settings.padding-block-end }}px;"
     section-id="{{ section.id }}"
-    infinite-scroll="{{ section.settings.enable_infinite_scroll }}"
+    infinite-scroll="false"
   >
     {% render 'skip-to-content-link', href: '#ResultsList', text: 'accessibility.skip_to_results_list' %}
 
@@ -53,38 +53,81 @@
         results_size: collection.products_count
       %}
 
-      {% assign products_per_page = 24 %}
+      {%- capture armel_request -%}{%- render 'armel-request' -%}{%- endcapture -%}
+      {%- liquid
+        assign armel_request = armel_request | strip
+        assign armel_kat = armel_request | split: '|' | first
+        assign armel_color = armel_request | split: '|' | last
+        if armel_kat == blank
+          if collection.handle == 'doplnky' or collection.handle == 'kozena-pouzdra' or collection.handle == 'zapisniky'
+            assign armel_kat = collection.handle
+          endif
+        endif
+        assign grid_collection = collection
+        if armel_kat != blank and collections[armel_kat].products.first != blank
+          assign grid_collection = collections[armel_kat]
+        endif
+      -%}
 
-      {% if section.settings.enable_infinite_scroll == false %}
-        {% assign products_per_page = section.settings.products_per_page %}
-      {% endif %}
+      {% capture armel_filter_bar %}
+        {% render 'armel-collection-filters', kat: armel_kat, color: armel_color %}
+      {% endcapture %}
 
-      {% paginate collection.products by products_per_page %}
+      {% paginate grid_collection.products by 50 %}
         {% capture children %}
-          {% for product in collection.products %}
-            <li
-              id="{{ section.id }}-{{ product.id }}"
-              class="product-grid__item product-grid__item--{{ forloop.index0 }}"
-              data-page="{{ paginate.current_page }}"
-              data-product-id="{{ product.id }}"
-              ref="cards[]"
-            >
-              {% content_for 'block',
-                type: '_product-card',
-                id: 'product-card',
-                closest.product: product,
-                product_view_context: 'collection'
-              %}
-            </li>
+          {%- assign armel_shown = 0 -%}
+          {% for product in grid_collection.products %}
+            {%- capture armel_meta -%}{%- render 'armel-product-meta', product: product -%}{%- endcapture -%}
+            {%- liquid
+              assign armel_meta = armel_meta | strip
+              assign armel_pcats = armel_meta | split: '|' | first
+              assign armel_pcolors = armel_meta | split: '|' | last
+              assign armel_show = true
+              if armel_kat != blank and grid_collection.handle != armel_kat
+                assign armel_hay = ',' | append: armel_pcats
+                assign armel_needle = armel_kat | append: ','
+                unless armel_hay contains armel_needle
+                  assign armel_show = false
+                endunless
+              endif
+              if armel_color != blank
+                assign armel_chay = ',' | append: armel_pcolors
+                assign armel_cneedle = armel_color | append: ':'
+                unless armel_chay contains armel_cneedle
+                  assign armel_show = false
+                endunless
+              endif
+            -%}
+            {%- if armel_show -%}
+              {%- assign armel_shown = armel_shown | plus: 1 -%}
+              <li
+                id="{{ section.id }}-{{ product.id }}"
+                class="product-grid__item product-grid__item--{{ forloop.index0 }}"
+                data-page="{{ paginate.current_page }}"
+                data-product-id="{{ product.id }}"
+                ref="cards[]"
+              >
+                {% content_for 'block',
+                  type: '_product-card',
+                  id: 'product-card',
+                  closest.product: product,
+                  product_view_context: 'collection'
+                %}
+              </li>
+            {%- endif -%}
           {% endfor %}
+          {%- if armel_shown == 0 -%}
+            <li class="a-filters__none">{{ 'armel.filter_empty' | t }}</li>
+          {%- endif -%}
         {% endcapture %}
 
         {% render 'product-grid',
           section: section,
           children: children,
-          products: collection.products,
+          products: grid_collection.products,
           paginate: paginate,
-          enable_infinite_scroll: section.settings.enable_infinite_scroll
+          enable_infinite_scroll: false,
+          header: armel_filter_bar
         %}
       {% endpaginate %}
     </div>
