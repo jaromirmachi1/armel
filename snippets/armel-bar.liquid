@@ -457,7 +457,7 @@
         <a class="armel-drawer__mail" href="mailto:info@armelhouse.com">info@armelhouse.com</a>
         <a class="armel-drawer__account" href="{{ routes.account_url }}">{{ 'armel.account' | t }}</a>
         {%- capture returns_href -%}{%- render 'armel-href', path: '/pages/vraceni' -%}{%- endcapture -%}
-        <a class="armel-drawer__account armel-drawer__account--end" href="{{ returns_href | strip }}">{{ 'armel.returns_link' | t }}</a>
+        <a class="armel-drawer__account armel-drawer__account--end" href="{{ returns_href | strip }}">{% if localization.language.iso_code == 'en' %}Returns{% else %}Vrácení{% endif %}</a>
         <span
           class="armel-drawer__sig"
           role="img"

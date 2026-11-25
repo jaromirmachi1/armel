@@ -14,116 +14,116 @@
 <div class="a-ret a-scope" data-a-returns>
   <div class="a-ret__inner">
     <header class="a-ret__head">
-      <h1 class="a-ret__title" data-a-reveal>{% render 'armel-line', key: 'returns.title', text: section.settings.title %}</h1>
+      <h1 class="a-ret__title" data-a-reveal>{% render 'armel-line', key: 'returns_page.title', text: section.settings.title %}</h1>
       {%- if section.settings.intro != blank -%}
-        <div class="a-ret__intro" data-a-reveal style="--a-delay: 80ms;">{% render 'armel-line', key: 'returns.intro', text: section.settings.intro, raw: true %}</div>
+        <div class="a-ret__intro" data-a-reveal style="--a-delay: 80ms;">{% render 'armel-line', key: 'returns_page.intro', text: section.settings.intro, raw: true %}</div>
       {%- endif -%}
     </header>
 
     <div class="a-ret__cards">
       <section class="a-ret__card" data-a-reveal>
-        <h2 class="a-ret__card-title"><span class="a-rivet" aria-hidden="true"></span>{% render 'armel-line', key: 'returns.days_title', text: section.settings.days_title %}</h2>
-        <div class="a-ret__rte">{% render 'armel-line', key: 'returns.days_text', text: section.settings.days_text, raw: true %}</div>
+        <h2 class="a-ret__card-title"><span class="a-rivet" aria-hidden="true"></span>{% render 'armel-line', key: 'returns_page.days_title', text: section.settings.days_title %}</h2>
+        <div class="a-ret__rte">{% render 'armel-line', key: 'returns_page.days_text', text: section.settings.days_text, raw: true %}</div>
       </section>
 
       <section class="a-ret__card a-ret__card--accent" data-a-reveal style="--a-delay: 70ms;">
-        <h2 class="a-ret__card-title"><span class="a-rivet" aria-hidden="true"></span>{% render 'armel-line', key: 'returns.address_title', text: section.settings.address_title %}</h2>
+        <h2 class="a-ret__card-title"><span class="a-rivet" aria-hidden="true"></span>{% render 'armel-line', key: 'returns_page.address_title', text: section.settings.address_title %}</h2>
         <address class="a-ret__address">{{ section.settings.address | newline_to_br }}</address>
         {%- if section.settings.address_text != blank -%}
-          <div class="a-ret__rte">{% render 'armel-line', key: 'returns.address_text', text: section.settings.address_text, raw: true %}</div>
+          <div class="a-ret__rte">{% render 'armel-line', key: 'returns_page.address_text', text: section.settings.address_text, raw: true %}</div>
         {%- endif -%}
       </section>
 
       {%- if section.settings.exception_text != blank -%}
         <section class="a-ret__card a-ret__card--note" data-a-reveal style="--a-delay: 140ms;">
-          <h2 class="a-ret__card-title"><span class="a-rivet" aria-hidden="true"></span>{% render 'armel-line', key: 'returns.exception_title', text: section.settings.exception_title %}</h2>
-          <div class="a-ret__rte">{% render 'armel-line', key: 'returns.exception_text', text: section.settings.exception_text, raw: true %}</div>
+          <h2 class="a-ret__card-title"><span class="a-rivet" aria-hidden="true"></span>{% render 'armel-line', key: 'returns_page.exception_title', text: section.settings.exception_title %}</h2>
+          <div class="a-ret__rte">{% render 'armel-line', key: 'returns_page.exception_text', text: section.settings.exception_text, raw: true %}</div>
         </section>
       {%- endif -%}
     </div>
 
     <section class="a-ret__form-wrap" aria-labelledby="ArmelReturnsForm-{{ section.id }}">
-      <h2 class="a-ret__h2" id="ArmelReturnsForm-{{ section.id }}">{% render 'armel-line', key: 'returns.form_title', text: section.settings.form_title %}</h2>
+      <h2 class="a-ret__h2" id="ArmelReturnsForm-{{ section.id }}">{% render 'armel-line', key: 'returns_page.form_title', text: section.settings.form_title %}</h2>
       {%- if section.settings.form_intro != blank -%}
-        <p class="a-ret__form-intro">{% render 'armel-line', key: 'returns.form_intro', text: section.settings.form_intro %}</p>
+        <p class="a-ret__form-intro">{% render 'armel-line', key: 'returns_page.form_intro', text: section.settings.form_intro %}</p>
       {%- endif -%}
 
       <form class="a-ret__form" data-a-ret-form novalidate>
         <div class="a-ret__field">
-          <label for="ret-order-{{ section.id }}">{{ 'armel.returns.order' | t }}</label>
-          <input id="ret-order-{{ section.id }}" name="order" type="text" required placeholder="{{ 'armel.returns.order_ph' | t }}" autocomplete="off">
+          <label for="ret-order-{{ section.id }}">{{ 'armel.returns_page.order' | t }}</label>
+          <input id="ret-order-{{ section.id }}" name="order" type="text" required placeholder="{{ 'armel.returns_page.order_ph' | t }}" autocomplete="off">
         </div>
         <div class="a-ret__field">
-          <label for="ret-name-{{ section.id }}">{{ 'armel.returns.name' | t }}</label>
+          <label for="ret-name-{{ section.id }}">{{ 'armel.returns_page.name' | t }}</label>
           <input id="ret-name-{{ section.id }}" name="name" type="text" required autocomplete="name">
         </div>
         <div class="a-ret__field a-ret__field--wide">
-          <label for="ret-address-{{ section.id }}">{{ 'armel.returns.address' | t }}</label>
+          <label for="ret-address-{{ section.id }}">{{ 'armel.returns_page.address' | t }}</label>
           <input id="ret-address-{{ section.id }}" name="address" type="text" required autocomplete="street-address">
         </div>
         <div class="a-ret__field">
-          <label for="ret-email-{{ section.id }}">{{ 'armel.returns.email' | t }}</label>
+          <label for="ret-email-{{ section.id }}">{{ 'armel.returns_page.email' | t }}</label>
           <input id="ret-email-{{ section.id }}" name="email" type="email" required autocomplete="email">
         </div>
         <div class="a-ret__field">
-          <label for="ret-phone-{{ section.id }}">{{ 'armel.returns.phone' | t }} <span class="a-ret__opt">{{ 'armel.returns.optional' | t }}</span></label>
+          <label for="ret-phone-{{ section.id }}">{{ 'armel.returns_page.phone' | t }} <span class="a-ret__opt">{{ 'armel.returns_page.optional' | t }}</span></label>
           <input id="ret-phone-{{ section.id }}" name="phone" type="tel" autocomplete="tel">
         </div>
         <div class="a-ret__field">
-          <label for="ret-ordered-{{ section.id }}">{{ 'armel.returns.ordered' | t }}</label>
+          <label for="ret-ordered-{{ section.id }}">{{ 'armel.returns_page.ordered' | t }}</label>
           <input id="ret-ordered-{{ section.id }}" name="ordered" type="date" required>
         </div>
         <div class="a-ret__field">
-          <label for="ret-received-{{ section.id }}">{{ 'armel.returns.received' | t }}</label>
+          <label for="ret-received-{{ section.id }}">{{ 'armel.returns_page.received' | t }}</label>
           <input id="ret-received-{{ section.id }}" name="received" type="date" required>
         </div>
         <div class="a-ret__field a-ret__field--wide">
-          <label for="ret-items-{{ section.id }}">{{ 'armel.returns.items' | t }}</label>
+          <label for="ret-items-{{ section.id }}">{{ 'armel.returns_page.items' | t }}</label>
           <textarea id="ret-items-{{ section.id }}" name="items" rows="3" required></textarea>
         </div>
         <div class="a-ret__field a-ret__field--wide">
-          <label for="ret-reason-{{ section.id }}">{{ 'armel.returns.reason' | t }} <span class="a-ret__opt">{{ 'armel.returns.optional_reason' | t }}</span></label>
+          <label for="ret-reason-{{ section.id }}">{{ 'armel.returns_page.reason' | t }} <span class="a-ret__opt">{{ 'armel.returns_page.optional_reason' | t }}</span></label>
           <textarea id="ret-reason-{{ section.id }}" name="reason" rows="2"></textarea>
         </div>
 
-        <p class="a-ret__error" data-a-ret-error role="alert" hidden>{{ 'armel.returns.error' | t }}</p>
+        <p class="a-ret__error" data-a-ret-error role="alert" hidden>{{ 'armel.returns_page.error' | t }}</p>
 
         <div class="a-ret__actions">
-          <button class="a-btn" type="submit" data-a-ret-print>{{ 'armel.returns.print' | t }}</button>
-          <button class="a-btn a-btn--ghost" type="button" data-a-ret-mail>{{ 'armel.returns.mail' | t }}</button>
+          <button class="a-btn" type="submit" data-a-ret-print>{{ 'armel.returns_page.print' | t }}</button>
+          <button class="a-btn a-btn--ghost" type="button" data-a-ret-mail>{{ 'armel.returns_page.mail' | t }}</button>
         </div>
       </form>
 
       {%- if section.settings.after_text != blank -%}
-        <div class="a-ret__after a-ret__rte">{% render 'armel-line', key: 'returns.after', text: section.settings.after_text, raw: true %}</div>
+        <div class="a-ret__after a-ret__rte">{% render 'armel-line', key: 'returns_page.after', text: section.settings.after_text, raw: true %}</div>
       {%- endif -%}
     </section>
 
     {%- if section.settings.claims_text != blank -%}
       <section class="a-ret__claims">
-        <h2 class="a-ret__h2">{% render 'armel-line', key: 'returns.claims_title', text: section.settings.claims_title %}</h2>
-        <div class="a-ret__rte">{% render 'armel-line', key: 'returns.claims_text', text: section.settings.claims_text, raw: true %}</div>
+        <h2 class="a-ret__h2">{% render 'armel-line', key: 'returns_page.claims_title', text: section.settings.claims_title %}</h2>
+        <div class="a-ret__rte">{% render 'armel-line', key: 'returns_page.claims_text', text: section.settings.claims_text, raw: true %}</div>
       </section>
     {%- endif -%}
   </div>
 
   {%- comment -%} Print-only sheet: the statutory model form, filled in by the script. {%- endcomment -%}
   <div class="a-ret__sheet" data-a-ret-sheet aria-hidden="true">
-    <h1>{{ 'armel.returns.sheet_title' | t }}</h1>
-    <p class="a-ret__sheet-note">{{ 'armel.returns.sheet_note' | t }}</p>
+    <h1>{{ 'armel.returns_page.sheet_title' | t }}</h1>
+    <p class="a-ret__sheet-note">{{ 'armel.returns_page.sheet_note' | t }}</p>
     <dl>
-      <dt>{{ 'armel.returns.sheet_to' | t }}</dt>
+      <dt>{{ 'armel.returns_page.sheet_to' | t }}</dt>
       <dd>{{ seller | escape }}<br>{{ section.settings.address | newline_to_br }}<br>{{ email | escape }}</dd>
-      <dt>{{ 'armel.returns.sheet_notice' | t }}</dt>
-      <dd>{{ 'armel.returns.sheet_notice_text' | t }}<br><strong data-f="items"></strong></dd>
-      <dt>{{ 'armel.returns.sheet_order' | t }}</dt><dd data-f="order"></dd>
-      <dt>{{ 'armel.returns.sheet_dates' | t }}</dt><dd><span data-f="ordered"></span> / <span data-f="received"></span></dd>
-      <dt>{{ 'armel.returns.sheet_consumer' | t }}</dt><dd data-f="name"></dd>
-      <dt>{{ 'armel.returns.sheet_address' | t }}</dt><dd data-f="address"></dd>
-      <dt>{{ 'armel.returns.sheet_contact' | t }}</dt><dd><span data-f="email"></span> <span data-f="phone"></span></dd>
-      <dt>{{ 'armel.returns.sheet_reason' | t }}</dt><dd data-f="reason"></dd>
-      <dt>{{ 'armel.returns.sheet_sign' | t }}</dt><dd class="a-ret__sign">{{ 'armel.returns.sheet_sign_note' | t }}</dd>
-      <dt>{{ 'armel.returns.sheet_date' | t }}</dt><dd data-f="today"></dd>
+      <dt>{{ 'armel.returns_page.sheet_notice' | t }}</dt>
+      <dd>{{ 'armel.returns_page.sheet_notice_text' | t }}<br><strong data-f="items"></strong></dd>
+      <dt>{{ 'armel.returns_page.sheet_order' | t }}</dt><dd data-f="order"></dd>
+      <dt>{{ 'armel.returns_page.sheet_dates' | t }}</dt><dd><span data-f="ordered"></span> / <span data-f="received"></span></dd>
+      <dt>{{ 'armel.returns_page.sheet_consumer' | t }}</dt><dd data-f="name"></dd>
+      <dt>{{ 'armel.returns_page.sheet_address' | t }}</dt><dd data-f="address"></dd>
+      <dt>{{ 'armel.returns_page.sheet_contact' | t }}</dt><dd><span data-f="email"></span> <span data-f="phone"></span></dd>
+      <dt>{{ 'armel.returns_page.sheet_reason' | t }}</dt><dd data-f="reason"></dd>
+      <dt>{{ 'armel.returns_page.sheet_sign' | t }}</dt><dd class="a-ret__sign">{{ 'armel.returns_page.sheet_sign_note' | t }}</dd>
+      <dt>{{ 'armel.returns_page.sheet_date' | t }}</dt><dd data-f="today"></dd>
     </dl>
   </div>
 </div>
@@ -137,18 +137,18 @@
     var error = root.querySelector('[data-a-ret-error]');
     var mailTo = {{ email | json }};
     var mailCopy = {
-      title: {{ 'armel.returns.sheet_title' | t | json }},
-      notice: {{ 'armel.returns.sheet_notice_text' | t | json }},
-      order: {{ 'armel.returns.sheet_order' | t | json }},
-      ordered: {{ 'armel.returns.mail_ordered' | t | json }},
-      received: {{ 'armel.returns.mail_received' | t | json }},
-      name: {{ 'armel.returns.sheet_consumer' | t | json }},
-      address: {{ 'armel.returns.sheet_address' | t | json }},
-      email: {{ 'armel.returns.email' | t | json }},
-      phone: {{ 'armel.returns.mail_phone' | t | json }},
-      reason: {{ 'armel.returns.sheet_reason' | t | json }},
-      date: {{ 'armel.returns.sheet_date' | t | json }},
-      subject: {{ 'armel.returns.mail_subject' | t | json }}
+      title: {{ 'armel.returns_page.sheet_title' | t | json }},
+      notice: {{ 'armel.returns_page.sheet_notice_text' | t | json }},
+      order: {{ 'armel.returns_page.sheet_order' | t | json }},
+      ordered: {{ 'armel.returns_page.mail_ordered' | t | json }},
+      received: {{ 'armel.returns_page.mail_received' | t | json }},
+      name: {{ 'armel.returns_page.sheet_consumer' | t | json }},
+      address: {{ 'armel.returns_page.sheet_address' | t | json }},
+      email: {{ 'armel.returns_page.email' | t | json }},
+      phone: {{ 'armel.returns_page.mail_phone' | t | json }},
+      reason: {{ 'armel.returns_page.sheet_reason' | t | json }},
+      date: {{ 'armel.returns_page.sheet_date' | t | json }},
+      subject: {{ 'armel.returns_page.mail_subject' | t | json }}
     };
 
     function fmt(v) {

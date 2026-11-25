@@ -19,6 +19,7 @@
     "show_collection": "View the full collection",
     "account": "My account",
     "returns_link": "Returns",
+    "returns": "Returns",
     "gate": {
       "label": "Password",
       "placeholder": "Password",
@@ -120,7 +121,7 @@
       "body": "Please unsubscribe this email from the Armel newsletter.",
       "note": "Something not working? Write to us at"
     },
-    "returns": {
+    "returns_page": {
       "title": "Returns and withdrawal",
       "intro": "<p>The piece isn't right? That's all right. Each one is sewn by hand, and only once, so we want it to find someone it will please. Here is everything you need to send it back.</p>",
       "days_title": "You have 14 days to return it",

@@ -19,6 +19,7 @@
     "show_collection": "Zobrazit celou kolekci",
     "account": "Můj účet",
     "returns_link": "Vrácení",
+    "returns": "Vrácení",
     "gate": {
       "label": "Heslo",
       "placeholder": "Heslo",
@@ -120,7 +121,7 @@
       "body": "Prosím o odhlášení tohoto e-mailu z Armel newsletteru.",
       "note": "Něco nefunguje? Napište nám na"
     },
-    "returns": {
+    "returns_page": {
       "title": "Vrácení a odstoupení od smlouvy",
       "intro": "<p>Kousek ti nesedí? Nevadí. Každý je ušitý ručně a jen jednou, takže chceme, aby si našel někoho, komu udělá radost. Tady je všechno, co k vrácení potřebuješ.</p>",
       "days_title": "Máš 14 dnů na vrácení",
