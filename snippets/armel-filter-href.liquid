@@ -1,0 +1,77 @@
+{%- comment -%}
+  Opens the catalog with one Shopify category filter already on.
+  Color filters are skipped, so a category never lands in the color group.
+  {% render 'armel-filter-href', handle: 'doplnky' %}
+{%- endcomment -%}
+{%- liquid
+  assign wanted_handle = handle | strip
+  assign wanted = collections[wanted_handle]
+  assign wanted_title = wanted.title | downcase | strip
+  capture wanted_slug
+    render 'armel-slug', text: wanted.title
+  endcapture
+  assign wanted_slug = wanted_slug | strip
+  if wanted_slug == blank
+    assign wanted_slug = wanted_handle
+  endif
+
+  assign found = ''
+  assign found_rank = 0
+  for filter in collections.all.filters
+    assign filter_name = filter.label | downcase | strip
+    assign filter_param = filter.param_name | downcase
+    assign is_color = false
+    if filter_param contains 'color' or filter_param contains 'colour' or filter_param contains 'barva'
+      assign is_color = true
+    endif
+    if filter_name contains 'color' or filter_name contains 'colour' or filter_name contains 'barva' or filter_name contains 'farbe'
+      assign is_color = true
+    endif
+    unless is_color
+      assign rank = 1
+      if filter_param contains 't.category' or filter_name == 'category' or filter_name == 'kategorie' or filter_name contains 'kategor'
+        assign rank = 3
+      elsif filter_param contains 'product_type' or filter_name == 'type' or filter_name == 'typ' or filter_name contains 'product type'
+        assign rank = 2
+      endif
+      if rank > found_rank
+        for value in filter.values
+          capture value_slug
+            render 'armel-slug', text: value.label
+          endcapture
+          assign value_slug = value_slug | strip
+          assign value_label = value.label | downcase | strip
+          assign value_raw = value.value | downcase | strip
+          assign matches = false
+          if value_slug == wanted_slug or value_slug == wanted_handle
+            assign matches = true
+          endif
+          if wanted_title != blank and value_label == wanted_title
+            assign matches = true
+          endif
+          if value_raw == wanted_handle or value_raw == wanted_slug
+            assign matches = true
+          endif
+          if matches
+            assign found = value.url_to_add
+            assign found_rank = rank
+            break
+          endif
+        endfor
+      endif
+    endunless
+    if found_rank == 3
+      break
+    endif
+  endfor
+
+  if found == blank
+    if wanted.url != blank
+      assign found = wanted.url
+    else
+      assign found = routes.all_products_collection_url
+    endif
+  endif
+-%}
+{%- capture localized -%}{%- render 'armel-href', path: found -%}{%- endcapture -%}
+{{- localized | strip -}}
