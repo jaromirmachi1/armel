@@ -12,19 +12,19 @@
 <section class="a-unsub a-scope" style="--a-bg: {{ section.settings.background }}; --a-fg: {{ section.settings.text }};">
   <div class="a-unsub__inner">
     <header class="a-unsub__head">
-      <h1 class="a-unsub__title">{{ section.settings.heading | escape }}</h1>
+      <h1 class="a-unsub__title">{% render 'armel-line', key: 'unsub.heading', text: section.settings.heading %}</h1>
       {%- if section.settings.intro != blank -%}
-        <p class="a-unsub__intro">{{ section.settings.intro | escape }}</p>
+        <p class="a-unsub__intro">{% render 'armel-line', key: 'unsub.intro', text: section.settings.intro %}</p>
       {%- endif -%}
     </header>
 
     {%- form 'contact', id: 'ArmelUnsubscribe', class: 'a-unsub__form' -%}
       <input type="hidden" name="contact[tags]" value="newsletter-unsubscribe">
-      <input type="hidden" name="contact[subject]" value="{{ section.settings.subject | escape }}">
+      <input type="hidden" name="contact[subject]" value="{% render 'armel-line', key: 'unsub.subject', text: section.settings.subject %}">
 
       {%- if form.posted_successfully? -%}
         <p class="a-unsub__success" role="status" tabindex="-1">
-          {{ section.settings.success | escape }}
+          {% render 'armel-line', key: 'unsub.success', text: section.settings.success %}
         </p>
       {%- else -%}
         <div class="a-unsub__field">
@@ -40,7 +40,7 @@
             autocomplete="email"
             autocorrect="off"
             autocapitalize="off"
-            placeholder="{{ section.settings.placeholder | escape }}"
+            placeholder="{% render 'armel-line', key: 'unsub.placeholder', text: section.settings.placeholder %}"
             required
             {% if form.errors %}
               aria-invalid="true"
@@ -48,7 +48,7 @@
             {% endif %}
           >
           <button class="a-unsub__submit" type="submit">
-            {{ section.settings.button_label | escape }}
+            {% render 'armel-line', key: 'unsub.button', text: section.settings.button_label %}
           </button>
         </div>
 
@@ -57,7 +57,7 @@
           name="contact[body]"
           tabindex="-1"
           aria-hidden="true"
-        >{{ section.settings.body_prefix | escape }}</textarea>
+        >{% render 'armel-line', key: 'unsub.body', text: section.settings.body_prefix %}</textarea>
 
         {%- if form.errors -%}
           <p id="ArmelUnsubError-{{ section.id }}" class="a-unsub__error" role="alert">
@@ -69,7 +69,7 @@
     {%- endform -%}
 
     <p class="a-unsub__note">
-      {{ section.settings.note | escape }}
+      {% render 'armel-line', key: 'unsub.note', text: section.settings.note %}
       <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>
     </p>
   </div>

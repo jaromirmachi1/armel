@@ -10,10 +10,10 @@
 <section
   class="a-strip a-scope"
   style="--a-bg: {{ section.settings.background }}; --a-fg: {{ section.settings.text }};"
-  aria-label="{{ section.settings.heading | default: 'Galerie' | escape }}"
+  aria-label="{{ 'armel.gallery' | t }}"
 >
   {%- if section.settings.heading != blank -%}
-    <h2 class="visually-hidden">{{ section.settings.heading | escape }}</h2>
+    <h2 class="visually-hidden">{% render 'armel-line', key: 'gallery', text: section.settings.heading %}</h2>
   {%- endif -%}
 
   <ul class="a-strip__track" role="list">
@@ -29,7 +29,7 @@
             {% if block.settings.caption != blank %}
               aria-label="{{ block.settings.caption | escape }}"
             {% else %}
-              aria-label="Galerie"
+              aria-label="{{ 'armel.gallery' | t }}"
             {% endif %}
           >
             {%- if block.settings.image != blank -%}

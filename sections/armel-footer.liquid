@@ -12,11 +12,11 @@
 -%}
 
 <footer class="a-footer a-scope" data-a-footer>
-  <h2 class="visually-hidden">Patička</h2>
+  <h2 class="visually-hidden">{{ 'armel.footer.label' | t }}</h2>
 
   <div class="a-footer__top">
     <div class="a-footer__intro" data-a-reveal>
-      <p class="a-footer__heading">{{ s.heading | escape }}</p>
+      <p class="a-footer__heading">{% render 'armel-line', key: 'footer.heading', text: s.heading %}</p>
       <span class="a-sig a-footer__sig" role="img" aria-label="Aneta &amp; Marína" style="-webkit-mask-image: url('{{ sig }}'); mask-image: url('{{ sig }}');"></span>
     </div>
 
@@ -30,26 +30,26 @@
               id="ArmelFooterClutch-{{ section.id }}"
               data-armel-clutch
               aria-expanded="false"
-              aria-label="{{ s.news_title | escape }}"
+              aria-label="{% render 'armel-line', key: 'footer.news_title', text: s.news_title %}"
             >
               <div class="armel-clutch__flap" aria-hidden="true">
                 <img class="armel-clutch__flap-outside" src="{{ 'clutch-flap-outside.webp' | asset_url }}" alt="" width="1600" height="500" decoding="async">
                 <img class="armel-clutch__flap-inside" src="{{ 'clutch-flap-inside.webp' | asset_url }}" alt="" width="1600" height="500" decoding="async">
               </div>
               <div class="armel-clutch__letter">
-                <p class="armel-clutch__letter-title">{{ s.news_title | escape }}</p>
+                <p class="armel-clutch__letter-title">{% render 'armel-line', key: 'footer.news_title', text: s.news_title %}</p>
                 {%- if s.news_note != blank -%}
-                  <p class="armel-clutch__letter-copy">{{ s.news_note | escape }}</p>
+                  <p class="armel-clutch__letter-copy">{% render 'armel-line', key: 'footer.news_note', text: s.news_note %}</p>
                 {%- endif -%}
                 {%- form 'customer', class: 'armel-clutch__form', id: 'ArmelFooterNews' -%}
                   <input type="hidden" name="contact[tags]" value="newsletter,armel-footer">
                   {%- if form.posted_successfully? -%}
                     <p class="armel-clutch__message armel-clutch__message--success" role="status" data-armel-form-success tabindex="-1">
-                      {{ s.news_success | escape }}
+                      {% render 'armel-line', key: 'footer.news_success', text: s.news_success %}
                     </p>
                   {%- else -%}
                     <div class="armel-clutch__field">
-                      <label class="visually-hidden" for="ArmelFootEmail-{{ section.id }}">E-mail</label>
+                      <label class="visually-hidden" for="ArmelFootEmail-{{ section.id }}">{{ 'armel.footer.email' | t }}</label>
                       <input
                         id="ArmelFootEmail-{{ section.id }}"
                         class="armel-clutch__input"
@@ -59,14 +59,14 @@
                         autocorrect="off"
                         autocapitalize="off"
                         autocomplete="email"
-                        placeholder="Váš e-mail"
+                        placeholder="{{ 'armel.footer.email_placeholder' | t }}"
                         required
                         {% if form.errors %}
                           aria-invalid="true"
                           aria-describedby="ArmelFootEmailError-{{ section.id }}"
                         {% endif %}
                       >
-                      <button class="armel-clutch__submit" type="submit">Odebírat</button>
+                      <button class="armel-clutch__submit" type="submit">{{ 'armel.footer.subscribe' | t }}</button>
                     </div>
                     {%- if form.errors -%}
                       <p id="ArmelFootEmailError-{{ section.id }}" class="armel-clutch__message armel-clutch__message--error" role="alert" data-armel-form-error>
@@ -82,7 +82,7 @@
         </div>
         <script src="{{ 'armel-newsletter.js' | asset_url }}" defer></script>
       {%- else -%}
-        <p class="a-footer__label">{{ s.contact_title | escape }}</p>
+        <p class="a-footer__label">{% render 'armel-line', key: 'footer.contact', text: s.contact_title %}</p>
         <a class="a-footer__big-link" href="mailto:{{ contact_email }}">
           <span>{{ contact_email }}</span>
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12h15m-5-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
@@ -94,7 +94,26 @@
   <div class="a-footer__cols">
     {%- for block in section.blocks -%}
       <details class="a-footer__col" open {{ block.shopify_attributes }} data-a-reveal style="--a-delay: {{ forloop.index0 | times: 60 }}ms;">
-        <summary class="a-footer__col-title">{{ block.settings.title | escape }}<span class="a-footer__plus" aria-hidden="true"></span></summary>
+        <summary class="a-footer__col-title">{%- liquid
+          assign col_title = block.settings.title
+          assign col_key = ''
+          case col_title
+            when 'Obchod'
+              assign col_key = 'footer.shop'
+            when 'Informace'
+              assign col_key = 'footer.info'
+            when 'Kontakt'
+              assign col_key = 'footer.contact_col'
+            when 'Sledujte nás'
+              assign col_key = 'footer.follow'
+          endcase
+        -%}
+        {%- if col_key != blank -%}
+          {% render 'armel-line', key: col_key, text: col_title %}
+        {%- else -%}
+          {{ col_title | escape }}
+        {%- endif -%}
+        <span class="a-footer__plus" aria-hidden="true"></span></summary>
         {%- if block.type == 'menu' -%}
           <ul class="a-footer__list" role="list">
             {%- assign has_returns = false -%}
@@ -103,7 +122,7 @@
               <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
             {%- endfor -%}
             {%- if block.settings.menu == 'footer' and s.show_returns and has_returns == false -%}
-              <li><a href="{{ s.returns_url }}">{{ s.returns_label | escape }}</a></li>
+              <li><a href="{{ s.returns_url }}">{% render 'armel-line', key: 'footer.returns', text: s.returns_label %}</a></li>
             {%- endif -%}
           </ul>
         {%- else -%}
@@ -111,7 +130,7 @@
           {%- if contact_title_down == 'kontakt' or contact_title_down == 'contact' -%}
             <ul class="a-footer__list" role="list">
               <li><a href="mailto:{{ contact_email }}">{{ contact_email }}</a></li>
-              {%- if s.place != blank -%}<li><span>{{ s.place | escape }}</span></li>{%- endif -%}
+              {%- if s.place != blank -%}<li><span>{% render 'armel-line', key: 'footer.place', text: s.place %}</span></li>{%- endif -%}
               {%- if s.owner != blank -%}
                 {%- assign owner_parts = s.owner | split: ' · ' -%}
                 {%- for part in owner_parts -%}
@@ -126,7 +145,7 @@
       </details>
     {%- else -%}
       <details class="a-footer__col" open data-a-reveal>
-        <summary class="a-footer__col-title">Obchod<span class="a-footer__plus" aria-hidden="true"></span></summary>
+        <summary class="a-footer__col-title">{{ 'armel.footer.shop' | t }}<span class="a-footer__plus" aria-hidden="true"></span></summary>
         <ul class="a-footer__list" role="list">
           {%- for link in linklists['main-menu'].links -%}
             <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
@@ -134,7 +153,7 @@
         </ul>
       </details>
       <details class="a-footer__col" open data-a-reveal style="--a-delay: 60ms;">
-        <summary class="a-footer__col-title">Informace<span class="a-footer__plus" aria-hidden="true"></span></summary>
+        <summary class="a-footer__col-title">{{ 'armel.footer.info' | t }}<span class="a-footer__plus" aria-hidden="true"></span></summary>
         <ul class="a-footer__list" role="list">
           {%- assign has_returns = false -%}
           {%- for link in linklists.footer.links -%}
@@ -142,15 +161,15 @@
             <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
           {%- endfor -%}
           {%- if s.show_returns and has_returns == false -%}
-            <li><a href="{{ s.returns_url }}">{{ s.returns_label | escape }}</a></li>
+            <li><a href="{{ s.returns_url }}">{% render 'armel-line', key: 'footer.returns', text: s.returns_label %}</a></li>
           {%- endif -%}
         </ul>
       </details>
       <details class="a-footer__col" open data-a-reveal style="--a-delay: 120ms;">
-        <summary class="a-footer__col-title">Kontakt<span class="a-footer__plus" aria-hidden="true"></span></summary>
+        <summary class="a-footer__col-title">{{ 'armel.footer.contact_col' | t }}<span class="a-footer__plus" aria-hidden="true"></span></summary>
         <ul class="a-footer__list" role="list">
           <li><a href="mailto:{{ contact_email }}">{{ contact_email }}</a></li>
-          {%- if s.place != blank -%}<li><span>{{ s.place | escape }}</span></li>{%- endif -%}
+          {%- if s.place != blank -%}<li><span>{% render 'armel-line', key: 'footer.place', text: s.place %}</span></li>{%- endif -%}
           {%- if s.owner != blank -%}
             {%- assign owner_parts = s.owner | split: ' · ' -%}
             {%- for part in owner_parts -%}
@@ -163,7 +182,7 @@
 
     {%- if s.instagram_url != blank -%}
       <details class="a-footer__col" open data-a-reveal style="--a-delay: 180ms;">
-        <summary class="a-footer__col-title">Sledujte nás<span class="a-footer__plus" aria-hidden="true"></span></summary>
+        <summary class="a-footer__col-title">{{ 'armel.footer.follow' | t }}<span class="a-footer__plus" aria-hidden="true"></span></summary>
         <ul class="a-footer__list" role="list">
           <li><a href="{{ s.instagram_url }}" target="_blank" rel="noopener">Instagram</a></li>
           {%- if s.tiktok_url != blank -%}<li><a href="{{ s.tiktok_url }}" target="_blank" rel="noopener">TikTok</a></li>{%- endif -%}
@@ -190,7 +209,7 @@
       {%- endif -%}
 
       {%- if s.show_payment and shop.enabled_payment_types.size > 0 -%}
-        <ul class="a-footer__pay" role="list" aria-label="Platební metody">
+        <ul class="a-footer__pay" role="list" aria-label="{{ 'armel.footer.payments' | t }}">
           {%- for type in shop.enabled_payment_types -%}
             <li>{{ type | payment_type_svg_tag }}</li>
           {%- endfor -%}
@@ -198,7 +217,7 @@
       {%- endif -%}
 
       <a class="a-footer__top-link" href="#" data-a-to-top>
-        Nahoru
+        {{ 'armel.footer.top' | t }}
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 19V5m-5 5 5-5 5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
       </a>
     </div>

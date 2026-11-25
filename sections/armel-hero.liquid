@@ -2,9 +2,15 @@
 {{ 'armel-hero.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
-  assign hero_alt = section.settings.image_alt
+  capture hero_alt
+    render 'armel-line', key: 'hero.alt', text: section.settings.image_alt
+  endcapture
+  assign hero_alt = hero_alt | strip
   assign use_video = section.settings.enable_video
-  assign cta_label = section.settings.button_label
+  capture cta_label
+    render 'armel-line', key: 'hero.button', text: section.settings.button_label
+  endcapture
+  assign cta_label = cta_label | strip
   assign cta_link = section.settings.button_link | default: routes.all_products_collection_url
   if section.settings.image != blank
     assign poster_url = section.settings.image | image_url: width: 2400
@@ -97,7 +103,7 @@
     <img
       class="armel-hero__photo"
       src="{{ 'ArmelHero.png' | asset_url }}"
-      alt="{{ hero_alt | escape }}"
+      alt="{{ hero_alt }}"
       width="1367"
       height="833"
       fetchpriority="high"
@@ -110,14 +116,14 @@
   <div class="armel-hero__copy">
     <h1 class="armel-hero__title">
       {%- if section.settings.heading != blank -%}
-        <span class="armel-hero__line">{{ section.settings.heading | escape }}</span>
+        <span class="armel-hero__line">{% render 'armel-line', key: 'hero.heading', text: section.settings.heading %}</span>
       {%- endif -%}
       {%- if section.settings.text != blank -%}
-        <span class="armel-hero__line">{{ section.settings.text | escape }}</span>
+        <span class="armel-hero__line">{% render 'armel-line', key: 'hero.text', text: section.settings.text %}</span>
       {%- endif -%}
     </h1>
     {%- if cta_label != blank -%}
-      <a class="armel-hero__cta" href="{{ cta_link }}">{{ cta_label | escape }}</a>
+      <a class="armel-hero__cta" href="{{ cta_link }}">{{ cta_label }}</a>
     {%- endif -%}
   </div>
 

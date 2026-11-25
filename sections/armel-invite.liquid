@@ -10,7 +10,7 @@
   aria-labelledby="ArmelInvite-{{ section.id }}"
 >
   <h2 class="a-invite__title" id="ArmelInvite-{{ section.id }}" data-a-reveal="left">
-    {{- section.settings.heading | escape -}}
+    {%- render 'armel-line', key: 'invite.heading', text: section.settings.heading -%}
   </h2>
 
   <div class="armel-newsletter-section a-invite__stage">
@@ -20,7 +20,7 @@
         id="ArmelClutch-{{ section.id }}"
         data-armel-clutch
         aria-expanded="false"
-        aria-label="{{ section.settings.aria_label | escape }}"
+        aria-label="{% render 'armel-line', key: 'invite.aria', text: section.settings.aria_label %}"
       >
         <div class="armel-clutch__flap" aria-hidden="true">
           <img
@@ -42,9 +42,9 @@
         </div>
 
         <div class="armel-clutch__letter">
-          <p class="armel-clutch__letter-title">{{ section.settings.letter_title | escape }}</p>
+          <p class="armel-clutch__letter-title">{% render 'armel-line', key: 'invite.letter', text: section.settings.letter_title %}</p>
           {%- if section.settings.copy != blank -%}
-            <p class="armel-clutch__letter-copy">{{ section.settings.copy | escape }}</p>
+            <p class="armel-clutch__letter-copy">{% render 'armel-line', key: 'invite.copy', text: section.settings.copy %}</p>
           {%- endif -%}
 
           <img
@@ -66,7 +66,7 @@
                 data-armel-form-success
                 tabindex="-1"
               >
-                {{ section.settings.success_message | escape }}
+                {% render 'armel-line', key: 'invite.success', text: section.settings.success_message %}
               </p>
             {%- else -%}
               <div class="armel-clutch__field">
@@ -82,7 +82,7 @@
                   autocorrect="off"
                   autocapitalize="off"
                   autocomplete="email"
-                  placeholder="{{ section.settings.placeholder | escape }}"
+                  placeholder="{% render 'armel-line', key: 'invite.placeholder', text: section.settings.placeholder %}"
                   required
                   {% if form.errors %}
                     aria-invalid="true"
@@ -90,7 +90,7 @@
                   {% endif %}
                 >
                 <button class="armel-clutch__submit" type="submit">
-                  {{ section.settings.button_label | escape }}
+                  {% render 'armel-line', key: 'invite.button', text: section.settings.button_label %}
                 </button>
               </div>
 

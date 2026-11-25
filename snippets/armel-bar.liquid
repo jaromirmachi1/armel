@@ -22,15 +22,16 @@
         {%- endif -%}
       {%- endfor -%}
       {%- if armel_catalog_count == 0 -%}
-        <li><a href="/collections/kozena-pouzdra">Laptop obaly</a></li>
-        <li><a href="/collections/doplnky">Doplňky</a></li>
-        <li><a href="/collections/zapisniky">Leather journal</a></li>
+        <li><a href="/collections/kozena-pouzdra">{{ 'armel.mega.laptop' | t }}</a></li>
+        <li><a href="/collections/doplnky">{{ 'armel.mega.accessories' | t }}</a></li>
+        <li><a href="/collections/zapisniky">{{ 'armel.mega.journal' | t }}</a></li>
       {%- endif -%}
 {%- endcapture -%}
 {%- capture armel_mega -%}
   {%- liquid
     assign mega_tags = 'laptop-obaly,obaly-na-balzam,obaly-na-denik' | split: ','
     assign mega_titles = 'Laptop obaly,Doplňky,Leather journal' | split: ','
+    assign mega_title_keys = 'mega.laptop,mega.accessories,mega.journal' | split: ','
     assign mega_handles = 'kozena-pouzdra,doplnky,zapisniky' | split: ','
   -%}
   <div class="armel-mega">
@@ -38,10 +39,11 @@
       {%- for mega_tag in mega_tags -%}
         {%- assign mega_i = forloop.index0 -%}
         {%- assign mega_col = collections[mega_handles[mega_i]] -%}
-        {%- assign mega_title = mega_titles[mega_i] -%}
+        {%- capture mega_title -%}{%- render 'armel-line', key: mega_title_keys[mega_i], text: mega_titles[mega_i] -%}{%- endcapture -%}
+        {%- assign mega_title = mega_title | strip -%}
         {%- if mega_col != blank and mega_col.products_count > 0 -%}
           {%- assign mega_href = mega_col.url -%}
-          {%- assign mega_title = mega_col.title -%}
+          {%- assign mega_title = mega_col.title | escape -%}
         {%- else -%}
           {%- assign mega_href = routes.all_products_collection_url | append: '/' | append: mega_tag -%}
         {%- endif -%}
@@ -50,7 +52,7 @@
           role="tab"
           data-mega-cat="{{ mega_i }}"
           {% if forloop.first %}aria-selected="true"{% endif %}
-        >{{ mega_title | escape }}</a>
+        >{{ mega_title }}</a>
       {%- endfor -%}
     </div>
     {%- for mega_tag in mega_tags -%}
@@ -260,9 +262,9 @@
         </a>
       {%- endfor -%}
     {%- else -%}
-      <a href="{{ routes.all_products_collection_url }}" {% if request.path == routes.all_products_collection_url %}aria-current="page"{% endif %} data-armel-collections aria-haspopup="dialog" aria-expanded="false" aria-controls="ArmelCollections-{{ bar_id }}">Produkty</a>
+      <a href="{{ routes.all_products_collection_url }}" {% if request.path == routes.all_products_collection_url %}aria-current="page"{% endif %} data-armel-collections aria-haspopup="dialog" aria-expanded="false" aria-controls="ArmelCollections-{{ bar_id }}">{{ 'armel.products' | t }}</a>
       <a href="/pages/dna" {% if request.path == '/pages/dna' %}aria-current="page"{% endif %}>DNA</a>
-      <a href="/pages/galerie" {% if request.path == '/pages/galerie' %}aria-current="page"{% endif %}>Galerie</a>
+      <a href="/pages/galerie" {% if request.path == '/pages/galerie' %}aria-current="page"{% endif %}>{{ 'armel.gallery' | t }}</a>
     {%- endif -%}
   </nav>
   </div>
@@ -368,7 +370,7 @@
     id="ArmelCollections-{{ bar_id }}"
     data-armel-panel
     role="dialog"
-    aria-label="Kolekce"
+    aria-label="{{ 'armel.collections' | t }}"
     aria-hidden="true"
   >
     {{ armel_mega }}
@@ -405,11 +407,11 @@
             {%- endfor -%}
           {%- else -%}
             <li style="--i: 0;">
-              <a class="armel-drawer__link" href="{{ routes.all_products_collection_url }}">Produkty</a>
+              <a class="armel-drawer__link" href="{{ routes.all_products_collection_url }}">{{ 'armel.products' | t }}</a>
               <ul class="armel-drawer__sub" role="list">{{ armel_catalog }}</ul>
             </li>
             <li style="--i: 1;"><a class="armel-drawer__link" href="/pages/dna">DNA</a></li>
-            <li style="--i: 2;"><a class="armel-drawer__link" href="/pages/galerie">Galerie</a></li>
+            <li style="--i: 2;"><a class="armel-drawer__link" href="/pages/galerie">{{ 'armel.gallery' | t }}</a></li>
           {%- endif -%}
         </ul>
       </nav>

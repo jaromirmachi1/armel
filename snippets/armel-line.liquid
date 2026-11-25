@@ -1,0 +1,26 @@
+{%- comment -%}
+  Storefront copy for the current language.
+  English comes from the locale file. Czech keeps the theme-editor text.
+  A blank setting stays blank in both languages.
+  {% render 'armel-line', key: 'hero.heading', text: section.settings.heading %}
+  Pass raw: true when the text already contains HTML.
+{%- endcomment -%}
+{%- liquid
+  assign armel_line = ''
+  if text != blank
+    if localization.language.iso_code == 'en'
+      assign armel_translation_key = 'armel.' | append: key
+      assign armel_line = armel_translation_key | t
+      if armel_line contains 'translation missing'
+        assign armel_line = text
+      endif
+    else
+      assign armel_line = text
+    endif
+  endif
+  if raw
+    echo armel_line
+  else
+    echo armel_line | escape
+  endif
+-%}

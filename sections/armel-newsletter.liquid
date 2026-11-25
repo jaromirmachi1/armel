@@ -28,7 +28,7 @@
     id="ArmelClutch-{{ section.id }}"
     data-armel-clutch
     aria-expanded="false"
-    aria-label="{{ section.settings.aria_label | escape }}"
+    aria-label="{% render 'armel-line', key: 'news.aria', text: section.settings.aria_label %}"
   >
     <div class="armel-clutch__flap" aria-hidden="true">
       <img
@@ -50,9 +50,9 @@
     </div>
 
     <div class="armel-clutch__letter">
-      <h1 class="armel-clutch__letter-title">{{ section.settings.heading | escape }}</h1>
+      <h1 class="armel-clutch__letter-title">{% render 'armel-line', key: 'news.heading', text: section.settings.heading %}</h1>
       {%- if section.settings.copy != blank -%}
-        <p class="armel-clutch__letter-copy">{{ section.settings.copy | escape }}</p>
+        <p class="armel-clutch__letter-copy">{% render 'armel-line', key: 'news.copy', text: section.settings.copy %}</p>
       {%- endif -%}
 
       <img
@@ -78,7 +78,7 @@
             data-armel-form-success
             tabindex="-1"
           >
-            {{ section.settings.success_message | escape }}
+            {% render 'armel-line', key: 'news.success', text: section.settings.success_message %}
           </p>
         {%- else -%}
           <div class="armel-clutch__field">
@@ -94,7 +94,7 @@
               autocorrect="off"
               autocapitalize="off"
               autocomplete="email"
-              placeholder="{{ section.settings.placeholder | escape }}"
+              placeholder="{% render 'armel-line', key: 'news.placeholder', text: section.settings.placeholder %}"
               required
               {% if form.errors %}
                 aria-invalid="true"
@@ -105,7 +105,7 @@
               class="armel-clutch__submit"
               type="submit"
             >
-              {{ section.settings.button_label | escape }}
+              {% render 'armel-line', key: 'news.button', text: section.settings.button_label %}
             </button>
           </div>
 

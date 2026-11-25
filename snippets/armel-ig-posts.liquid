@@ -8,12 +8,15 @@
 -%}
 {%- for post in ig_posts limit: ig_limit -%}
   {%- assign parts = post | split: '|' -%}
+  {%- assign ig_key = 'ig.c' | append: forloop.index -%}
+  {%- capture ig_caption -%}{%- render 'armel-line', key: ig_key, text: parts[1] -%}{%- endcapture -%}
+  {%- assign ig_caption = ig_caption | strip -%}
   {%- if view == 'strip' -%}
     <li class="a-strip__item" data-a-reveal style="--a-delay: {{ forloop.index0 | times: 50 }}ms;">
-      <a class="a-strip__link" href="{{ parts[2] }}" target="_blank" rel="noopener" aria-label="{{ parts[1] }} — Instagram">
+      <a class="a-strip__link" href="{{ parts[2] }}" target="_blank" rel="noopener" aria-label="{{ ig_caption }} — Instagram">
         <img
           src="{{ parts[0] | asset_url }}"
-          alt="{{ parts[1] }}"
+          alt="{{ ig_caption }}"
           width="640"
           height="640"
           loading="lazy"
@@ -23,11 +26,11 @@
     </li>
   {%- else -%}
     <li class="a-ig__item" data-a-reveal style="--a-delay: {{ forloop.index0 | times: 60 }}ms;">
-      <a class="a-ig__card" href="{{ parts[2] }}" target="_blank" rel="noopener" aria-label="{{ parts[1] }} — Instagram">
+      <a class="a-ig__card" href="{{ parts[2] }}" target="_blank" rel="noopener" aria-label="{{ ig_caption }} — Instagram">
         <span class="a-ig__media">
           <img
             src="{{ parts[0] | asset_url }}"
-            alt="{{ parts[1] }}"
+            alt="{{ ig_caption }}"
             width="640"
             height="640"
             loading="lazy"

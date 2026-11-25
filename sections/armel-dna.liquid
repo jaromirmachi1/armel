@@ -4,7 +4,7 @@
 {%- render 'armel-home-assets' -%}
 
 <section class="a-dna a-scope" style="--a-bg: {{ section.settings.background }}; --a-fg: {{ section.settings.text }};">
-  <h1 class="visually-hidden">{{ section.settings.heading | default: page.title | escape }}</h1>
+  <h1 class="visually-hidden">{% render 'armel-line', key: 'dna.heading', text: section.settings.heading %}</h1>
   <figure class="a-dna__figure">
     {%- if section.settings.image != blank -%}
       {{
@@ -14,7 +14,7 @@
           class: 'a-dna__photo',
           widths: '600, 900, 1200, 1600',
           sizes: '(min-width: 750px) 22rem, 68vw',
-          alt: 'Aneta a Marína',
+          alt: 'Aneta a Marína'
           loading: 'eager',
           fetchpriority: 'high'
       }}
@@ -22,7 +22,7 @@
       <img
         class="a-dna__photo"
         src="{{ 'armel-dna.jpg' | asset_url }}"
-        alt="Aneta a Marína"
+        alt="{% render 'armel-line', key: 'dna.alt', text: 'Aneta a Marína' %}"
         width="1536"
         height="2304"
         loading="eager"
@@ -32,27 +32,27 @@
   </figure>
   <div class="a-dna__sheet">
     {%- if section.settings.lead != blank -%}
-      <p class="a-dna__lead">{{ section.settings.lead | escape | newline_to_br }}</p>
+      <p class="a-dna__lead">{% render 'armel-line', key: 'dna.lead', text: section.settings.lead %}</p>
     {%- endif -%}
     {%- if section.settings.credit != blank -%}
-      <p class="a-dna__credit">{{ section.settings.credit | escape }}</p>
+      <p class="a-dna__credit">{% render 'armel-line', key: 'dna.credit', text: section.settings.credit %}</p>
     {%- endif -%}
 
     <div class="a-dna__block">
-      <h2>{{ section.settings.sub_1 | escape }}</h2>
-      <p>{{ section.settings.text_1 | escape }}</p>
+      <h2>{% render 'armel-line', key: 'dna.sub_1', text: section.settings.sub_1 %}</h2>
+      <p>{% render 'armel-line', key: 'dna.text_1', text: section.settings.text_1 %}</p>
     </div>
     <div class="a-dna__block">
-      <h2>{{ section.settings.sub_2 | escape }}</h2>
-      <p>{{ section.settings.text_2 | escape }}</p>
+      <h2>{% render 'armel-line', key: 'dna.sub_2', text: section.settings.sub_2 %}</h2>
+      <p>{% render 'armel-line', key: 'dna.text_2', text: section.settings.text_2 %}</p>
     </div>
     <div class="a-dna__block">
-      <h2>{{ section.settings.sub_3 | escape }}</h2>
-      <p>{{ section.settings.text_3 | escape }}</p>
+      <h2>{% render 'armel-line', key: 'dna.sub_3', text: section.settings.sub_3 %}</h2>
+      <p>{% render 'armel-line', key: 'dna.text_3', text: section.settings.text_3 %}</p>
     </div>
     <div class="a-dna__block">
-      <h2>{{ section.settings.sub_4 | escape }}</h2>
-      <p>{{ section.settings.text_4 | escape }}</p>
+      <h2>{% render 'armel-line', key: 'dna.sub_4', text: section.settings.sub_4 %}</h2>
+      <p>{% render 'armel-line', key: 'dna.text_4', text: section.settings.text_4 %}</p>
     </div>
   </div>
 </section>
