@@ -105,10 +105,44 @@
     "variant_button_border_width": 1,
     "variant_button_radius": 14,
     "variant_button_width": "equal-width-buttons",
+    "sections": {
+      "password-footer": {
+        "type": "password-footer",
+        "settings": {
+          "background_color": ""
+        }
+      },
+      "armel-footer": {
+        "type": "armel-footer",
+        "settings": {
+          "heading": "Kožené doplňky šité ručně na Moravě, kus po kusu.",
+          "show_newsletter": true,
+          "news_title": "Novinky z dílny jako první",
+          "news_note": "Nové kousky a malé série, žádný spam. Odhlásit se můžete kdykoli.",
+          "news_success": "Děkujeme, jste na seznamu.",
+          "contact_title": "Napište nám",
+          "email": "info@armelhouse.com",
+          "place": "Brno, Česká republika",
+          "owner": "Aneta Janoudová · IČO 17074576 · Edisonova 3117/11, Brno",
+          "instagram_url": "https://www.instagram.com/armelhouse/",
+          "tiktok_url": "",
+          "legal": "armel · by Aneta & Marína",
+          "show_payment": true,
+          "show_returns": true,
+          "returns_label": "Vrácení a reklamace",
+          "returns_url": "/pages/vraceni"
+        }
+      }
+    },
     "content_for_index": [],
     "blocks": {
       "855628211100114053": {
         "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/klaviyo-onsite-embed/2632fe16-c075-4321-a88b-50b567f42507",
+        "disabled": false,
+        "settings": {}
+      },
+      "1015306495280391486": {
+        "type": "shopify://apps/globe-pickup-points/blocks/pickup-selector/019c6615-db2e-7538-a969-a53cad35d735",
         "disabled": false,
         "settings": {}
       }
